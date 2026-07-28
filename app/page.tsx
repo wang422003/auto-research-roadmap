@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import DocumentLanguage from "./document-language";
 
 type Evidence = "A" | "B" | "C" | "D";
 type Locale = "en" | "zh";
@@ -6,7 +7,13 @@ type Locale = "en" | "zh";
 export const metadata: Metadata = {
   title: "Auto Research Atlas — External Progress & Research Roadmap",
   description: "A source-grounded review of Auto Research and Vibe Research progress, evidence maturity, benchmarks, and research opportunities.",
-  alternates: { canonical: "./", languages: { en: "./", "zh-CN": "./zh/" } },
+  alternates: {
+    canonical: "https://wang422003.github.io/auto-research-roadmap/",
+    languages: {
+      en: "https://wang422003.github.io/auto-research-roadmap/",
+      "zh-CN": "https://wang422003.github.io/auto-research-roadmap/zh/",
+    },
+  },
 };
 
 const evidence = [
@@ -82,21 +89,54 @@ const sources = [
 
 const maturityClass = (m: Evidence | string) => `evidence evidence-${m.toLowerCase().replaceAll(" ", "-").replaceAll("/", "-")}`;
 
+const clusterLayouts: Record<number, Array<[number, number]>> = {
+  1: [[0, 0]],
+  2: [[-14, -14], [14, 14]],
+  3: [[0, -14], [-14, 10], [14, 10]],
+  4: [[-13, -13], [13, -13], [-13, 13], [13, 13]],
+};
+
+const systemOffsets = systems.map((system, index) => {
+  const cluster = systems.filter((candidate) => candidate.autonomy === system.autonomy && candidate.accountability === system.accountability);
+  const position = systems.slice(0, index).filter((candidate) => candidate.autonomy === system.autonomy && candidate.accountability === system.accountability).length;
+  const layout = clusterLayouts[cluster.length] ?? clusterLayouts[1];
+  const [x, y] = layout[position] ?? [0, 0];
+  const rightEdgeCorrection = system.autonomy === 5 ? Math.max(...layout.map(([offset]) => offset)) : 0;
+  return [x - rightEdgeCorrection, y];
+});
+
 export default function Report({ locale = "en" }: { locale?: Locale }) {
   const isZh = locale === "zh";
   const t = (en: string, zh: string) => isZh ? zh : en;
   const timeline = isZh ? timelineZh : timelineEn;
   const topics = isZh ? topicsZh : topicsEn;
 
+  const navigation = [
+    ["#evidence", t("Evidence", "证据")],
+    ["#landscape", t("Landscape", "系统图谱")],
+    ["#benchmarks", "Benchmarks"],
+    ["#roadmap", "Roadmap"],
+    ["#topics", t("Topics", "选题")],
+    ["#sources", t("Sources", "来源")],
+  ];
+
   return (
-    <main lang={isZh ? "zh-CN" : "en"}>
+    <>
+      <DocumentLanguage lang={isZh ? "zh-CN" : "en"} />
       <header className="site-header">
-        <a className="brand" href="#top"><span className="brand-mark">AR</span><span>Auto Research Atlas</span></a>
-        <nav aria-label={t("Main navigation", "主导航")}>
+        <div className="header-row">
+          <a className="brand" href="#top"><span className="brand-mark">AR</span><span>Auto Research Atlas</span></a>
+          <nav className="desktop-nav" aria-label={t("Main navigation", "主导航")}>
           <a href="#evidence">{t("Evidence", "证据")}</a><a href="#landscape">{t("Landscape", "系统图谱")}</a><a href="#benchmarks">Benchmarks</a><a href="#roadmap">Roadmap</a><a href="#topics">{t("Topics", "选题")}</a>
+          </nav>
+          <div className="header-actions"><a className="header-link" href="#sources">{t("Sources", "来源")} ↗</a><a className="language-switch" href={isZh ? "../" : "./zh/"} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
+        </div>
+        <nav className="mobile-section-nav" aria-label={t("Report sections", "报告章节")}>
+          {navigation.map(([href, label]) => <a href={href} key={href}>{label}</a>)}
         </nav>
-        <div className="header-actions"><a className="header-link" href="#sources">{t("Sources", "来源")} ↗</a><a className="language-switch" href={isZh ? "../" : "./zh/"} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
       </header>
+
+      <main lang={isZh ? "zh-CN" : "en"}>
 
       <section className="hero" id="top">
         <div className="hero-grid">
@@ -143,8 +183,20 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
       <section className="section landscape" id="landscape">
         <div className="section-index">04 / System Landscape</div><h2>Autonomy–Evidence Map</h2>
         <p className="section-intro">{t("The 1–5 scores are a transparent analyst rubric, not metrics reported by the papers. The x-axis shows Autonomy, the y-axis Epistemic Accountability, and color Evidence Maturity.", "1–5 scoring 是透明 analyst rubric，不是 paper 原始 metric。横轴为 Autonomy，纵轴为 Epistemic Accountability；颜色为 Evidence Maturity。")}</p>
-        <div className="scatter-wrap"><div className="scatter-y">Epistemic Accountability →</div><div className="scatter">{[1,2,3,4,5].map(n => <span className="x-grid" key={`x${n}`} style={{ left: `${(n-1)*25}%` }} />)}{[1,2,3,4,5].map(n => <span className="y-grid" key={`y${n}`} style={{ bottom: `${(n-1)*25}%` }} />)}{systems.map((s, i) => <div className={`dot dot-${s.maturity.toLowerCase()} dot-i${i}`} key={s.name} style={{ left: `calc(${(s.autonomy-1)*25}% - 8px)`, bottom: `calc(${(s.accountability-1)*25}% - 8px)` }}><span>{s.name}</span></div>)}</div><div className="scatter-x">Autonomy Level →</div><div className="legend"><span><i className="dot-a" />A</span><span><i className="dot-b" />B</span><span><i className="dot-c" />C</span><span><i className="dot-d" />D</span></div></div>
-        <div className="table-shell"><table><thead><tr><th>System</th><th>Domain</th><th>Autonomy</th><th>Accountability</th><th>Validation</th><th>Limitation</th><th>Evidence</th></tr></thead><tbody>{systems.map(s => <tr key={s.name}><td><strong>{s.name}</strong></td><td>{s.domain}</td><td>{s.autonomy}/5</td><td>{s.accountability}/5</td><td>{s.validation}</td><td>{s.limitation}</td><td><span className={maturityClass(s.maturity)}>{s.maturity}</span></td></tr>)}</tbody></table></div>
+        <div className="scatter-wrap">
+          <div className="scatter-axis-note">Epistemic Accountability ↑</div>
+          <div className="scatter-y">Epistemic Accountability →</div>
+          <div className="scatter">
+            {[1,2,3,4,5].map(n => <span aria-hidden="true" className="x-grid" key={`x${n}`} style={{ left: `${(n-1)*25}%` }} />)}
+            {[1,2,3,4,5].map(n => <span aria-hidden="true" className="y-grid" key={`y${n}`} style={{ bottom: `${(n-1)*25}%` }} />)}
+            {systems.map((s, i) => <div aria-label={`${s.name}: Autonomy ${s.autonomy}/5, Accountability ${s.accountability}/5, Evidence ${s.maturity}`} className={`dot dot-${s.maturity.toLowerCase()}`} key={s.name} role="img" style={{ left: `calc(${(s.autonomy-1)*25}% - 12px)`, bottom: `calc(${(s.accountability-1)*25}% - 12px)`, transform: `translate(${systemOffsets[i][0]}px, ${systemOffsets[i][1]}px)` }}><span>{i + 1}</span></div>)}
+          </div>
+          <div className="scatter-x">Autonomy Level →</div>
+          <div className="legend"><span><i className="dot-a" />A</span><span><i className="dot-b" />B</span><span><i className="dot-c" />C</span><span><i className="dot-d" />D</span></div>
+          <ol className="scatter-key">{systems.map((system, index) => <li key={system.name}><span>{index + 1}</span><strong>{system.name}</strong><small>AUT {system.autonomy} · ACC {system.accountability} · E{system.maturity}</small></li>)}</ol>
+        </div>
+        <div className="table-shell system-table"><table><thead><tr><th>System</th><th>Domain</th><th>Autonomy</th><th>Accountability</th><th>Validation</th><th>Limitation</th><th>Evidence</th></tr></thead><tbody>{systems.map(s => <tr key={s.name}><td><strong>{s.name}</strong></td><td>{s.domain}</td><td>{s.autonomy}/5</td><td>{s.accountability}/5</td><td>{s.validation}</td><td>{s.limitation}</td><td><span className={maturityClass(s.maturity)}>{s.maturity}</span></td></tr>)}</tbody></table></div>
+        <div className="system-cards">{systems.map((system) => <details className="system-card" key={system.name}><summary><div><strong>{system.name}</strong><span>{system.domain}</span></div><div className="system-scores"><span>AUT {system.autonomy}</span><span>ACC {system.accountability}</span><span className={maturityClass(system.maturity)}>{system.maturity}</span></div><span className="plus" aria-hidden="true">+</span></summary><div className="system-card-body"><div><label>{t("Validation", "验证")}</label><p>{system.validation}</p></div><div><label>{t("Limitation", "局限")}</label><p>{system.limitation}</p></div></div></details>)}</div>
       </section>
 
       <section className="section" id="benchmarks">
@@ -162,7 +214,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
 
       <section className="section topics" id="topics">
         <div className="section-index">07 / Research Topic Cards</div><h2>{t("Seven research-ready topics", "七个可落地选题")}</h2><p className="section-intro">{t("Ranked by expected scientific value × feasibility × evidence gap. Expand each card for its Minimum Viable Experiment, Ablations, and Failure Gate.", "按 expected scientific value × feasibility × evidence gap 排序。展开查看 Minimum Viable Experiment、Ablation 与 Failure Gate。")}</p>
-        <div className="topic-list">{topics.map(topic => <details key={topic.priority} open={topic.priority === 1}><summary><span className="topic-rank">P{topic.priority}</span><div><h3>{topic.title}</h3><p>{topic.question}</p></div><span className="topic-window">{topic.window}</span><span className="plus">+</span></summary><div className="topic-body"><div><label>Novelty Positioning</label><p>{topic.novelty}</p></div><div><label>Strongest Baseline</label><p>{topic.baseline}</p></div><div><label>Minimum Viable Experiment</label><p>{topic.experiment}</p></div><div><label>Core Metric</label><p>{topic.metric}</p></div><div><label>Guardrail Metric</label><p>{topic.guardrail}</p></div><div><label>Required Ablation</label><p>{topic.ablation}</p></div><div><label>Success / Failure Gate</label><p>{topic.gate}</p></div><div><label>Compute & Data</label><p>{topic.needs}</p></div><div className="topic-output"><label>Publication Potential</label><p>{topic.output}</p></div></div></details>)}</div>
+        <div className="topic-list">{topics.map(topic => <details key={topic.priority}><summary><span className="topic-rank">P{topic.priority}</span><div><h3>{topic.title}</h3><p>{topic.question}</p></div><span className="topic-window">{topic.window}</span><span className="plus" aria-hidden="true">+</span></summary><div className="topic-body"><div><label>Novelty Positioning</label><p>{topic.novelty}</p></div><div><label>Strongest Baseline</label><p>{topic.baseline}</p></div><div><label>Minimum Viable Experiment</label><p>{topic.experiment}</p></div><div><label>Core Metric</label><p>{topic.metric}</p></div><div><label>Guardrail Metric</label><p>{topic.guardrail}</p></div><div><label>Required Ablation</label><p>{topic.ablation}</p></div><div><label>Success / Failure Gate</label><p>{topic.gate}</p></div><div><label>Compute & Data</label><p>{topic.needs}</p></div><div className="topic-output"><label>Publication Potential</label><p>{topic.output}</p></div></div></details>)}</div>
       </section>
 
       <section className="section limitations">
@@ -177,6 +229,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
       </section>
 
       <footer className="footer"><div><span className="brand-mark">AR</span><strong>Auto Research Atlas</strong></div><p>{t("Independent technical synthesis for Research Topic Selection.", "面向 Research Topic Selection 的独立技术综述。")}<br />Evidence cutoff: 2026-07-28 · Version 1.1</p><a href="#top">{t("Back to top", "返回顶部")} ↑</a></footer>
-    </main>
+      </main>
+    </>
   );
 }

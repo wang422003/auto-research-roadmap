@@ -9,7 +9,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://wang422003.github.io/auto-research-roadmap/"),
   title: "Auto Research Atlas — External Progress & Research Roadmap",
   description: "A source-grounded technical report on Auto Research and Vibe Research progress from 2025-07-28 to 2026-07-28.",
-  icons: { icon: "og.png", shortcut: "og.png" },
+  icons: {
+    icon: "https://wang422003.github.io/auto-research-roadmap/og.png",
+    shortcut: "https://wang422003.github.io/auto-research-roadmap/og.png",
+  },
   openGraph: {
     title: "Auto Research Atlas",
     description: "What actually progressed — and what is still a demo?",
