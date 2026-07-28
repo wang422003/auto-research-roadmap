@@ -11,6 +11,13 @@ The site covers:
 - a three-track research roadmap;
 - seven implementation-ready research topic cards.
 
+## Languages
+
+- `/` — English (default)
+- `/zh/` — 中文
+
+Both routes are generated from the same evidence inventory and shared report component so the quantitative claims, maturity ratings, sources, and version cutoff remain synchronized.
+
 ## Evidence policy
 
 Evidence is coded conservatively:
