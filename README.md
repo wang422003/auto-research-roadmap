@@ -57,10 +57,14 @@ pre-deploy gates can be reproduced locally with:
 ```bash
 npm run validate:content
 npm run lint
-GITHUB_ACTIONS=false npm run test:render
 GITHUB_ACTIONS=true npm run export:pages
+npm run test:pages-content
 npm run test:static-export
 ```
+
+`npm run test:render` remains available for the Vinext/Worker preview path; the
+Pages gate tests the exported `out/` files because those are the deployed
+artifacts.
 
 ## License
 

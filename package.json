@@ -13,6 +13,7 @@
     "validate:content": "node scripts/validate-field-updates.mjs && node --test tests/field-updates-validation.test.mjs",
     "test": "npm run test:render",
     "test:render": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test:pages-content": "PAGES_STATIC_EXPORT=true node --test tests/rendered-html.test.mjs",
     "test:static-export": "node --test tests/static-export.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"

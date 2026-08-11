@@ -1,9 +1,24 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 const ORIGIN = "http://localhost";
+const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PAGES_BASE_PATH = "/auto-research-roadmap";
+const USE_PAGES_EXPORT = process.env.PAGES_STATIC_EXPORT === "true";
 
 async function render(pathname = "/") {
+  if (USE_PAGES_EXPORT) {
+    const relativeRoute = pathname.replace(/^\/+|\/+$/g, "");
+    const html = await readFile(path.join(PROJECT_ROOT, "out", relativeRoute, "index.html"), "utf8");
+    return new Response(html, {
+      status: 200,
+      headers: { "content-type": "text/html; charset=utf-8" },
+    });
+  }
+
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
   const { default: worker } = await import(workerUrl.href);
@@ -36,7 +51,10 @@ function assertLanguageSwitch(html, pathname, expectedLanguage, expectedPathname
   assert.equal(attribute(switchTag, "hrefLang").toLowerCase(), expectedLanguage.toLowerCase());
 
   const target = new URL(attribute(switchTag, "href"), `${ORIGIN}${pathname}`);
-  assert.equal(target.pathname, expectedPathname);
+  const normalizedPathname = target.pathname.startsWith(PAGES_BASE_PATH)
+    ? target.pathname.slice(PAGES_BASE_PATH.length) || "/"
+    : target.pathname;
+  assert.equal(normalizedPathname, expectedPathname);
 }
 
 function withoutReactMarkers(html) {
