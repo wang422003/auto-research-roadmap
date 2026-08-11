@@ -611,7 +611,10 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
             <div className="updates-eyebrow">
               <span className="live-dot" /> Living Field Updates · {updateLabel(latest.id)} · <time dateTime={latest.publishedAt}>{latest.publishedAt}</time>
             </div>
-            <h1>{t("Auto Research, as the evidence changes.", "随着证据变化，持续更新 Auto Research。")}</h1>
+            <h1>
+              <span>{t("Evaluation gets sharper.", "Evaluation 更严格；")}</span>
+              <span>{t("Genuine novelty remains unproven.", "Genuine Novelty 仍未得到证明。")}</span>
+            </h1>
             <p>{latest.summary}</p>
             <div className="updates-hero-actions">
               <a className="button primary" href={`#${latest.publishedAt}`}>

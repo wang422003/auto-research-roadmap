@@ -149,7 +149,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
         <div className="hero-grid">
           <div>
             <div className="eyebrow"><span className="live-dot" /> Technical Report · v1.1 · 2026-07-28</div>
-            <h1>Auto Research /<br /><em>Vibe Research</em></h1>
+            <h1><span className="hero-title-line">Auto Research /</span><br /><em>Vibe Research</em></h1>
             <p className="hero-deck">{t("Over the past year, research agents moved from isolated tool use toward ", "过去一年，科研 Agent 从 isolated tool use 进入 ")}<strong>iterative execution, persistent state, and adaptive organization</strong>{t(". Yet Genuine Novelty, Scientific Judgment, and Trustworthy Autonomy remain unresolved.", "；但 Genuine Novelty、Scientific Judgment 与 Trustworthy Autonomy 仍未解决。")}</p>
             <div className="hero-actions"><a className="button primary" href="#findings">{t("Read the findings", "阅读核心结论")}</a><a className="button" href="#topics">{t("Explore 7 research topics", "查看 7 个研究选题")}</a></div>
           </div>
