@@ -24,9 +24,22 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run export:pages
+      - name: Validate field-update content
+        run: npm run validate:content
+      - name: Lint
+        run: npm run lint
+      - name: Test rendered routes
+        run: npm run test:render
+        env:
+          GITHUB_ACTIONS: "false"
+      - name: Build GitHub Pages static export
+        run: npm run export:pages
+        env:
+          GITHUB_ACTIONS: "true"
+      - name: Test static export
+        run: npm run test:static-export
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: out
 

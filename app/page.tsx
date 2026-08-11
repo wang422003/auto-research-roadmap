@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DocumentLanguage from "./document-language";
+import { sitePath } from "./site-path";
+import { getLocalized, latestFieldUpdate } from "@/content/field-updates";
 
 type Evidence = "A" | "B" | "C" | "D";
 type Locale = "en" | "zh";
@@ -110,12 +112,16 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
   const t = (en: string, zh: string) => isZh ? zh : en;
   const timeline = isZh ? timelineZh : timelineEn;
   const topics = isZh ? topicsZh : topicsEn;
+  const updatesHref = isZh ? "/zh/updates/" : "/updates/";
+  const latestUpdateHref = `${updatesHref}#${latestFieldUpdate.anchor}`;
+  const latestNewWorks = latestFieldUpdate.works.filter((work) => work.deltaStatus === "New");
 
   const navigation = [
     ["#evidence", t("Evidence", "证据")],
     ["#landscape", t("Landscape", "系统图谱")],
     ["#benchmarks", "Benchmarks"],
     ["#roadmap", "Roadmap"],
+    [updatesHref, t("Updates", "更新")],
     ["#topics", t("Topics", "选题")],
     ["#sources", t("Sources", "来源")],
   ];
@@ -123,20 +129,21 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
   return (
     <>
       <DocumentLanguage lang={isZh ? "zh-CN" : "en"} />
+      <a className="updates-skip-link" href="#report-main">{t("Skip to report", "跳到报告正文")}</a>
       <header className="site-header">
         <div className="header-row">
           <a className="brand" href="#top"><span className="brand-mark">AR</span><span>Auto Research Atlas</span></a>
           <nav className="desktop-nav" aria-label={t("Main navigation", "主导航")}>
-          <a href="#evidence">{t("Evidence", "证据")}</a><a href="#landscape">{t("Landscape", "系统图谱")}</a><a href="#benchmarks">Benchmarks</a><a href="#roadmap">Roadmap</a><a href="#topics">{t("Topics", "选题")}</a>
+          <a href="#evidence">{t("Evidence", "证据")}</a><a href="#landscape">{t("Landscape", "系统图谱")}</a><a href="#benchmarks">Benchmarks</a><a href="#roadmap">Roadmap</a><a href={sitePath(updatesHref)}>{t("Updates", "更新")}</a><a href="#topics">{t("Topics", "选题")}</a>
           </nav>
-          <div className="header-actions"><a className="header-link" href="#sources">{t("Sources", "来源")} ↗</a><a className="language-switch" href={isZh ? "../" : "./zh/"} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
+          <div className="header-actions"><a className="header-link" href="#sources">{t("Sources", "来源")} ↗</a><a className="language-switch" href={sitePath(isZh ? "/" : "/zh/")} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
         </div>
         <nav className="mobile-section-nav" aria-label={t("Report sections", "报告章节")}>
-          {navigation.map(([href, label]) => <a href={href} key={href}>{label}</a>)}
+          {navigation.map(([href, label]) => <a href={sitePath(href)} key={href}>{label}</a>)}
         </nav>
       </header>
 
-      <main lang={isZh ? "zh-CN" : "en"}>
+      <main id="report-main" lang={isZh ? "zh-CN" : "en"}>
 
       <section className="hero" id="top">
         <div className="hero-grid">
@@ -152,7 +159,25 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
             <p className="aside-note">{t("Representative, deduplicated corpus — not exhaustive bibliometrics.", "代表性、去重后的语料库，并非穷尽式文献计量。")}</p>
           </aside>
         </div>
-        <div className="hero-line"><span>Research Assistant</span><i /><span>Human-on-the-loop</span><i /><span>Computational Scientist</span><i /><span>Lab-validated System</span></div>
+        <div className="hero-line" role="region" aria-label={t("Capability progression", "能力演进")} tabIndex={0}><span>Research Assistant</span><i /><span>Human-on-the-loop</span><i /><span>Computational Scientist</span><i /><span>Lab-validated System</span></div>
+      </section>
+
+      <section className="latest-field-update" aria-labelledby="latest-field-update-title">
+        <div className="latest-field-update-meta">
+          <span>{t("Latest Field Update", "最新领域更新")}</span>
+          <time dateTime={latestFieldUpdate.publishedAt}>{latestFieldUpdate.publishedAt}</time>
+          <small>{latestNewWorks.length} {t("post-cutoff works", "项 Post-cutoff Work")}</small>
+        </div>
+        <div className="latest-field-update-copy">
+          <h2 id="latest-field-update-title">{getLocalized(latestFieldUpdate.title, locale)}</h2>
+          <ul>
+            {latestNewWorks.map((work) => <li key={work.id}>{getLocalized(work.title, locale)}</li>)}
+          </ul>
+          <p><strong>Verification Gap.</strong> {getLocalized(latestFieldUpdate.takeaways[2], locale)}</p>
+        </div>
+        <a className="latest-field-update-link" href={sitePath(latestUpdateHref)}>
+          {t("Open full update", "查看完整更新")} <span aria-hidden="true">↗</span>
+        </a>
       </section>
 
       <section className="section findings" id="findings">
@@ -170,7 +195,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
         <div className="section-index">02 / Evidence Framework</div><h2>{t("Autonomy is not evidence", "Autonomy 不是证据")}</h2>
         <p className="section-intro">{t("This report maps systems using ", "本报告用 ")}<strong>Autonomy Level × Epistemic Accountability</strong>{t(". The denominator below is a curated set of 25 deduplicated entries—not the publication volume of the field.", " 定位系统。以下分布的 denominator 是 25 个去重 representative entries，不代表全领域 publication volume。")}</p>
         <div className="evidence-layout">
-          <div className="bar-chart" aria-label="Evidence maturity distribution">{evidence.map((item) => <div className="bar-row" key={item.level}><div className={maturityClass(item.level)}>{item.level}</div><div className="bar-track"><div className={`bar-fill fill-${item.level.toLowerCase()}`} style={{ width: `${item.share}%` }}><span>{item.count}</span></div></div><p><strong>{item.share}%</strong>{item.label}</p></div>)}</div>
+          <div className="bar-chart" role="group" aria-label="Evidence maturity distribution">{evidence.map((item) => <div className="bar-row" key={item.level}><div className={maturityClass(item.level)}>{item.level}</div><div className="bar-track"><div className={`bar-fill fill-${item.level.toLowerCase()}`} style={{ width: `${item.share}%` }}><span>{item.count}</span></div></div><p><strong>{item.share}%</strong>{item.label}</p></div>)}</div>
           <aside className="definition-card"><h3>{t("Working definitions", "工作定义")}</h3><dl><dt>Auto Research</dt><dd>Objective → Iterative Research Loop</dd><dt>Vibe Research</dt><dd>Human Direction + Taste + Judgment; Agent Throughput</dd><dt>Evidence A</dt><dd>Peer-reviewed or Independently Validated</dd><dt>Evidence D</dt><dd>Public demo without academic validation</dd></dl></aside>
         </div>
       </section>
@@ -209,7 +234,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
       <section className="section" id="roadmap">
         <div className="section-index">06 / Research Roadmap</div><h2>{t("Three stages, increasing risk", "三阶段，逐层增加风险")}</h2>
         <div className="roadmap-grid"><article><div className="roadmap-top"><span>Track 01</span><b>2–4 mo</b></div><h3>Evaluation & Empirical Foundations</h3><p>{t("Matched Budget, Noise-floor Estimation, Independent Repeats, Negative Results, Artifact Replay, and Human Intervention Policy.", "Matched Budget、Noise-floor、Independent Repeats、Negative Results、Artifact Replay、Human Intervention Policy。")}</p><footer>Benchmark Paper · Empirical Study</footer></article><article><div className="roadmap-top"><span>Track 02</span><b>4–8 mo</b></div><h3>Learned Research Organization</h3><p>{t("Dynamic Topology, Counterfactual Credit, Receiver-conditioned Handoff, and Provenance-first Memory.", "Dynamic Topology、Counterfactual Credit、Receiver-conditioned Handoff、Provenance-first Memory。")}</p><footer>Core Method Paper</footer></article><article><div className="roadmap-top"><span>Track 03</span><b>8–18 mo</b></div><h3>Trustworthy Cross-domain Discovery</h3><p>{t("External Experiment Services, Domain-expert Review, Independent Replication, and New Knowledge Gain.", "External Experiment Service、Domain-expert Review、Independent Replication、New Knowledge Gain。")}</p><footer>Cross-domain System Paper</footer></article></div>
-        <div className="sequence"><span>Benchmark substrate</span><i>→</i><span>Learned organization</span><i>→</i><span>Independent replication</span></div>
+        <div className="sequence"><span>Benchmark substrate</span><i aria-hidden="true" /><span>Learned organization</span><i aria-hidden="true" /><span>Independent replication</span></div>
       </section>
 
       <section className="section topics" id="topics">

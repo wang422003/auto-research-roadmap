@@ -15,8 +15,19 @@ The site covers:
 
 - `/` — English (default)
 - `/zh/` — 中文
+- `/updates/` — English Living Field Updates
+- `/zh/updates/` — 中文 Living Field Updates
 
-Both routes are generated from the same evidence inventory and shared report component so the quantitative claims, maturity ratings, sources, and version cutoff remain synchronized.
+Each bilingual route pair is generated from a shared component and evidence
+inventory so quantitative claims, maturity ratings, sources, and version
+cutoffs remain synchronized.
+
+The main report is a frozen `v1.1` snapshot with an evidence cutoff of
+2026-07-28. New external evidence is appended to
+`content/field-updates.json`; corrections create a new versioned entry rather
+than silently rewriting an older Evidence Grade. Updates are reviewed manually
+about once per month, with interim releases for major evidence events. The site
+does not use a crawler, CMS, database, runtime API, or scheduled publication.
 
 ## Evidence policy
 
@@ -40,7 +51,16 @@ npm install
 npm run dev
 ```
 
-The GitHub Pages workflow creates a static export on every push to `main`.
+The GitHub Pages workflow creates a static export on every push to `main`. Its
+pre-deploy gates can be reproduced locally with:
+
+```bash
+npm run validate:content
+npm run lint
+GITHUB_ACTIONS=false npm run test:render
+GITHUB_ACTIONS=true npm run export:pages
+npm run test:static-export
+```
 
 ## License
 

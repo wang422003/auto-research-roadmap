@@ -1,0 +1,681 @@
+{
+  "schemaVersion": "1.0.0",
+  "cadence": {
+    "en": "Reviewed monthly, with interim entries for major peer-reviewed validation, benchmarks, or real-world deployments.",
+    "zh": "原则上每月复核一次；遇到重要 Peer-reviewed Validation、Benchmark 或 Real-world Deployment 时增加临时更新。"
+  },
+  "evidenceMaturityDefinitions": {
+    "A": {
+      "en": "Peer-reviewed or independently validated. Grade A does not by itself imply independent replication.",
+      "zh": "经过 Peer Review 或 Independent Validation；Evidence A 本身不等于 Independent Replication。"
+    },
+    "B": {
+      "en": "Preprint with open code, data, or complete trajectories.",
+      "zh": "Preprint，且开放 Code、Data 或完整 Trajectory。"
+    },
+    "C": {
+      "en": "Preprint with author-reported results and incomplete external validation.",
+      "zh": "Preprint 中的 Author-reported Result，External Validation 尚不完整。"
+    },
+    "D": {
+      "en": "Official repository or product claim without complete academic validation.",
+      "zh": "Official Repository 或 Product Claim，缺少完整学术验证。"
+    }
+  },
+  "updates": [
+    {
+      "id": "update-001-2026-08-11",
+      "anchor": "2026-08-11",
+      "publishedAt": "2026-08-11",
+      "evidenceCutoff": "2026-08-11",
+      "previousCutoff": "2026-07-28",
+      "supersedes": null,
+      "correctionOf": null,
+      "title": {
+        "en": "Update 001 — Evaluation gets sharper; trustworthy autonomy remains open",
+        "zh": "Update 001 — Evaluation 更扎实，Trustworthy Autonomy 仍未解决"
+      },
+      "summary": {
+        "en": "The post-cutoff signal is not a sudden leap to autonomous science. It is a shift toward decision-level holdouts, traceable long-horizon execution, artifact-aware review, stepwise verification, and real instrument operation. These advances strengthen evidence about agent behaviour, but do not establish genuine novelty or independent replication.",
+        "zh": "本次 cutoff 之后的信号并非 Autonomous Science 的突然跃迁，而是向 Decision-level Holdout、可追踪的 Long-horizon Execution、Artifact-aware Review、Stepwise Verification 与 Real Instrument Operation 转移。这些进展增强了对 Agent 行为的证据，但尚不能证明 Genuine Novelty 或 Independent Replication。"
+      },
+      "takeaways": [
+        {
+          "en": "Most measurable progress comes from stronger Evaluation and Execution, not from solving Genuine Novelty.",
+          "zh": "当前可测量的主要进步来自更强的 Evaluation 与 Execution，而非已解决 Genuine Novelty。"
+        },
+        {
+          "en": "Untouched Holdouts, Artifact-aware Review, Stepwise Verification, and Real Instrument Execution are becoming the strongest evidence patterns.",
+          "zh": "Untouched Holdout、Artifact-aware Review、Stepwise Verification 与 Real Instrument Execution 正成为更强的证据范式。"
+        },
+        {
+          "en": "Scientific Judgment, Independent Replication, Long-horizon Coherence, and Research Integrity remain the central bottlenecks.",
+          "zh": "Scientific Judgment、Independent Replication、Long-horizon Coherence 与 Research Integrity 仍是核心 Bottleneck。"
+        },
+        {
+          "en": "The most credible operating model remains Vibe Research / Human-on-the-loop rather than an unsupervised autonomous AI scientist.",
+          "zh": "当前最可信的运行形态仍是 Vibe Research / Human-on-the-loop，而不是无人监督的 Autonomous AI Scientist。"
+        }
+      ],
+      "newSincePreviousCutoff": [
+        "auto-research-materials-v2",
+        "long-horizon-architecture-v1"
+      ],
+      "contextEntries": [
+        "specialist-agents-v1",
+        "eurekagent-v2",
+        "discoper-v1",
+        "researcharena-v1",
+        "sciagentarena-v1",
+        "autoresearchbench-v1",
+        "fire-bench-v2",
+        "xray-scientist-vor",
+        "autolabs-vor",
+        "robin-vor",
+        "ai-scientist-vor"
+      ],
+      "dateCorrections": [
+        "verification-gap-v1"
+      ],
+      "themes": [
+        {
+          "id": "decision-level-validation",
+          "title": { "en": "Decision-level Validation", "zh": "Decision-level Validation" },
+          "summary": {
+            "en": "Evaluation is moving from the terminal score to frozen interventions and untouched outer evidence, exposing gains that do not transfer.",
+            "zh": "Evaluation 正从 Terminal Score 转向 Frozen Intervention 与未被搜索循环接触的 Outer Evidence，从而识别无法迁移的表面增益。"
+          },
+          "workIds": ["auto-research-materials-v2", "fire-bench-v2"]
+        },
+        {
+          "id": "long-horizon-research-dynamics",
+          "title": { "en": "Long-horizon Research Dynamics", "zh": "Long-horizon Research Dynamics" },
+          "summary": {
+            "en": "Dense traces now reveal saturation, recovery, anchoring, and workflow-induced greediness across extended autonomous runs.",
+            "zh": "Dense Trajectory 开始揭示长期运行中的 Saturation、Recovery、Anchoring 与 Workflow-induced Greediness。"
+          },
+          "workIds": ["long-horizon-architecture-v1", "specialist-agents-v1"]
+        },
+        {
+          "id": "executable-loop-environment-engineering",
+          "title": { "en": "Executable Loop & Environment Engineering", "zh": "Executable Loop & Environment Engineering" },
+          "summary": {
+            "en": "Bounded permissions, evaluator-owned metrics, Git-backed artifacts, and budget controls increasingly determine what agents can reliably discover.",
+            "zh": "Bounded Permission、Evaluator-owned Metric、Git-backed Artifact 与 Budget Control 越来越决定 Agent 能否稳定地产生发现。"
+          },
+          "workIds": ["specialist-agents-v1", "eurekagent-v2"]
+        },
+        {
+          "id": "open-ended-discovery",
+          "title": { "en": "Open-ended Discovery", "zh": "Open-ended Discovery" },
+          "summary": {
+            "en": "Meta-reflection broadens exploration, but known-pattern recovery remains a proxy for discovery rather than proof of new science.",
+            "zh": "Meta-reflection 扩展了探索范围，但 Known-pattern Recovery 仍只是 Discovery 的 Proxy，而不是新科学发现的证明。"
+          },
+          "workIds": ["discoper-v1", "eurekagent-v2"]
+        },
+        {
+          "id": "benchmark-reality-check",
+          "title": { "en": "Benchmark Reality Check", "zh": "Benchmark Reality Check" },
+          "summary": {
+            "en": "Literature discovery, full-cycle rediscovery, artifact review, and stepwise scientific tasks expose large gaps hidden by manuscript-only judging.",
+            "zh": "Literature Discovery、Full-cycle Rediscovery、Artifact Review 与 Stepwise Scientific Task 揭示了 Manuscript-only Judging 掩盖的能力差距。"
+          },
+          "workIds": ["researcharena-v1", "sciagentarena-v1", "autoresearchbench-v1", "fire-bench-v2", "verification-gap-v1"]
+        },
+        {
+          "id": "lab-in-the-loop-validation",
+          "title": { "en": "Lab-in-the-loop Validation", "zh": "Lab-in-the-loop Validation" },
+          "summary": {
+            "en": "Peer-reviewed systems can plan protocols, assist wet-lab campaigns, and operate narrow instruments, while humans still supply safety, execution, or critical scientific judgment.",
+            "zh": "Peer-reviewed System 已能规划 Protocol、辅助 Wet-lab Campaign 并操作 Narrow Instrument，但 Safety、Execution 或关键 Scientific Judgment 仍由人类承担。"
+          },
+          "workIds": ["xray-scientist-vor", "autolabs-vor", "robin-vor", "ai-scientist-vor"]
+        }
+      ],
+      "evidenceMaturityDistribution": { "A": 5, "B": 5, "C": 4, "D": 0 },
+      "capabilityAssessment": [
+        {
+          "capability": { "en": "Well-scoped assistance", "zh": "Well-scoped Assistance" },
+          "assessment": { "en": "Established across retrieval, analysis, coding, and protocol drafting when tasks and checks are explicit.", "zh": "当 Task 与 Check 明确时，Retrieval、Analysis、Coding 与 Protocol Drafting 已较为成熟。" },
+          "workIds": ["autoresearchbench-v1", "sciagentarena-v1", "autolabs-vor"]
+        },
+        {
+          "capability": { "en": "Metric-driven iteration", "zh": "Metric-driven Iteration" },
+          "assessment": { "en": "Strongest in executable environments with evaluator-owned metrics and bounded search surfaces.", "zh": "在具备 Evaluator-owned Metric 与 Bounded Search Surface 的可执行环境中表现最强。" },
+          "workIds": ["specialist-agents-v1", "eurekagent-v2", "auto-research-materials-v2"]
+        },
+        {
+          "capability": { "en": "Open-ended scientific judgment", "zh": "Open-ended Scientific Judgment" },
+          "assessment": { "en": "Not established; current evaluations show novelty, rigor, and coherence failures.", "zh": "尚未建立；当前 Evaluation 仍显示 Novelty、Rigor 与 Coherence Failure。" },
+          "workIds": ["researcharena-v1", "fire-bench-v2", "verification-gap-v1"]
+        }
+      ],
+      "capabilityLadder": [
+        {
+          "stage": { "en": "Research Assistant", "zh": "Research Assistant" },
+          "status": { "en": "Operational", "zh": "Operational" },
+          "description": { "en": "Grounded retrieval, analysis, coding, and drafting under explicit human direction.", "zh": "在人类明确 Direction 下执行 Grounded Retrieval、Analysis、Coding 与 Drafting。" }
+        },
+        {
+          "stage": { "en": "Metric-driven Loop", "zh": "Metric-driven Loop" },
+          "status": { "en": "Demonstrated in bounded environments", "zh": "已在 Bounded Environment 中验证" },
+          "description": { "en": "Iterative proposal, execution, and selection against a fixed external evaluator.", "zh": "围绕固定 External Evaluator 进行 Proposal、Execution 与 Selection 的迭代。" }
+        },
+        {
+          "stage": { "en": "Artifact-backed Human-on-the-loop", "zh": "Artifact-backed Human-on-the-loop" },
+          "status": { "en": "Most credible current form", "zh": "当前最可信形态" },
+          "description": { "en": "Agents create throughput while humans audit artifacts, steer direction, and own scientific claims.", "zh": "Agent 提供 Throughput，人类审核 Artifact、把握 Direction 并对 Scientific Claim 负责。" }
+        },
+        {
+          "stage": { "en": "Narrow Instrument Operator", "zh": "Narrow Instrument Operator" },
+          "status": { "en": "Real-world demonstrations", "zh": "已有 Real-world Demonstration" },
+          "description": { "en": "Closed-loop operation of constrained scientific instruments with safety and scope limits.", "zh": "在 Safety 与 Scope 限制下，对特定 Scientific Instrument 进行 Closed-loop Operation。" }
+        },
+        {
+          "stage": { "en": "Trustworthy Autonomous AI Scientist", "zh": "Trustworthy Autonomous AI Scientist" },
+          "status": { "en": "Not demonstrated", "zh": "尚未验证" },
+          "description": { "en": "Novel, coherent, reproducible science with independent verification and accountable judgment.", "zh": "能产生 Novel、Coherent、Reproducible Science，并具备 Independent Verification 与 Accountable Judgment。" }
+        }
+      ],
+      "openGaps": [
+        { "en": "Independent Replication remains rare even when work is peer-reviewed.", "zh": "即使工作已经 Peer-reviewed，Independent Replication 仍然罕见。" },
+        { "en": "Novelty evaluators often measure rediscovery, plausibility, or reviewer preference rather than New Knowledge Gain.", "zh": "Novelty Evaluator 常测量 Rediscovery、Plausibility 或 Reviewer Preference，而非 New Knowledge Gain。" },
+        { "en": "Long-horizon runs lack matched-budget repeats, counterfactual replay, and reliable action-level credit assignment.", "zh": "Long-horizon Run 仍缺少 Matched-budget Repeat、Counterfactual Replay 与可靠的 Action-level Credit Assignment。" },
+        { "en": "Artifact release has improved faster than claim-verification artifacts, negative results, and complete selection histories.", "zh": "Artifact Release 的进步快于 Claim-verification Artifact、Negative Result 与完整 Selection History。" },
+        { "en": "Real-world instrument demonstrations remain narrow and frequently retain human safety or execution relays.", "zh": "Real-world Instrument Demonstration 仍较窄，且通常保留 Human Safety 或 Execution Relay。" }
+      ],
+      "works": [
+        {
+          "id": "auto-research-materials-v2",
+          "canonicalWorkId": "auto-research-materials",
+          "title": { "en": "Auto Research for Materials: Auditable AI-Scientist Workflows with Held-Out Transfer", "zh": "Auto Research for Materials: Auditable AI-Scientist Workflows with Held-Out Transfer" },
+          "releaseDate": "2026-07-29",
+          "originalReleaseDate": "2026-07-19",
+          "paperVersionDate": "2026-07-29",
+          "paperVersion": "v2",
+          "domain": { "en": "Materials Science / ML", "zh": "Materials Science / ML" },
+          "researchLifecycleCoverage": { "en": "Hypothesis decomposition → code intervention → inner evaluation → frozen outer-holdout validation", "zh": "Hypothesis Decomposition → Code Intervention → Inner Evaluation → Frozen Outer-holdout Validation" },
+          "autonomyLevel": { "en": "Bounded closed-loop optimization", "zh": "Bounded Closed-loop Optimization" },
+          "runHorizon": { "en": "Hundreds of agent-executed attempts across ten endpoints", "zh": "跨十个 Endpoint 的数百次 Agent-executed Attempt" },
+          "agentTopology": { "en": "Axis-specialized search with frozen winners", "zh": "Axis-specialized Search + Frozen Winner" },
+          "memoryStateMechanism": { "en": "Auditable intervention matrix and evaluator-owned outcomes", "zh": "Auditable Intervention Matrix 与 Evaluator-owned Outcome" },
+          "evaluationProtocol": { "en": "Inner five-fold feedback followed by an untouched outer-holdout matrix", "zh": "Inner Five-fold Feedback 后使用 Untouched Outer-holdout Matrix" },
+          "codeDataTrajectoryAvailability": { "en": "Paper and source package; no verified official code repository at cutoff", "zh": "开放 Paper 与 Source Package；截至 cutoff 未核验到 Official Code Repository" },
+          "externalValidation": { "en": "No independent replication identified; transfer is evaluated by an author-controlled holdout", "zh": "未发现 Independent Replication；Transfer 由作者控制的 Holdout 评估" },
+          "limitation": { "en": "The v1 paper predates the previous cutoff; this entry is new because v2, containing the auditable held-out-transfer result, was released on 29 July. Results remain author-reported.", "zh": "v1 早于上一 cutoff；本条作为 New 是因为包含可审计 Held-out Transfer 结果的 v2 于 7 月 29 日发布。结果仍为 Author-reported。" },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "Outer evidence confirmed the selected intervention on nine of ten Matbench endpoints across 701 attempts.", "zh": "在 701 次 Attempt 中，Outer Evidence 在十个 Matbench Endpoint 中的九个确认了所选 Intervention。" },
+              "taskDefinition": { "en": "Select feature, model, representation, and data interventions on Matbench regression endpoints, then test transfer on unseen outer evidence.", "zh": "在 Matbench Regression Endpoint 上选择 Feature、Model、Representation 与 Data Intervention，再用未见 Outer Evidence 检验 Transfer。" },
+              "sampleSizeDenominator": { "en": "701 agent-executed attempts; 10 Matbench endpoints", "zh": "701 次 Agent-executed Attempt；10 个 Matbench Endpoint" },
+              "evaluator": { "en": "Evaluator-owned inner five-fold feedback and frozen outer-holdout matrix", "zh": "Evaluator-owned Inner Five-fold Feedback 与 Frozen Outer-holdout Matrix" },
+              "comparisonBasis": { "en": "Selected intervention versus alternatives and starting pipeline on untouched outer evidence", "zh": "在 Untouched Outer Evidence 上比较 Selected Intervention、Alternative 与 Starting Pipeline" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-auto-research-materials-paper"]
+        },
+        {
+          "id": "long-horizon-architecture-v1",
+          "canonicalWorkId": "long-horizon-architecture",
+          "title": { "en": "Long-Horizon Autonomous Architecture Research with a Language-Model Agent: A Behavioural Case Study", "zh": "Long-Horizon Autonomous Architecture Research with a Language-Model Agent: A Behavioural Case Study" },
+          "releaseDate": "2026-08-03",
+          "originalReleaseDate": "2026-08-03",
+          "paperVersionDate": "2026-08-03",
+          "paperVersion": "v1",
+          "domain": { "en": "AI/ML", "zh": "AI/ML" },
+          "researchLifecycleCoverage": { "en": "Hypothesis → implementation → experiment → record over three human-delimited phases", "zh": "跨三个 Human-delimited Phase 执行 Hypothesis → Implementation → Experiment → Record" },
+          "autonomyLevel": { "en": "Single-agent autonomous execution inside phase boundaries", "zh": "在 Phase Boundary 内由 Single Agent Autonomous Execution" },
+          "runHorizon": { "en": "Approximately 100 sequential experiments in one case study", "zh": "单个 Case Study 中约 100 次 Sequential Experiment" },
+          "agentTopology": { "en": "Single general-purpose agent", "zh": "Single General-purpose Agent" },
+          "memoryStateMechanism": { "en": "Persistent memory, source management, experiment tracking, and dense behavioural trace", "zh": "Persistent Memory、Source Management、Experiment Tracking 与 Dense Behavioural Trace" },
+          "evaluationProtocol": { "en": "Commit-or-discard experimental rule across small vision benchmarks and ImageNet-1K", "zh": "在 Small Vision Benchmark 与 ImageNet-1K 上采用 Commit-or-discard Experimental Rule" },
+          "codeDataTrajectoryAvailability": { "en": "Paper describes a dense trace; no verified public code or complete trajectory repository at cutoff", "zh": "Paper 描述了 Dense Trace；截至 cutoff 未核验到公开 Code 或 Complete Trajectory Repository" },
+          "externalValidation": { "en": "None identified; single author-run behavioural case study", "zh": "未发现；属于单次 Author-run Behavioural Case Study" },
+          "limitation": { "en": "One run, human-declared phase transitions, workflow-induced greedy search, and no independent replication.", "zh": "仅一次 Run，Phase Transition 由人类声明，Search 受 Workflow-induced Greediness 影响，且无 Independent Replication。" },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "The case study reports approximately 100 sequential experiments and a three-phase productivity pattern.", "zh": "该 Case Study 报告约 100 次 Sequential Experiment 与三阶段 Productivity Pattern。" },
+              "taskDefinition": { "en": "Autonomous neural-architecture research from a weak non-standard Vision Transformer baseline.", "zh": "从较弱的非标准 Vision Transformer Baseline 出发进行 Autonomous Neural-architecture Research。" },
+              "sampleSizeDenominator": { "en": "Approximately 100 experiments in one longitudinal run", "zh": "单个 Longitudinal Run 中约 100 次 Experiment" },
+              "evaluator": { "en": "Task metrics recorded by the experiment manager; behavioural analysis by the authors", "zh": "Experiment Manager 记录 Task Metric；作者进行 Behavioural Analysis" },
+              "comparisonBasis": { "en": "Sequential checkpoints against the initial architecture and earlier accepted experiments", "zh": "Sequential Checkpoint 对比 Initial Architecture 与早期 Accepted Experiment" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-long-horizon-paper"]
+        },
+        {
+          "id": "verification-gap-v1",
+          "canonicalWorkId": "verification-gap",
+          "title": { "en": "Autonomous Research Agents: A Survey of AI Scientists and the Verification Gap", "zh": "Autonomous Research Agents: A Survey of AI Scientists and the Verification Gap" },
+          "releaseDate": "2026-06-29",
+          "originalReleaseDate": "2026-06-29",
+          "paperVersionDate": "2026-06-29",
+          "paperVersion": "v1",
+          "domain": { "en": "Meta-research / AI/ML", "zh": "Meta-research / AI/ML" },
+          "researchLifecycleCoverage": { "en": "Survey and audit across the full computational research lifecycle", "zh": "覆盖完整 Computational Research Lifecycle 的 Survey 与 Audit" },
+          "autonomyLevel": { "en": "Observational taxonomy, not an autonomous system", "zh": "Observational Taxonomy，非 Autonomous System" },
+          "runHorizon": { "en": "Cross-system corpus review", "zh": "Cross-system Corpus Review" },
+          "agentTopology": { "en": "Not applicable", "zh": "Not Applicable" },
+          "memoryStateMechanism": { "en": "Coded corpus and reviewer-facing audit checklist", "zh": "Coded Corpus 与 Reviewer-facing Audit Checklist" },
+          "evaluationProtocol": { "en": "Full-text coding against seven audit dimensions", "zh": "围绕七个 Audit Dimension 进行 Full-text Coding" },
+          "codeDataTrajectoryAvailability": { "en": "Paper reports a coded corpus; repository availability not independently verified at cutoff", "zh": "Paper 报告 Coded Corpus；截至 cutoff 未独立核验 Repository Availability" },
+          "externalValidation": { "en": "No independent validation identified", "zh": "未发现 Independent Validation" },
+          "limitation": { "en": "The arXiv identifier begins with 2608, but the official submission history records v1 on 29 June 2026; it must not be counted as an August release.", "zh": "arXiv Identifier 虽以 2608 开头，但 Official Submission History 记录 v1 于 2026 年 6 月 29 日提交，不能误计为 8 月新增。" },
+          "evidenceMaturity": "C",
+          "deltaStatus": "Date Clarification",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "Among 24 runnable systems, 20 released code, nine released seeds or traces, and nine reported any novelty-verification method.", "zh": "在 24 个 Runnable System 中，20 个开放 Code，9 个开放 Seed 或 Trace，9 个报告了某种 Novelty-verification Method。" },
+              "taskDefinition": { "en": "Audit artifact and verification practices in autonomous research-agent systems.", "zh": "审计 Autonomous Research-agent System 的 Artifact 与 Verification Practice。" },
+              "sampleSizeDenominator": { "en": "125 screened works; 35 included; 26 fully coded; 24 runnable systems", "zh": "125 项初筛；35 项纳入；26 项 Full Coding；24 个 Runnable System" },
+              "evaluator": { "en": "Author coding under seven stated audit dimensions", "zh": "作者依据七个明示 Audit Dimension 进行 Coding" },
+              "comparisonBasis": { "en": "Presence or absence of released and reported verification artifacts", "zh": "比较各类 Released / Reported Verification Artifact 是否存在" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-verification-gap-paper"]
+        },
+        {
+          "id": "specialist-agents-v1",
+          "canonicalWorkId": "specialist-agents",
+          "title": { "en": "Auto Research with Specialist Agents Develops Effective and Non-Trivial Training Recipes", "zh": "Auto Research with Specialist Agents Develops Effective and Non-Trivial Training Recipes" },
+          "releaseDate": "2026-05-07",
+          "originalReleaseDate": "2026-05-07",
+          "paperVersionDate": "2026-05-07",
+          "paperVersion": "v1",
+          "domain": { "en": "AI/ML", "zh": "AI/ML" },
+          "researchLifecycleCoverage": { "en": "Proposal → code edit → execution → evaluator feedback → recipe lineage", "zh": "Proposal → Code Edit → Execution → Evaluator Feedback → Recipe Lineage" },
+          "autonomyLevel": { "en": "Autonomous metric-driven search after one-time setup", "zh": "One-time Setup 后的 Autonomous Metric-driven Search" },
+          "runHorizon": { "en": "Long multi-trial trajectories across three headline tasks and one control", "zh": "跨三个 Headline Task 与一个 Control 的 Long Multi-trial Trajectory" },
+          "agentTopology": { "en": "Specialist agents partition recipe surfaces and share lineage", "zh": "Specialist Agent 划分 Recipe Surface 并共享 Lineage" },
+          "memoryStateMechanism": { "en": "Measured lineage, code diffs, failure labels, and auditable trajectories", "zh": "Measured Lineage、Code Diff、Failure Label 与 Auditable Trajectory" },
+          "evaluationProtocol": { "en": "External task evaluators with legality, size, accuracy, and budget checks", "zh": "External Task Evaluator + Legality、Size、Accuracy 与 Budget Check" },
+          "codeDataTrajectoryAvailability": { "en": "Open paper and official code/results repository", "zh": "开放 Paper 与 Official Code/Results Repository" },
+          "externalValidation": { "en": "No independent replication identified", "zh": "未发现 Independent Replication" },
+          "limitation": { "en": "Bounded public training-recipe tasks; improvements do not establish new scientific knowledge.", "zh": "局限于 Bounded Public Training-recipe Task；性能提升不等同于新 Scientific Knowledge。" },
+          "evidenceMaturity": "B",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "The study reports 1,197 headline trials plus 600 Parameter Golf control trials.", "zh": "该研究报告 1,197 次 Headline Trial 与 600 次 Parameter Golf Control Trial。" },
+              "taskDefinition": { "en": "Autonomously improve training recipes under task-specific legality and compute constraints.", "zh": "在 Task-specific Legality 与 Compute Constraint 下自主优化 Training Recipe。" },
+              "sampleSizeDenominator": { "en": "1,197 headline-run trials plus 600 control trials across four task settings", "zh": "四个 Task Setting 中 1,197 次 Headline Trial + 600 次 Control Trial" },
+              "evaluator": { "en": "Task-owned external evaluators and legality checks", "zh": "Task-owned External Evaluator 与 Legality Check" },
+              "comparisonBasis": { "en": "Public starting recipes under each task's own metric", "zh": "依据各 Task 自身 Metric 对比 Public Starting Recipe" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-specialist-paper", "ref-specialist-repo"]
+        },
+        {
+          "id": "eurekagent-v2",
+          "canonicalWorkId": "eurekagent",
+          "title": { "en": "EurekAgent: Agent Environment Engineering is All You Need For Autonomous Scientific Discovery", "zh": "EurekAgent: Agent Environment Engineering is All You Need For Autonomous Scientific Discovery" },
+          "releaseDate": "2026-06-12",
+          "originalReleaseDate": "2026-06-11",
+          "paperVersionDate": "2026-06-12",
+          "paperVersion": "v2",
+          "domain": { "en": "Mathematics / Systems / AI/ML", "zh": "Mathematics / Systems / AI/ML" },
+          "researchLifecycleCoverage": { "en": "Open-ended proposal → artifact implementation → isolated evaluation → collaboration", "zh": "Open-ended Proposal → Artifact Implementation → Isolated Evaluation → Collaboration" },
+          "autonomyLevel": { "en": "Bounded autonomous discovery with human intervention affordances", "zh": "带 Human Intervention Affordance 的 Bounded Autonomous Discovery" },
+          "runHorizon": { "en": "Budget-constrained multi-attempt searches", "zh": "Budget-constrained Multi-attempt Search" },
+          "agentTopology": { "en": "Environment-mediated collaborative agents", "zh": "Environment-mediated Collaborative Agent" },
+          "memoryStateMechanism": { "en": "Filesystem, Git history, artifacts, and budget ledger", "zh": "Filesystem、Git History、Artifact 与 Budget Ledger" },
+          "evaluationProtocol": { "en": "Isolated metric evaluation across mathematics, kernel, and ML tasks", "zh": "跨 Mathematics、Kernel 与 ML Task 的 Isolated Metric Evaluation" },
+          "codeDataTrajectoryAvailability": { "en": "Open paper and official code/results repository", "zh": "开放 Paper 与 Official Code/Results Repository" },
+          "externalValidation": { "en": "No independent replication identified", "zh": "未发现 Independent Replication" },
+          "limitation": { "en": "Author-reported metric gains in engineered environments; discovery claims depend on task-defined evaluators.", "zh": "结果是在 Engineered Environment 中的 Author-reported Metric Gain；Discovery Claim 依赖 Task-defined Evaluator。" },
+          "evidenceMaturity": "B",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "The authors report a new 26-circle packing result for less than US$11 in total API cost.", "zh": "作者报告以不足 11 美元总 API Cost 得到新的 26-circle Packing Result。" },
+              "taskDefinition": { "en": "Optimize a circle-packing construction in a bounded executable environment.", "zh": "在 Bounded Executable Environment 中优化 Circle-packing Construction。" },
+              "sampleSizeDenominator": { "en": "One reported 26-circle packing search; complete attempts released in the official results repository", "zh": "一次已报告的 26-circle Packing Search；完整 Attempt 见 Official Results Repository" },
+              "evaluator": { "en": "Task-specific geometric feasibility and objective metric", "zh": "Task-specific Geometric Feasibility 与 Objective Metric" },
+              "comparisonBasis": { "en": "Previously reported human-designed 26-circle packing solutions", "zh": "对比此前报告的 Human-designed 26-circle Packing Solution" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-eurekagent-paper", "ref-eurekagent-repo"]
+        },
+        {
+          "id": "discoper-v1",
+          "canonicalWorkId": "discoper",
+          "title": { "en": "Autonomous Scientific Discovery via Iterative Meta-Reflection", "zh": "Autonomous Scientific Discovery via Iterative Meta-Reflection" },
+          "releaseDate": "2026-07-01",
+          "originalReleaseDate": "2026-07-01",
+          "paperVersionDate": "2026-07-01",
+          "paperVersion": "v1",
+          "domain": { "en": "Ecology / Multimodal Data Science", "zh": "Ecology / Multimodal Data Science" },
+          "researchLifecycleCoverage": { "en": "Open-ended hypothesis generation → code execution → statistical test → meta-reflection", "zh": "Open-ended Hypothesis Generation → Code Execution → Statistical Test → Meta-reflection" },
+          "autonomyLevel": { "en": "Autonomous dataset exploration without a pre-specified research question", "zh": "无 Pre-specified Research Question 的 Autonomous Dataset Exploration" },
+          "runHorizon": { "en": "Iterative discovery and second-order reflection over accumulated findings", "zh": "围绕 Accumulated Finding 进行 Iterative Discovery 与 Second-order Reflection" },
+          "agentTopology": { "en": "Single framework with discovery and meta-reflection loops", "zh": "包含 Discovery Loop 与 Meta-reflection Loop 的单一 Framework" },
+          "memoryStateMechanism": { "en": "Accumulated statistically supported discoveries used as empirical state", "zh": "将累积的 Statistically Supported Discovery 作为 Empirical State" },
+          "evaluationProtocol": { "en": "Pattern recovery on iNatDisco with statistical hypothesis tests", "zh": "在 iNatDisco 上进行 Pattern Recovery 与 Statistical Hypothesis Test" },
+          "codeDataTrajectoryAvailability": { "en": "Paper and source package; no verified official repository at cutoff", "zh": "开放 Paper 与 Source Package；截至 cutoff 未核验到 Official Repository" },
+          "externalValidation": { "en": "Ground truth derives from peer-reviewed literature, but system results are author-reported", "zh": "Ground Truth 来自 Peer-reviewed Literature，但 System Result 仍为 Author-reported" },
+          "limitation": { "en": "Rediscovery of known ecological patterns is not evidence of genuinely new scientific knowledge.", "zh": "对已知 Ecological Pattern 的 Rediscovery 不等于 Genuine New Scientific Knowledge。" },
+          "evidenceMaturity": "C",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "DiscoPER recovers eight of nine known patterns with a 72.7% hypothesis-support rate.", "zh": "DiscoPER 恢复九个 Known Pattern 中的八个，Hypothesis-support Rate 为 72.7%。" },
+              "taskDefinition": { "en": "Recover literature-derived ecological patterns through open-ended multimodal exploration of iNatDisco.", "zh": "通过对 iNatDisco 的 Open-ended Multimodal Exploration 恢复 Literature-derived Ecological Pattern。" },
+              "sampleSizeDenominator": { "en": "9 known pattern targets in iNatDisco; all generated hypotheses in the reported evaluation for support rate", "zh": "iNatDisco 中 9 个 Known Pattern Target；Support Rate 以报告 Evaluation 中全部 Generated Hypothesis 为分母" },
+              "evaluator": { "en": "Statistical tests plus pattern-level ground truth from peer-reviewed literature", "zh": "Statistical Test + 来自 Peer-reviewed Literature 的 Pattern-level Ground Truth" },
+              "comparisonBasis": { "en": "Classical causal-discovery and LLM-guided baselines", "zh": "对比 Classical Causal-discovery 与 LLM-guided Baseline" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-discoper-paper"]
+        },
+        {
+          "id": "researcharena-v1",
+          "canonicalWorkId": "researcharena",
+          "title": { "en": "How Far Are We From True Auto-Research?", "zh": "How Far Are We From True Auto-Research?" },
+          "releaseDate": "2026-05-18",
+          "originalReleaseDate": "2026-05-18",
+          "paperVersionDate": "2026-05-18",
+          "paperVersion": "v1",
+          "domain": { "en": "AI/ML / Meta-research", "zh": "AI/ML / Meta-research" },
+          "researchLifecycleCoverage": { "en": "Ideation → experimentation → paper writing → self-refinement → review", "zh": "Ideation → Experimentation → Paper Writing → Self-refinement → Review" },
+          "autonomyLevel": { "en": "Off-the-shelf coding agents under lightweight guidance", "zh": "Lightweight Guidance 下的 Off-the-shelf Coding Agent" },
+          "runHorizon": { "en": "Full-paper generation across repeated seed-agent trials", "zh": "跨重复 Seed-agent Trial 的 Full-paper Generation" },
+          "agentTopology": { "en": "Single agent per trial; three agent families compared", "zh": "每个 Trial 使用 Single Agent；比较三个 Agent Family" },
+          "memoryStateMechanism": { "en": "Workspace artifacts and manuscript revisions", "zh": "Workspace Artifact 与 Manuscript Revision" },
+          "evaluationProtocol": { "en": "Manuscript-only review, artifact-aware peer review, and human meta-review", "zh": "Manuscript-only Review、Artifact-aware Peer Review 与 Human Meta-review" },
+          "codeDataTrajectoryAvailability": { "en": "Open project site with paper corpus and evaluation artifacts", "zh": "开放包含 Paper Corpus 与 Evaluation Artifact 的 Project Site" },
+          "externalValidation": { "en": "Human meta-review is part of the author study; no independent replication identified", "zh": "Human Meta-review 属于作者研究流程；未发现 Independent Replication" },
+          "limitation": { "en": "Results depend on the selected seeds, model versions, and review protocol; artifact-aware review reveals large rigor gaps.", "zh": "结果依赖 Selected Seed、Model Version 与 Review Protocol；Artifact-aware Review 显示明显 Rigor Gap。" },
+          "evidenceMaturity": "B",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "None of 117 generated papers reached the study's top-tier acceptance bar after artifact-aware and human review.", "zh": "在 Artifact-aware 与 Human Review 后，117 篇 Generated Paper 均未达到该研究设定的 Top-tier Acceptance Bar。" },
+              "taskDefinition": { "en": "Generate complete computer-science papers from seed topics using minimally scaffolded coding agents.", "zh": "使用 Minimally Scaffolded Coding Agent 从 Seed Topic 生成完整 Computer-science Paper。" },
+              "sampleSizeDenominator": { "en": "117 papers from 13 seeds and 3 trials per agent-domain pair", "zh": "13 个 Seed、每个 Agent-domain Pair 3 次 Trial，共 117 篇 Paper" },
+              "evaluator": { "en": "Manuscript-only reviewer, artifact-aware agent review, and human meta-review", "zh": "Manuscript-only Reviewer、Artifact-aware Agent Review 与 Human Meta-review" },
+              "comparisonBasis": { "en": "Study-defined top-tier venue acceptance bar and human ICLR 2025 score reference", "zh": "研究设定的 Top-tier Venue Acceptance Bar 与 Human ICLR 2025 Score Reference" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-researcharena-paper", "ref-researcharena-site"]
+        },
+        {
+          "id": "sciagentarena-v1",
+          "canonicalWorkId": "sciagentarena",
+          "title": { "en": "Benchmarking AI Agents for Addressing Scientific Challenges Across Scales", "zh": "Benchmarking AI Agents for Addressing Scientific Challenges Across Scales" },
+          "releaseDate": "2026-06-10",
+          "originalReleaseDate": "2026-06-10",
+          "paperVersionDate": "2026-06-10",
+          "paperVersion": "v1",
+          "domain": { "en": "Cross-domain Science", "zh": "Cross-domain Science" },
+          "researchLifecycleCoverage": { "en": "Interactive scientific tasks spanning analysis, reasoning, and open-ended problem solving", "zh": "覆盖 Analysis、Reasoning 与 Open-ended Problem Solving 的 Interactive Scientific Task" },
+          "autonomyLevel": { "en": "Task-level agent evaluation", "zh": "Task-level Agent Evaluation" },
+          "runHorizon": { "en": "Multi-step tasks with stepwise checks", "zh": "带 Stepwise Check 的 Multi-step Task" },
+          "agentTopology": { "en": "Agent-agnostic interactive environment", "zh": "Agent-agnostic Interactive Environment" },
+          "memoryStateMechanism": { "en": "Environment state and intermediate verifiable steps", "zh": "Environment State 与 Intermediate Verifiable Step" },
+          "evaluationProtocol": { "en": "Approximately 200 real-world scientific tasks with stepwise verification", "zh": "约 200 个带 Stepwise Verification 的 Real-world Scientific Task" },
+          "codeDataTrajectoryAvailability": { "en": "Open code, tasks, datasets, and project site", "zh": "开放 Code、Task、Dataset 与 Project Site" },
+          "externalValidation": { "en": "No independent benchmark reproduction identified", "zh": "未发现 Independent Benchmark Reproduction" },
+          "limitation": { "en": "Task performance is strongest where structure and criteria are explicit; open-ended novelty remains weak.", "zh": "当 Task Structure 与 Criteria 明确时表现最好；Open-ended Novelty 仍然较弱。" },
+          "evidenceMaturity": "B",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "SciAgentArena contains approximately 200 real-world scientific tasks with stepwise verification.", "zh": "SciAgentArena 包含约 200 个带 Stepwise Verification 的 Real-world Scientific Task。" },
+              "taskDefinition": { "en": "Evaluate agents on interactive scientific challenges spanning analysis, reasoning, and open-ended problem solving.", "zh": "评估 Agent 在 Analysis、Reasoning 与 Open-ended Problem Solving 等 Interactive Scientific Challenge 上的能力。" },
+              "sampleSizeDenominator": { "en": "Approximately 200 benchmark tasks in the released suite", "zh": "公开 Benchmark Suite 中约 200 个 Task" },
+              "evaluator": { "en": "Environment-owned stepwise verification checks", "zh": "Environment-owned Stepwise Verification Check" },
+              "comparisonBasis": { "en": "Agent performance across the benchmark's task scales and capability categories", "zh": "Agent 在该 Benchmark 不同 Task Scale 与 Capability Category 上的表现" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-sciagentarena-paper", "ref-sciagentarena-site"]
+        },
+        {
+          "id": "autoresearchbench-v1",
+          "canonicalWorkId": "autoresearchbench",
+          "title": { "en": "AutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery", "zh": "AutoResearchBench: Benchmarking AI Agents on Complex Scientific Literature Discovery" },
+          "releaseDate": "2026-04-28",
+          "originalReleaseDate": "2026-04-28",
+          "paperVersionDate": "2026-04-28",
+          "paperVersion": "v1",
+          "domain": { "en": "Literature Discovery", "zh": "Literature Discovery" },
+          "researchLifecycleCoverage": { "en": "Deep target-paper search and wide literature collection", "zh": "Deep Target-paper Search 与 Wide Literature Collection" },
+          "autonomyLevel": { "en": "Autonomous web-research task evaluation", "zh": "Autonomous Web-research Task Evaluation" },
+          "runHorizon": { "en": "Progressive multi-step probing and open-ended collection", "zh": "Progressive Multi-step Probing 与 Open-ended Collection" },
+          "agentTopology": { "en": "Agent-agnostic benchmark", "zh": "Agent-agnostic Benchmark" },
+          "memoryStateMechanism": { "en": "Search trajectory and collected-paper set", "zh": "Search Trajectory 与 Collected-paper Set" },
+          "evaluationProtocol": { "en": "Exact target accuracy for Deep Research and set IoU for Wide Research", "zh": "Deep Research 使用 Exact Target Accuracy，Wide Research 使用 Set IoU" },
+          "codeDataTrajectoryAvailability": { "en": "Open dataset and evaluation pipeline in official repository", "zh": "Official Repository 开放 Dataset 与 Evaluation Pipeline" },
+          "externalValidation": { "en": "No independent reproduction identified", "zh": "未发现 Independent Reproduction" },
+          "limitation": { "en": "Measures literature discovery rather than hypothesis quality, experiment execution, or scientific novelty.", "zh": "测量 Literature Discovery，而非 Hypothesis Quality、Experiment Execution 或 Scientific Novelty。" },
+          "evidenceMaturity": "B",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "The strongest reported systems reach 9.39% accuracy on Deep Research and 9.31% IoU on Wide Research.", "zh": "作者报告的最强 System 在 Deep Research 达到 9.39% Accuracy，在 Wide Research 达到 9.31% IoU。" },
+              "taskDefinition": { "en": "Find a specific target paper through progressive probing or collect all papers satisfying open-ended criteria.", "zh": "通过 Progressive Probing 找到特定 Target Paper，或收集满足 Open-ended Criteria 的全部 Paper。" },
+              "sampleSizeDenominator": { "en": "Full released Deep Research and Wide Research benchmark test sets", "zh": "完整 Released Deep Research 与 Wide Research Benchmark Test Set" },
+              "evaluator": { "en": "Benchmark-owned exact-match accuracy and set intersection-over-union", "zh": "Benchmark-owned Exact-match Accuracy 与 Set Intersection-over-union" },
+              "comparisonBasis": { "en": "Frontier LLM agents and strong web-browsing baselines evaluated under the same benchmark", "zh": "在同一 Benchmark 下比较 Frontier LLM Agent 与 Strong Web-browsing Baseline" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-autoresearchbench-paper", "ref-autoresearchbench-repo"]
+        },
+        {
+          "id": "fire-bench-v2",
+          "canonicalWorkId": "fire-bench",
+          "title": { "en": "FIRE-Bench: Evaluating AI Agents on the Rediscovery of Scientific Insights", "zh": "FIRE-Bench: Evaluating AI Agents on the Rediscovery of Scientific Insights" },
+          "releaseDate": "2026-07-10",
+          "originalReleaseDate": "2026-02-02",
+          "paperVersionDate": "2026-07-10",
+          "paperVersion": "v2 / ICML 2026 camera-ready",
+          "domain": { "en": "AI/ML / Benchmark", "zh": "AI/ML / Benchmark" },
+          "researchLifecycleCoverage": { "en": "Research question → idea exploration → experiment design → code execution → evidence-backed conclusion", "zh": "Research Question → Idea Exploration → Experiment Design → Code Execution → Evidence-backed Conclusion" },
+          "autonomyLevel": { "en": "Full-cycle benchmark evaluation", "zh": "Full-cycle Benchmark Evaluation" },
+          "runHorizon": { "en": "Repeated full-cycle rediscovery attempts", "zh": "重复的 Full-cycle Rediscovery Attempt" },
+          "agentTopology": { "en": "Multiple agent systems and frontier backbones compared", "zh": "比较多种 Agent System 与 Frontier Backbone" },
+          "memoryStateMechanism": { "en": "Experiment artifacts and evidence-linked conclusions", "zh": "Experiment Artifact 与 Evidence-linked Conclusion" },
+          "evaluationProtocol": { "en": "Rediscovery of verified findings from published ML studies", "zh": "Rediscovery 已发表 ML Study 中的 Verified Finding" },
+          "codeDataTrajectoryAvailability": { "en": "Peer-reviewed benchmark paper; public artifact availability is described by the paper", "zh": "Peer-reviewed Benchmark Paper；Public Artifact Availability 以 Paper 描述为准" },
+          "externalValidation": { "en": "Peer-reviewed at ICML 2026; no independent replication identified", "zh": "经 ICML 2026 Peer Review；未发现 Independent Replication" },
+          "limitation": { "en": "Rediscovery is verifiable but remains a proxy for generating genuinely new scientific insights.", "zh": "Rediscovery 可验证，但仍只是 Genuine New Scientific Insight 的 Proxy。" },
+          "evidenceMaturity": "A",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "Even the strongest evaluated agents remain below 50 F1 on full-cycle insight rediscovery.", "zh": "即使最强的 Evaluated Agent，在 Full-cycle Insight Rediscovery 上仍低于 50 F1。" },
+              "taskDefinition": { "en": "Rediscover established findings from high-level questions derived from verified ML studies.", "zh": "从 Verified ML Study 提取的 High-level Question 出发，重新发现 Established Finding。" },
+              "sampleSizeDenominator": { "en": "Full FIRE-Bench evaluation suite and repeated runs reported in the ICML 2026 paper", "zh": "ICML 2026 Paper 报告的完整 FIRE-Bench Evaluation Suite 与 Repeated Run" },
+              "evaluator": { "en": "Benchmark-defined insight rediscovery F1 grounded in verified source studies", "zh": "基于 Verified Source Study 的 Benchmark-defined Insight Rediscovery F1" },
+              "comparisonBasis": { "en": "State-of-the-art agents with frontier LLM backbones under the same protocol", "zh": "在同一 Protocol 下比较 State-of-the-art Agent 与 Frontier LLM Backbone" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-fire-bench-paper"]
+        },
+        {
+          "id": "xray-scientist-vor",
+          "canonicalWorkId": "xray-scientist",
+          "title": { "en": "An agentic artificially intelligent X-ray scientist", "zh": "An agentic artificially intelligent X-ray scientist" },
+          "releaseDate": "2026-07-01",
+          "originalReleaseDate": "2026-07-01",
+          "paperVersionDate": "2026-07-01",
+          "paperVersion": "Version of record",
+          "domain": { "en": "Materials Science / Physics / Synchrotron", "zh": "Materials Science / Physics / Synchrotron" },
+          "researchLifecycleCoverage": { "en": "Plan actions → issue instrument commands → interpret scans/images → adapt → align sample", "zh": "Plan Action → 发出 Instrument Command → 解释 Scan/Image → Adapt → Sample Alignment" },
+          "autonomyLevel": { "en": "Autonomous virtual operation; human-relayed commands on the real beamline for safety", "zh": "Virtual Operation 为 Autonomous；Real Beamline 因 Safety 由人类 Relay Command" },
+          "runHorizon": { "en": "Multi-step orientation and lattice-estimation episodes", "zh": "Multi-step Orientation 与 Lattice-estimation Episode" },
+          "agentTopology": { "en": "Single tool-using agent over an MCP instrument interface", "zh": "通过 MCP Instrument Interface 操作的 Single Tool-using Agent" },
+          "memoryStateMechanism": { "en": "Terminal history, detector images, motor scans, and current instrument state", "zh": "Terminal History、Detector Image、Motor Scan 与 Current Instrument State" },
+          "evaluationProtocol": { "en": "Virtual beamline repeats plus deployment on an operational synchrotron beamline", "zh": "Virtual Beamline Repeat + Operational Synchrotron Beamline Deployment" },
+          "codeDataTrajectoryAvailability": { "en": "Open-access peer-reviewed article and source data; no complete public execution trajectory identified", "zh": "开放 Peer-reviewed Article 与 Source Data；未发现 Complete Public Execution Trajectory" },
+          "externalValidation": { "en": "Peer-reviewed and executed on a real beamline; not independently replicated", "zh": "经 Peer Review 且在 Real Beamline 执行；未被 Independently Replicated" },
+          "limitation": { "en": "Real commands were relayed by a human and identical real-world configurations were not systematically repeated because of beamtime constraints.", "zh": "Real Command 由人类 Relay；受 Beamtime 限制，Real-world Configuration 未进行 Systematic Repeat。" },
+          "evidenceMaturity": "A",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "The virtual-beamline study evaluated two agentic models over ten independent runs each before one real-beamline demonstration.", "zh": "Virtual Beamline Study 对两个 Agentic Model 各进行了 10 次 Independent Run，并进一步完成一次 Real-beamline Demonstration。" },
+              "taskDefinition": { "en": "Estimate sample orientation and lattice parameters, then deploy the workflow for real synchrotron sample alignment.", "zh": "估计 Sample Orientation 与 Lattice Parameter，并将 Workflow 部署到真实 Synchrotron Sample Alignment。" },
+              "sampleSizeDenominator": { "en": "2 models × 10 independent virtual runs per model; 1 real-beamline demonstration", "zh": "2 个 Model × 每个 Model 10 次 Independent Virtual Run；1 次 Real-beamline Demonstration" },
+              "evaluator": { "en": "Ground-truth orientation and lattice-parameter error in simulation; successful reference-reflection identification and orientation-matrix determination on the beamline", "zh": "Simulation 中的 Ground-truth Orientation 与 Lattice-parameter Error；Beamline 上 Reference Reflection Identification 与 Orientation-matrix Determination 是否成功" },
+              "comparisonBasis": { "en": "Two LLM backbones under the study's virtual protocol, followed by a safety-relayed operational beamline case", "zh": "两个 LLM Backbone 在同一 Virtual Protocol 下的表现，以及一个由 Safety Relay 支持的 Operational Beamline Case" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-xray-scientist-paper"]
+        },
+        {
+          "id": "autolabs-vor",
+          "canonicalWorkId": "autolabs",
+          "title": { "en": "AutoLabs: cognitive multi-agent systems with self-correction for autonomous chemical experimentation", "zh": "AutoLabs: cognitive multi-agent systems with self-correction for autonomous chemical experimentation" },
+          "releaseDate": "2026-06-25",
+          "originalReleaseDate": "2026-06-25",
+          "paperVersionDate": "2026-06-25",
+          "paperVersion": "Version of record",
+          "domain": { "en": "Chemistry / Wet-lab Automation", "zh": "Chemistry / Wet-lab Automation" },
+          "researchLifecycleCoverage": { "en": "Natural-language goal → protocol decomposition → stoichiometry → self-check → hardware-ready file", "zh": "Natural-language Goal → Protocol Decomposition → Stoichiometry → Self-check → Hardware-ready File" },
+          "autonomyLevel": { "en": "Human-initiated protocol generation with mandatory verification before execution", "zh": "Human-initiated Protocol Generation，执行前需要 Mandatory Verification" },
+          "runHorizon": { "en": "Five benchmark protocols across twenty agent configurations", "zh": "五个 Benchmark Protocol × 二十种 Agent Configuration" },
+          "agentTopology": { "en": "Supervisor plus five specialized agents and self-check nodes", "zh": "Supervisor + 五个 Specialized Agent + Self-check Node" },
+          "memoryStateMechanism": { "en": "Dialogue state, procedural representation, curated chemistry tools, and self-check state", "zh": "Dialogue State、Procedural Representation、Curated Chemistry Tool 与 Self-check State" },
+          "evaluationProtocol": { "en": "Procedure F1, chemical-amount nRMSE, ablations, expert review, simulator and limited hardware execution", "zh": "Procedure F1、Chemical-amount nRMSE、Ablation、Expert Review、Simulator 与 Limited Hardware Execution" },
+          "codeDataTrajectoryAvailability": { "en": "Open-access article and official code repository", "zh": "开放 Article 与 Official Code Repository" },
+          "externalValidation": { "en": "Peer-reviewed; hardware execution is within the author study, not independent replication", "zh": "经 Peer Review；Hardware Execution 属于作者研究，而非 Independent Replication" },
+          "limitation": { "en": "Evaluated on one liquid-handler platform; execution retains a critical human verification step and most hardware checks are simulated.", "zh": "仅在一个 Liquid-handler Platform 评估；执行保留 Critical Human Verification，且多数 Hardware Check 为 Simulation。" },
+          "evidenceMaturity": "A",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "Across five experiments and twenty configurations, reasoning reduced complex-task nRMSE by more than 85%, while the best challenging protocols exceeded 0.89 F1.", "zh": "在五个 Experiment 与二十种 Configuration 中，Reasoning 将复杂 Task 的 nRMSE 降低超过 85%，最佳 Challenging Protocol 的 F1 超过 0.89。" },
+              "taskDefinition": { "en": "Translate natural-language chemistry instructions into correct hardware-ready liquid-handler protocols.", "zh": "将 Natural-language Chemistry Instruction 转换为正确的 Hardware-ready Liquid-handler Protocol。" },
+              "sampleSizeDenominator": { "en": "5 benchmark experiments; 20 agent configurations", "zh": "5 个 Benchmark Experiment；20 种 Agent Configuration" },
+              "evaluator": { "en": "Automated procedural F1 and chemical-amount nRMSE, supplemented by expert evaluation", "zh": "Automated Procedural F1 与 Chemical-amount nRMSE，并辅以 Expert Evaluation" },
+              "comparisonBasis": { "en": "Single- versus multi-agent, reasoning capacity, tool use, and self-correction ablations against expert-authored references", "zh": "对比 Single/Multi-agent、Reasoning Capacity、Tool Use 与 Self-correction Ablation，并以 Expert-authored Reference 为基准" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-autolabs-paper", "ref-autolabs-repo"]
+        },
+        {
+          "id": "robin-vor",
+          "canonicalWorkId": "robin",
+          "title": { "en": "A multi-agent system for automating scientific discovery", "zh": "A multi-agent system for automating scientific discovery" },
+          "releaseDate": "2026-05-19",
+          "originalReleaseDate": "2026-05-19",
+          "paperVersionDate": "2026-07-01",
+          "paperVersion": "Version of record",
+          "domain": { "en": "Life Science / Drug Discovery", "zh": "Life Science / Drug Discovery" },
+          "researchLifecycleCoverage": { "en": "Literature and data analysis → hypothesis → experiment planning → human wet-lab validation", "zh": "Literature/Data Analysis → Hypothesis → Experiment Planning → Human Wet-lab Validation" },
+          "autonomyLevel": { "en": "Multi-agent computational discovery with human-executed wet-lab validation", "zh": "Multi-agent Computational Discovery + Human-executed Wet-lab Validation" },
+          "runHorizon": { "en": "Long-form research campaigns culminating in biological experiments", "zh": "以 Biological Experiment 收尾的 Long-form Research Campaign" },
+          "agentTopology": { "en": "Specialized multi-agent research organization", "zh": "Specialized Multi-agent Research Organization" },
+          "memoryStateMechanism": { "en": "Shared research artifacts, literature evidence, and experiment plans", "zh": "Shared Research Artifact、Literature Evidence 与 Experiment Plan" },
+          "evaluationProtocol": { "en": "Peer review plus selected wet-lab experiments executed by humans", "zh": "Peer Review + 由人类执行的 Selected Wet-lab Experiment" },
+          "codeDataTrajectoryAvailability": { "en": "Peer-reviewed article and supplementary materials; complete trajectories not identified", "zh": "Peer-reviewed Article 与 Supplementary Material；未发现 Complete Trajectory" },
+          "externalValidation": { "en": "Peer-reviewed and biologically tested within the author collaboration; no independent replication identified", "zh": "经 Peer Review，并在作者 Collaboration 内进行 Biological Test；未发现 Independent Replication" },
+          "limitation": { "en": "Humans select and execute wet-lab experiments; evidence supports a human–agent discovery workflow, not an autonomous laboratory scientist.", "zh": "Wet-lab Experiment 由人类选择并执行；证据支持 Human–agent Discovery Workflow，而非 Autonomous Laboratory Scientist。" },
+          "evidenceMaturity": "A",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": ["ref-robin-paper"]
+        },
+        {
+          "id": "ai-scientist-vor",
+          "canonicalWorkId": "ai-scientist",
+          "title": { "en": "Towards end-to-end automation of AI research", "zh": "Towards end-to-end automation of AI research" },
+          "releaseDate": "2026-03-25",
+          "originalReleaseDate": "2026-03-25",
+          "paperVersionDate": "2026-03-25",
+          "paperVersion": "Version of record",
+          "domain": { "en": "AI/ML", "zh": "AI/ML" },
+          "researchLifecycleCoverage": { "en": "Idea → experiment → analysis → manuscript → workshop submission", "zh": "Idea → Experiment → Analysis → Manuscript → Workshop Submission" },
+          "autonomyLevel": { "en": "End-to-end computational paper generation with human submission and venue process", "zh": "End-to-end Computational Paper Generation + Human Submission 与 Venue Process" },
+          "runHorizon": { "en": "Multi-stage agentic tree search through a paper-producing workflow", "zh": "贯穿 Paper-producing Workflow 的 Multi-stage Agentic Tree Search" },
+          "agentTopology": { "en": "Agentic tree search with specialized research stages", "zh": "Agentic Tree Search + Specialized Research Stage" },
+          "memoryStateMechanism": { "en": "Branching experiment and manuscript state", "zh": "Branching Experiment 与 Manuscript State" },
+          "evaluationProtocol": { "en": "Code execution, automated review, and real workshop peer-review process", "zh": "Code Execution、Automated Review 与 Real Workshop Peer-review Process" },
+          "codeDataTrajectoryAvailability": { "en": "Peer-reviewed article and associated public project artifacts", "zh": "Peer-reviewed Article 与 Associated Public Project Artifact" },
+          "externalValidation": { "en": "Peer-reviewed Nature article and one real workshop review outcome; not independent scientific replication", "zh": "Nature Peer-reviewed Article + 一次 Real Workshop Review Outcome；不等于 Independent Scientific Replication" },
+          "limitation": { "en": "Workshop acceptance is a noisy and permissive proxy for scientific novelty and validity; one accepted paper cannot establish reliable autonomy.", "zh": "Workshop Acceptance 是 Scientific Novelty 与 Validity 的高噪声、宽松 Proxy；单篇 Accepted Paper 无法证明 Reliable Autonomy。" },
+          "evidenceMaturity": "A",
+          "deltaStatus": "Context",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": { "en": "One of three selected AI-generated manuscripts exceeded the workshop's average acceptance threshold; the workshop acceptance rate was 70%.", "zh": "3 篇 Selected AI-generated Manuscript 中有 1 篇超过 Workshop 的 Average Acceptance Threshold；该 Workshop Acceptance Rate 为 70%。" },
+              "taskDefinition": { "en": "Run an end-to-end AI research workflow and submit selected generated manuscripts to a real blind workshop review process.", "zh": "运行 End-to-end AI Research Workflow，并将 Selected Generated Manuscript 提交到真实 Blind Workshop Review Process。" },
+              "sampleSizeDenominator": { "en": "3 selected generated manuscripts submitted among 43 workshop papers", "zh": "3 篇 Selected Generated Manuscript；Workshop 共评审 43 篇 Paper" },
+              "evaluator": { "en": "Real workshop peer reviewers and the workshop's average acceptance threshold", "zh": "Real Workshop Peer Reviewer 与该 Workshop 的 Average Acceptance Threshold" },
+              "comparisonBasis": { "en": "The workshop acceptance bar and the higher main-conference publication bar", "zh": "Workshop Acceptance Bar 与更高的 Main-conference Publication Bar" },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": ["ref-ai-scientist-paper"]
+        }
+      ],
+      "references": [
+        { "id": "ref-auto-research-materials-paper", "workId": "auto-research-materials-v2", "kind": "Paper", "authority": "Primary", "title": "Auto Research for Materials (arXiv v2)", "url": "https://arxiv.org/abs/2607.17100v2" },
+        { "id": "ref-long-horizon-paper", "workId": "long-horizon-architecture-v1", "kind": "Paper", "authority": "Primary", "title": "Long-Horizon Autonomous Architecture Research (arXiv v1)", "url": "https://arxiv.org/abs/2608.01995v1" },
+        { "id": "ref-verification-gap-paper", "workId": "verification-gap-v1", "kind": "Paper", "authority": "Primary", "title": "Autonomous Research Agents and the Verification Gap (arXiv v1)", "url": "https://arxiv.org/abs/2608.05179v1" },
+        { "id": "ref-specialist-paper", "workId": "specialist-agents-v1", "kind": "Paper", "authority": "Primary", "title": "Auto Research with Specialist Agents (arXiv v1)", "url": "https://arxiv.org/abs/2605.05724v1" },
+        { "id": "ref-specialist-repo", "workId": "specialist-agents-v1", "kind": "Repository", "authority": "Official", "title": "Auto-Research-Recipes", "url": "https://github.com/cxcscmu/Auto-Research-Recipes" },
+        { "id": "ref-eurekagent-paper", "workId": "eurekagent-v2", "kind": "Paper", "authority": "Primary", "title": "EurekAgent (arXiv v2)", "url": "https://arxiv.org/abs/2606.13662v2" },
+        { "id": "ref-eurekagent-repo", "workId": "eurekagent-v2", "kind": "Repository", "authority": "Official", "title": "EurekAgent official repository", "url": "https://github.com/THU-Team-Eureka/EurekAgent" },
+        { "id": "ref-discoper-paper", "workId": "discoper-v1", "kind": "Paper", "authority": "Primary", "title": "Autonomous Scientific Discovery via Iterative Meta-Reflection (arXiv v1)", "url": "https://arxiv.org/abs/2607.01131v1" },
+        { "id": "ref-researcharena-paper", "workId": "researcharena-v1", "kind": "Paper", "authority": "Primary", "title": "How Far Are We From True Auto-Research? (arXiv v1)", "url": "https://arxiv.org/abs/2605.19156v1" },
+        { "id": "ref-researcharena-site", "workId": "researcharena-v1", "kind": "Project", "authority": "Official", "title": "ResearchArena project site", "url": "https://youarespecialtome.github.io/ResearchArena/index.html" },
+        { "id": "ref-sciagentarena-paper", "workId": "sciagentarena-v1", "kind": "Paper", "authority": "Primary", "title": "SciAgentArena paper (arXiv v1)", "url": "https://arxiv.org/abs/2606.12736v1" },
+        { "id": "ref-sciagentarena-site", "workId": "sciagentarena-v1", "kind": "Project", "authority": "Official", "title": "SciAgentArena project site", "url": "https://sciagentarena.github.io/" },
+        { "id": "ref-autoresearchbench-paper", "workId": "autoresearchbench-v1", "kind": "Paper", "authority": "Primary", "title": "AutoResearchBench paper (arXiv v1)", "url": "https://arxiv.org/abs/2604.25256v1" },
+        { "id": "ref-autoresearchbench-repo", "workId": "autoresearchbench-v1", "kind": "Repository", "authority": "Official", "title": "AutoResearchBench official repository", "url": "https://github.com/CherYou/AutoResearchBench" },
+        { "id": "ref-fire-bench-paper", "workId": "fire-bench-v2", "kind": "Paper", "authority": "Primary", "title": "FIRE-Bench (ICML 2026 camera-ready, arXiv v2)", "url": "https://arxiv.org/abs/2602.02905v2" },
+        { "id": "ref-xray-scientist-paper", "workId": "xray-scientist-vor", "kind": "Paper", "authority": "Primary", "title": "An agentic artificially intelligent X-ray scientist", "url": "https://www.nature.com/articles/s42256-026-01261-5" },
+        { "id": "ref-autolabs-paper", "workId": "autolabs-vor", "kind": "Paper", "authority": "Primary", "title": "AutoLabs", "url": "https://www.nature.com/articles/s41598-026-45593-z" },
+        { "id": "ref-autolabs-repo", "workId": "autolabs-vor", "kind": "Repository", "authority": "Official", "title": "AutoLabs official repository", "url": "https://github.com/pnnl/autolabs" },
+        { "id": "ref-robin-paper", "workId": "robin-vor", "kind": "Paper", "authority": "Primary", "title": "A multi-agent system for automating scientific discovery", "url": "https://www.nature.com/articles/s41586-026-10652-y" },
+        { "id": "ref-ai-scientist-paper", "workId": "ai-scientist-vor", "kind": "Paper", "authority": "Primary", "title": "Towards end-to-end automation of AI research", "url": "https://www.nature.com/articles/s41586-026-10265-5" }
+      ]
+    }
+  ]
+}
