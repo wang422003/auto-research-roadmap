@@ -2,6 +2,8 @@
 
 A source-grounded technical report on external progress in **Auto Research / Vibe Research** from 2025-07-28 to 2026-07-28.
 
+**Live site:** [https://wang422003.github.io/auto-research-roadmap/](https://wang422003.github.io/auto-research-roadmap/)
+
 The site covers:
 
 - 25 deduplicated representative systems, methods, and benchmarks;
