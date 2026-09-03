@@ -100,6 +100,14 @@ test("server-renders dated English field updates and their evidence contract", a
   assert.match(html, /<title>Living Field Updates — Auto Research Atlas<\/title>/i);
   assert.match(html, /<time\b[^>]*dateTime="2026-[^"]+"[^>]*>/i);
   assert.match(html, /2026-08-11/);
+  assert.match(html, /2026-09-03/);
+  assert.match(html, /AutoResearchEval/);
+  assert.match(html, /ScienceFlow/);
+  assert.match(html, /BixBench3/);
+  assert.match(html, /PRIS/);
+  assert.match(html, /Additional Signals/);
+  assert.match(html, /Carried context/);
+  assert.match(html, /AutoResearch:\s*Insight/);
   assert.match(html, /2026-07-28/);
   assert.match(withoutReactMarkers(html), /2\s+New/);
   assert.match(html, /Auto Research for Materials/);
@@ -118,6 +126,11 @@ test("server-renders dated Chinese field updates and preserves the nested langua
   assert.match(html, /<title>Living Field Updates — Auto Research Atlas 中文版<\/title>/i);
   assert.match(html, /<time\b[^>]*dateTime="2026-[^"]+"[^>]*>/i);
   assert.match(html, /2026-08-11/);
+  assert.match(html, /2026-09-03/);
+  assert.match(html, /AutoResearchEval/);
+  assert.match(html, /ScienceFlow/);
+  assert.match(html, /Additional Signals/);
+  assert.match(html, /Carried context/);
   assert.match(html, /2026-07-28/);
   assert.match(withoutReactMarkers(html), /2\s+New/);
   assert.match(html, /Auto Research for Materials/);
@@ -127,3 +140,27 @@ test("server-renders dated Chinese field updates and preserves the nested langua
   assertLanguageSwitch(html, "/zh/updates/", "en", "/updates/");
   assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);
 });
+
+for (const [pathname, expectedTitle, language, alternatePath] of [
+  ["/ros/", /Research Operating System — Auto Research Atlas/, "en", "/zh/ros/"],
+  ["/zh/ros/", /Research Operating System — Auto Research Atlas 中文版/, "zh-CN", "/ros/"],
+  ["/ros/foundations/", /What Is a Research Operating System\?/, "en", "/zh/ros/foundations/"],
+  ["/ros/evaluation/", /How to Evaluate a Research Operating System\?/, "en", "/zh/ros/evaluation/"],
+  ["/ros/practice/", /Vibe Research in Practice/, "en", "/zh/ros/practice/"],
+  ["/zh/ros/foundations/", /什么是 Research Operating System/, "zh-CN", "/ros/foundations/"],
+  ["/zh/ros/evaluation/", /如何评估一个 Research Operating System/, "zh-CN", "/ros/evaluation/"],
+  ["/zh/ros/practice/", /Vibe Research 如何真正运行/, "zh-CN", "/ros/practice/"],
+]) {
+  test(`server-renders Research OS route ${pathname}`, async () => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<title>.*${expectedTitle.source}.*</title>`, "i"));
+    assert.match(html, new RegExp(`lang="${language}"`));
+    assert.match(html, /Research Operating System/);
+    if (pathname.endsWith("/ros/")) assert.match(html, /Reading Series|Articles/);
+    else assert.match(html, /Primary references|Primary References|References/);
+    assertLanguageSwitch(html, pathname, language === "en" ? "zh-CN" : "en", alternatePath);
+    assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);
+  });
+}

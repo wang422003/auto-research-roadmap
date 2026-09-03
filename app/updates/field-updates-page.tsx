@@ -40,6 +40,8 @@ type UpdateView = {
   summary: string;
   takeaways: string[];
   works: WorkView[];
+  contextWorks: WorkView[];
+  contextReferences: string[];
   themes: NamedCopy[];
   ladder: NamedCopy[];
   gaps: NamedCopy[];
@@ -135,6 +137,38 @@ function normalizeWork(value: unknown, locale: Locale, index: number): WorkView 
   };
 }
 
+const archivedWorkById = new Map(
+  fieldUpdates.flatMap((update) => update.works.map((work) => [work.id, work] as const)),
+);
+
+// The oldest update's previous cutoff is the frozen v1.1 report boundary.
+// Derive it from the append-only source so the page never drifts when another
+// update is added.
+const frozenReportCutoff = fieldUpdates.at(-1)?.previousCutoff ?? "2026-07-28";
+
+// Update 002 calls out twelve representative works in the first screen. The
+// remaining six signals stay available in an explicit, collapsed group so the
+// archive remains comprehensive without letting the evidence table lose its
+// editorial focus.
+const update002CoreWorkIds = new Set([
+  "autoresearch-eval-v3",
+  "beyond-final-scores-v1",
+  "scienceflow-v2",
+  "little-scientist-v1",
+  "creativity-agents-v1",
+  "station-v1",
+  "bixbench3-v1",
+  "coscientist-realworld-v1",
+  "dr-claw-v1",
+  "pris-v1",
+  "asset-pricing-v1",
+  "brain-researcher-v1",
+]);
+
+function isAdditionalSignal(update: UpdateView, work: WorkView): boolean {
+  return update.id === "update-002-2026-09-03" && work.status === "New" && !update002CoreWorkIds.has(work.id);
+}
+
 function normalizeReference(
   value: unknown,
   locale: Locale,
@@ -151,6 +185,7 @@ function normalizeReference(
 
 function normalizeUpdate(value: unknown, locale: Locale): UpdateView {
   const update = asRecord(value);
+  const contextReferences = asArray(update.contextReferences).map(scalar).filter(Boolean);
   return {
     id: scalar(update.id),
     publishedAt: scalar(update.publishedAt),
@@ -164,6 +199,10 @@ function normalizeUpdate(value: unknown, locale: Locale): UpdateView {
     works: asArray(update.works).map((item, index) =>
       normalizeWork(item, locale, index),
     ),
+    contextWorks: contextReferences
+      .map((id, index) => normalizeWork(archivedWorkById.get(id), locale, index))
+      .filter((work) => work.title),
+    contextReferences,
     themes: asArray(update.themes).map((item, index) =>
       normalizeNamedCopy(item, locale, index),
     ),
@@ -233,6 +272,7 @@ function changeGroup(
   update: UpdateView,
   status: WorkView["status"],
   locale: Locale,
+  includeWork: (work: WorkView) => boolean = () => true,
 ) {
   const labels: Record<string, [string, string]> = {
     New: ["New since the previous cutoff", "Previous Cutoff 后新增"],
@@ -240,7 +280,8 @@ function changeGroup(
     "Date Clarification": ["Date clarification", "日期校正"],
   };
   const heading = labels[status] ?? [status, status];
-  const works = update.works.filter((work) => work.status === status);
+  const works = update.works.filter((work) => work.status === status && includeWork(work));
+  if (!works.length) return null;
   return (
     <article className={`updates-change-group updates-status-${statusClass(status)}`}>
       <div className="updates-change-heading">
@@ -264,6 +305,112 @@ function changeGroup(
         ))}
       </ul>
     </article>
+  );
+}
+
+function additionalSignalsGroup(update: UpdateView, locale: Locale) {
+  const isZh = locale === "zh";
+  const works = update.works.filter((work) => isAdditionalSignal(update, work));
+  if (!works.length) return null;
+  return (
+    <details className="updates-additional-signals">
+      <summary>
+        <span className="updates-status-label">Additional Signals</span>
+        <strong>{isZh ? "Additional Signals · 其他信号" : "Additional Signals"}</strong>
+        <b>{works.length}</b>
+        <i aria-hidden="true">+</i>
+      </summary>
+      <p>
+        {isZh
+          ? "这些条目纳入本次 archive，但不占据首屏重点；展开可查看完整 Evidence。"
+          : "These works stay in the archive but remain out of the first-screen focus. Expand to inspect their evidence."}
+      </p>
+      <ul>
+        {works.map((work) => (
+          <li key={work.id}>
+            <span>{work.title}</span>
+            <span>
+              <time dateTime={work.paperVersionDate || work.releaseDate}>
+                {work.paperVersionDate || work.releaseDate}
+              </time>
+              <i className={`updates-grade updates-grade-${work.maturity.toLowerCase()}`}>
+                Evidence {work.maturity}
+              </i>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
+function carriedContextGroup(update: UpdateView, locale: Locale) {
+  const isZh = locale === "zh";
+  return (
+    <article className="updates-change-group updates-carried-context">
+      <div className="updates-change-heading">
+        <span className="updates-status-label">Context reference</span>
+        <strong>{isZh ? "Carried context · 旧条目引用" : "Carried context · archived references"}</strong>
+        <b>{update.contextWorks.length} {isZh ? "carried" : "carried"}</b>
+      </div>
+      <p className="updates-carried-note">
+        {isZh
+          ? "这些 work 已在更早的 Update 中归档；本次只用于主题与能力判断，不计入当前 Evidence denominator。"
+          : "These works were archived in earlier Updates. They inform themes and capability assessment, but do not enter this update's Evidence denominator."}
+      </p>
+      <ul>
+        {update.contextWorks.map((work) => (
+          <li key={work.id}>
+            <span>{work.title}</span>
+            <span>
+              <time dateTime={work.paperVersionDate || work.releaseDate}>
+                {work.paperVersionDate || work.releaseDate}
+              </time>
+              <i className={`updates-grade updates-grade-${work.maturity.toLowerCase()}`}>
+                Evidence {work.maturity}
+              </i>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function EvidenceTable({ works, locale, label }: { works: WorkView[]; locale: Locale; label?: string }) {
+  const t = (en: string, zh: string) => (locale === "zh" ? zh : en);
+  return (
+    <div className="updates-table-shell" role="region" aria-label={label ?? t("Scrollable evidence table", "可滚动 Evidence Table")} tabIndex={0}>
+      <table>
+        <caption className="updates-visually-hidden">{t("Research works and public evidence", "Research Work 与公开证据")}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{t("Status", "状态")}</th>
+            <th scope="col">{t("Work / Domain", "工作 / Domain")}</th>
+            <th scope="col">{t("Validation", "Validation")}</th>
+            <th scope="col">{t("Grade", "等级")}</th>
+            <th scope="col">{t("Limitation", "Limitation")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {works.map((work) => (
+            <tr key={work.id}>
+              <td data-label={t("Status", "状态")}>
+                <span className={`updates-status-label updates-status-${statusClass(work.status)}`}>{statusLabel(work.status, locale)}</span>
+              </td>
+              <th scope="row" data-label={t("Work / Domain", "工作 / Domain")}>
+                <strong>{work.title}</strong>
+                <span>{work.domain}</span>
+                <time dateTime={work.paperVersionDate || work.releaseDate}>{t("Version", "版本")} {work.paperVersionDate || work.releaseDate}</time>
+              </th>
+              <td data-label={t("Validation", "Validation")}>{work.validation}</td>
+              <td data-label={t("Grade", "等级")}><span className={`updates-grade updates-grade-${work.maturity.toLowerCase()}`}>Evidence {work.maturity}</span></td>
+              <td data-label={t("Limitation", "Limitation")}>{work.limitation}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -317,13 +464,15 @@ function UpdateEntry({
         >
           <div className="updates-section-label">01 / {t("Delta", "变化")}</div>
           <div className="updates-section-heading">
-            <h2>{t("What changed since v1.1", "相对 v1.1 有何变化")}</h2>
+            <h2>{t("What changed since the previous cutoff", "相对 Previous Cutoff 有何变化")}</h2>
             <p>{update.summary}</p>
           </div>
-          <div className="updates-change-grid">
-            {changeGroup(update, "New", locale)}
+          <div className={`updates-change-grid${update.works.some((work) => work.status === "Date Clarification") ? "" : " updates-change-grid-no-date"}`}>
+            {changeGroup(update, "New", locale, (work) => !isAdditionalSignal(update, work))}
             {changeGroup(update, "Date Clarification", locale)}
             {changeGroup(update, "Context", locale)}
+            {additionalSignalsGroup(update, locale)}
+            {update.contextWorks.length ? carriedContextGroup(update, locale) : null}
           </div>
           <div className="updates-takeaways">
             <span>{t("Current read", "当前判断")}</span>
@@ -386,47 +535,20 @@ function UpdateEntry({
               </div>
             ))}
           </div>
-          <div className="updates-table-shell" role="region" aria-label={t("Scrollable evidence table", "可滚动 Evidence Table")} tabIndex={0}>
-            <table>
-              <caption className="updates-visually-hidden">
-                {t("Research works and public evidence", "Research Work 与公开证据")}
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">{t("Status", "状态")}</th>
-                  <th scope="col">{t("Work / Domain", "工作 / Domain")}</th>
-                  <th scope="col">{t("Validation", "Validation")}</th>
-                  <th scope="col">{t("Grade", "等级")}</th>
-                  <th scope="col">{t("Limitation", "Limitation")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {update.works.map((work) => (
-                  <tr key={work.id}>
-                    <td data-label={t("Status", "状态")}>
-                      <span className={`updates-status-label updates-status-${statusClass(work.status)}`}>
-                        {statusLabel(work.status, locale)}
-                      </span>
-                    </td>
-                    <th scope="row" data-label={t("Work / Domain", "工作 / Domain")}>
-                      <strong>{work.title}</strong>
-                      <span>{work.domain}</span>
-                      <time dateTime={work.paperVersionDate || work.releaseDate}>
-                        {t("Version", "版本")} {work.paperVersionDate || work.releaseDate}
-                      </time>
-                    </th>
-                    <td data-label={t("Validation", "Validation")}>{work.validation}</td>
-                    <td data-label={t("Grade", "等级")}>
-                      <span className={`updates-grade updates-grade-${work.maturity.toLowerCase()}`}>
-                        Evidence {work.maturity}
-                      </span>
-                    </td>
-                    <td data-label={t("Limitation", "Limitation")}>{work.limitation}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <EvidenceTable
+            works={update.works.filter((work) => !isAdditionalSignal(update, work))}
+            locale={locale}
+          />
+          {update.works.some((work) => isAdditionalSignal(update, work)) ? (
+            <details className="updates-additional-evidence">
+              <summary>{t("Show Additional Signals in the evidence table", "在 Evidence Table 中显示 Additional Signals")} <span aria-hidden="true">＋</span></summary>
+              <EvidenceTable
+                works={update.works.filter((work) => isAdditionalSignal(update, work))}
+                locale={locale}
+                label={t("Additional signals evidence table", "Additional Signals Evidence Table")}
+              />
+            </details>
+          ) : null}
           {update.capabilityAssessment.length ? (
             <div className="updates-capability-assessment">
               {update.capabilityAssessment.map((item) => (
@@ -515,7 +637,7 @@ function UpdateEntry({
           <ol className="updates-reference-list">
             {update.references.map((reference, index) => (
               <li key={reference.id || reference.url}>
-                <a href={reference.url} target="_blank" rel="noreferrer">
+                <a href={reference.url} target="_blank" rel="noreferrer noopener">
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <strong>{reference.title}</strong>
                   {reference.kind ? <small>{reference.kind}</small> : null}
@@ -582,6 +704,7 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
           <nav className="updates-desktop-nav" aria-label={t("Field updates navigation", "领域更新导航")}>
             <a href={sitePath(reportHref)}>{t("Report", "主报告")}</a>
             <a aria-current="page" href={sitePath(updatesHref)}>{t("Updates", "更新")}</a>
+            <a href={sitePath(isZh ? "/zh/ros/" : "/ros/")}>{t("Research OS", "Research OS")}</a>
             <a href={latestSection("themes")}>{t("Themes", "主题")}</a>
             <a href={latestSection("evidence")}>{t("Evidence", "证据")}</a>
             <a href={latestSection("gaps")}>{t("Open gaps", "开放问题")}</a>
@@ -597,6 +720,7 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
         </div>
         <nav className="updates-mobile-nav" aria-label={t("Field update sections", "领域更新章节")}>
           <a href={sitePath(reportHref)}>{t("Report", "主报告")}</a>
+          <a href={sitePath(isZh ? "/zh/ros/" : "/ros/")}>Research OS</a>
           <a href={latestSection("changes")}>{t("Changed", "变化")}</a>
           <a href={latestSection("themes")}>{t("Themes", "主题")}</a>
           <a href={latestSection("evidence")}>{t("Evidence", "证据")}</a>
@@ -612,8 +736,8 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
               <span className="live-dot" /> Living Field Updates · {updateLabel(latest.id)} · <time dateTime={latest.publishedAt}>{latest.publishedAt}</time>
             </div>
             <h1>
-              <span>{t("Evaluation gets sharper.", "Evaluation 更严格；")}</span>
-              <span>{t("Genuine novelty remains unproven.", "Genuine Novelty 仍未得到证明。")}</span>
+              <span>{latest.title}</span>
+              <span className="updates-hero-subline">{t("Process evidence expands; novelty remains a claim.", "Process Evidence 扩展；Novelty 仍只是 Claim。")}</span>
             </h1>
             <p>{latest.summary}</p>
             <div className="updates-hero-actions">
@@ -645,6 +769,9 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
                 "Append-only. Corrections create a new versioned entry; prior evidence grades are never silently rewritten.",
                 "Append-only。纠错会创建新的 Versioned Entry，旧 Evidence Grade 不会被静默覆盖。",
               )}
+              <span className="updates-frozen-cutoff">
+                {t("Frozen v1.1 report cutoff", "冻结的 v1.1 报告 Cutoff")} · <time dateTime={frozenReportCutoff}>{frozenReportCutoff}</time>
+              </span>
             </p>
           </aside>
         </section>
@@ -663,6 +790,20 @@ export default function FieldUpdatesPage({ locale }: { locale: Locale }) {
               "Untouched Holdout、Artifact-aware Review、Stepwise Verification 与 Real Instrument Execution 正在强化证据；Scientific Judgment、Independent Replication、Long-horizon Coherence 与 Research Integrity 仍是主要 Bottleneck。",
             )}
           </p>
+        </section>
+
+        <section className="updates-ros-lens" aria-labelledby="updates-ros-lens-title">
+          <div>
+            <span className="updates-section-label">Research Operating System</span>
+            <h2 id="updates-ros-lens-title">{t("Read the field through a durable system lens.", "用持久系统视角理解这个领域。")}</h2>
+            <p>{t("The companion series separates State, Execution, and Control & Accountability, then turns the evidence gap into an operating checklist.", "配套系列拆解 State、Execution 与 Control & Accountability，并把 Evidence Gap 变成可执行 Checklist。")}</p>
+          </div>
+          <div className="updates-ros-links">
+            <a className="button primary" href={sitePath(isZh ? "/zh/ros/" : "/ros/")}>{t("Open Research OS", "打开 Research OS")}</a>
+            <a href={sitePath(isZh ? "/zh/ros/foundations/" : "/ros/foundations/")}>{t("Foundations", "Foundations")} ↗</a>
+            <a href={sitePath(isZh ? "/zh/ros/evaluation/" : "/ros/evaluation/")}>{t("Evaluation", "Evaluation")} ↗</a>
+            <a href={sitePath(isZh ? "/zh/ros/practice/" : "/ros/practice/")}>{t("Practice", "Practice")} ↗</a>
+          </div>
         </section>
 
         <section className="updates-archive" id="archive">

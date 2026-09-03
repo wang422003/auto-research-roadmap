@@ -47,8 +47,14 @@ async function assertPrefixedBuildAssets(html, routeLabel) {
 }
 
 for (const [routeLabel, relativePath, canonicalPath, languagePath, languageCode] of [
-  ["English updates", "updates", "/updates/", "/zh/updates/#2026-08-11", "zh-CN"],
-  ["Chinese updates", path.join("zh", "updates"), "/zh/updates/", "/updates/#2026-08-11", "en"],
+  ["English updates", "updates", "/updates/", "/zh/updates/#2026-09-03", "zh-CN"],
+  ["Chinese updates", path.join("zh", "updates"), "/zh/updates/", "/updates/#2026-09-03", "en"],
+  ["English Research OS", "ros", "/ros/", "/zh/ros/", "zh-CN"],
+  ["Chinese Research OS", path.join("zh", "ros"), "/zh/ros/", "/ros/", "en"],
+  ...["foundations", "evaluation", "practice"].flatMap((slug) => [
+    ["English Research OS " + slug, path.join("ros", slug), `/ros/${slug}/`, `/zh/ros/${slug}/`, "zh-CN"],
+    ["Chinese Research OS " + slug, path.join("zh", "ros", slug), `/zh/ros/${slug}/`, `/ros/${slug}/`, "en"],
+  ]),
 ]) {
   test(`static export contains ${routeLabel} with correctly prefixed assets`, async () => {
     const { html } = await readExportedRoute(relativePath);
@@ -57,10 +63,8 @@ for (const [routeLabel, relativePath, canonicalPath, languagePath, languageCode]
       html,
       new RegExp(`<link rel="canonical" href="${SITE_ORIGIN}${BASE_PATH}${canonicalPath.replaceAll("/", "\\/")}"\\s*\\/?>`, "i"),
     );
-    assert.match(
-      html,
-      new RegExp(`<meta property="og:image" content="${SITE_ORIGIN}${BASE_PATH}\\/updates-og\\.png"\\s*\\/?>`, "i"),
-    );
+    const imageName = relativePath.includes("ros") ? "og" : "updates-og";
+    assert.match(html, new RegExp(`<meta property="og:image" content="${SITE_ORIGIN}${BASE_PATH}\\/${imageName}\\.png"\\s*\\/?>`, "i"));
     const languageSwitch = html.match(/<a\b[^>]*class="[^"]*\blanguage-switch\b[^"]*"[^>]*>/i)?.[0];
     assert.ok(languageSwitch, `${routeLabel} should render a language switch`);
     assert.ok(
@@ -71,7 +75,7 @@ for (const [routeLabel, relativePath, canonicalPath, languagePath, languageCode]
       languageSwitch.toLowerCase().includes(`hreflang="${languageCode.toLowerCase()}"`),
       `${routeLabel} language switch should declare ${languageCode}`,
     );
-    await access(path.join(OUT_ROOT, "updates-og.png"));
+    await access(path.join(OUT_ROOT, `${imageName}.png`));
     await assertPrefixedBuildAssets(html, routeLabel);
   });
 }
@@ -81,6 +85,12 @@ for (const [routeLabel, relativePath, expectedLanguage] of [
   ["Chinese report", "zh", "zh-CN"],
   ["English updates", "updates", "en"],
   ["Chinese updates", path.join("zh", "updates"), "zh-CN"],
+  ["English Research OS", "ros", "en"],
+  ["Chinese Research OS", path.join("zh", "ros"), "zh-CN"],
+  ...["foundations", "evaluation", "practice"].flatMap((slug) => [
+    ["English Research OS " + slug, path.join("ros", slug), "en"],
+    ["Chinese Research OS " + slug, path.join("zh", "ros", slug), "zh-CN"],
+  ]),
 ]) {
   test(`static export declares ${expectedLanguage} on the ${routeLabel} root html element`, async () => {
     const { html } = await readExportedRoute(relativePath);

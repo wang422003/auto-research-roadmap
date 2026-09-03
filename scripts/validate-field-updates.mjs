@@ -57,6 +57,16 @@ export function validateFieldUpdates(source) {
 
   const updateIds = new Set(source.updates.map((update) => update.id));
   const updatesById = new Map(source.updates.map((update) => [update.id, update]));
+  // The archive is traversed newest-first. Collect work locations up front so
+  // a newer update can safely carry references to an older entry.
+  const workArchiveDates = new Map();
+  for (const update of source.updates) {
+    for (const work of update.works ?? []) {
+      if (typeof work?.id === "string" && !workArchiveDates.has(work.id)) {
+        workArchiveDates.set(work.id, update.publishedAt);
+      }
+    }
+  }
   let lastPublishedAt = null;
 
   for (const [updateIndex, update] of source.updates.entries()) {
@@ -85,10 +95,21 @@ export function validateFieldUpdates(source) {
   localized(update.summary, `${ul}.summary`);
   for (const [index, takeaway] of update.takeaways.entries()) localized(takeaway, `${ul}.takeaways[${index}]`);
   for (const [index, gap] of update.openGaps.entries()) localized(gap, `${ul}.openGaps[${index}]`);
+  const contextReferences = update.contextReferences ?? [];
+  check(Array.isArray(contextReferences), `${ul}.contextReferences must be an array when present`);
+  const contextReferenceIds = new Set();
+  for (const [index, id] of contextReferences.entries()) {
+    text(id, `${ul}.contextReferences[${index}]`);
+    check(!contextReferenceIds.has(id), `${ul}.contextReferences contains duplicate id ${id}`);
+    contextReferenceIds.add(id);
+    check(workArchiveDates.has(id), `${ul}.contextReferences references unknown work ${id}`);
+    check(workArchiveDates.get(id) < update.publishedAt, `${ul}.contextReferences must point to an older update: ${id}`);
+  }
   check(update.themes.length === 6, `${ul}: exactly six progress themes are required`);
   check(update.capabilityLadder.length === 5, `${ul}: exactly five capability-ladder stages are required`);
 
   const localWorkIds = new Set(update.works.map((work) => work.id));
+  for (const id of contextReferenceIds) check(!localWorkIds.has(id), `${ul}: work cannot be both local and a contextReference: ${id}`);
   const expectedStatus = new Map([
     ...update.newSincePreviousCutoff.map((id) => [id, "New"]),
     ...update.contextEntries.map((id) => [id, "Context"]),
@@ -212,16 +233,17 @@ export function validateFieldUpdates(source) {
       `${ul}: ${work.id}.referenceIds must include its own Primary paper reference`,
     );
   }
+  const availableWorkIds = new Set([...localWorkIds, ...contextReferenceIds]);
   for (const theme of update.themes) {
     text(theme.id, `${ul}.theme.id`);
     localized(theme.title, `${ul}.theme.title`);
     localized(theme.summary, `${ul}.theme.summary`);
-    for (const workId of theme.workIds) check(localWorkIds.has(workId), `${ul}: theme references unknown work ${workId}`);
+    for (const workId of theme.workIds) check(availableWorkIds.has(workId), `${ul}: theme references unknown work ${workId}`);
   }
   for (const assessment of update.capabilityAssessment) {
     localized(assessment.capability, `${ul}.capabilityAssessment.capability`);
     localized(assessment.assessment, `${ul}.capabilityAssessment.assessment`);
-    for (const workId of assessment.workIds) check(localWorkIds.has(workId), `${ul}: capability assessment references unknown work ${workId}`);
+    for (const workId of assessment.workIds) check(availableWorkIds.has(workId), `${ul}: capability assessment references unknown work ${workId}`);
   }
   for (const stage of update.capabilityLadder) {
     localized(stage.stage, `${ul}.capabilityLadder.stage`);

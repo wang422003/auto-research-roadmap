@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DocumentLanguage from "./document-language";
 import { sitePath } from "./site-path";
 import { getLocalized, latestFieldUpdate } from "@/content/field-updates";
+import { researchOsArticles } from "@/content/research-os";
 
 type Evidence = "A" | "B" | "C" | "D";
 type Locale = "en" | "zh";
@@ -115,6 +116,9 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
   const updatesHref = isZh ? "/zh/updates/" : "/updates/";
   const latestUpdateHref = `${updatesHref}#${latestFieldUpdate.anchor}`;
   const latestNewWorks = latestFieldUpdate.works.filter((work) => work.deltaStatus === "New");
+  const latestFeaturedWorks = latestNewWorks.slice(0, 2);
+  const rosHref = isZh ? "/zh/ros/" : "/ros/";
+  const rosArticle = researchOsArticles.find((article) => article.slug === "foundations");
 
   const navigation = [
     ["#evidence", t("Evidence", "证据")],
@@ -122,6 +126,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
     ["#benchmarks", "Benchmarks"],
     ["#roadmap", "Roadmap"],
     [updatesHref, t("Updates", "更新")],
+    [rosHref, "Research OS"],
     ["#topics", t("Topics", "选题")],
     ["#sources", t("Sources", "来源")],
   ];
@@ -134,7 +139,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
         <div className="header-row">
           <a className="brand" href="#top"><span className="brand-mark">AR</span><span>Auto Research Atlas</span></a>
           <nav className="desktop-nav" aria-label={t("Main navigation", "主导航")}>
-          <a href="#evidence">{t("Evidence", "证据")}</a><a href="#landscape">{t("Landscape", "系统图谱")}</a><a href="#benchmarks">Benchmarks</a><a href="#roadmap">Roadmap</a><a href={sitePath(updatesHref)}>{t("Updates", "更新")}</a><a href="#topics">{t("Topics", "选题")}</a>
+          <a href="#evidence">{t("Evidence", "证据")}</a><a href="#landscape">{t("Landscape", "系统图谱")}</a><a href="#benchmarks">Benchmarks</a><a href="#roadmap">Roadmap</a><a href={sitePath(updatesHref)}>{t("Updates", "更新")}</a><a href={sitePath(rosHref)}>Research OS</a><a href="#topics">{t("Topics", "选题")}</a>
           </nav>
           <div className="header-actions"><a className="header-link" href="#sources">{t("Sources", "来源")} ↗</a><a className="language-switch" href={sitePath(isZh ? "/" : "/zh/")} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
         </div>
@@ -166,18 +171,28 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
         <div className="latest-field-update-meta">
           <span>{t("Latest Field Update", "最新领域更新")}</span>
           <time dateTime={latestFieldUpdate.publishedAt}>{latestFieldUpdate.publishedAt}</time>
-          <small>{latestNewWorks.length} {t("post-cutoff works", "项 Post-cutoff Work")}</small>
+          <small>{latestFeaturedWorks.length} {t("highlighted post-cutoff works", "项重点 Post-cutoff Work")}</small>
         </div>
         <div className="latest-field-update-copy">
           <h2 id="latest-field-update-title">{getLocalized(latestFieldUpdate.title, locale)}</h2>
           <ul>
-            {latestNewWorks.map((work) => <li key={work.id}>{getLocalized(work.title, locale)}</li>)}
+            {latestFeaturedWorks.map((work) => <li key={work.id}>{getLocalized(work.title, locale)}</li>)}
           </ul>
           <p><strong>Verification Gap.</strong> {getLocalized(latestFieldUpdate.takeaways[2], locale)}</p>
         </div>
         <a className="latest-field-update-link" href={sitePath(latestUpdateHref)}>
           {t("Open full update", "查看完整更新")} <span aria-hidden="true">↗</span>
         </a>
+      </section>
+
+      <section className="homepage-ros-card" aria-labelledby="homepage-ros-title">
+        <div className="homepage-ros-card-mark" aria-hidden="true">ROS</div>
+        <div>
+          <span className="section-index">Research Operating System</span>
+          <h2 id="homepage-ros-title">{t("A durable substrate for inspectable research loops.", "让 Research Loop 可检查、可执行、可问责的持久底座。")}</h2>
+          <p>{rosArticle ? getLocalized(rosArticle.dek, locale) : t("State, Execution, and Control & Accountability.", "State、Execution 与 Control & Accountability。")}</p>
+        </div>
+        <a className="latest-field-update-link" href={sitePath(rosHref)}>{t("Open Research OS", "打开 Research OS")} <span aria-hidden="true">↗</span></a>
       </section>
 
       <section className="section findings" id="findings">
@@ -250,7 +265,7 @@ export default function Report({ locale = "en" }: { locale?: Locale }) {
 
       <section className="section sources" id="sources">
         <div className="section-index">09 / Primary Sources</div><h2>{t("Source inventory", "来源清单")}</h2><p className="section-intro">{t("The review prioritizes paper version history, official repositories, versions of record, and public benchmarks. A preprint is not scientific consensus.", "优先使用 paper version history、official repository、version of record 与公开 benchmark。Preprint 不等于 scientific consensus。")}</p>
-        <div className="source-grid">{sources.map(([label, href],i)=><a href={href} target="_blank" rel="noreferrer" key={href}><span>{String(i+1).padStart(2,"0")}</span><strong>{label}</strong><i>↗</i></a>)}</div>
+        <div className="source-grid">{sources.map(([label, href],i)=><a href={href} target="_blank" rel="noreferrer noopener" key={href}><span>{String(i+1).padStart(2,"0")}</span><strong>{label}</strong><i>↗</i></a>)}</div>
       </section>
 
       <footer className="footer"><div><span className="brand-mark">AR</span><strong>Auto Research Atlas</strong></div><p>{t("Independent technical synthesis for Research Topic Selection.", "面向 Research Topic Selection 的独立技术综述。")}<br />Evidence cutoff: 2026-07-28 · Version 1.1</p><a href="#top">{t("Back to top", "返回顶部")} ↑</a></footer>

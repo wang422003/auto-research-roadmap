@@ -10,6 +10,12 @@ const routes = [
   { label: "Chinese report", relativePath: path.join("zh", "index.html"), language: "zh-CN" },
   { label: "English updates", relativePath: path.join("updates", "index.html"), language: "en" },
   { label: "Chinese updates", relativePath: path.join("zh", "updates", "index.html"), language: "zh-CN" },
+  { label: "English Research OS", relativePath: path.join("ros", "index.html"), language: "en" },
+  { label: "Chinese Research OS", relativePath: path.join("zh", "ros", "index.html"), language: "zh-CN" },
+  ...["foundations", "evaluation", "practice"].flatMap((slug) => [
+    { label: `English Research OS ${slug}`, relativePath: path.join("ros", slug, "index.html"), language: "en" },
+    { label: `Chinese Research OS ${slug}`, relativePath: path.join("zh", "ros", slug, "index.html"), language: "zh-CN" },
+  ]),
 ];
 
 function rootHtmlTag(html, label) {

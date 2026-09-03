@@ -26,6 +26,8 @@ jobs:
       - run: npm ci
       - name: Validate field-update content
         run: npm run validate:content
+      - name: Validate Research OS content
+        run: npm run validate:research-os
       - name: Lint
         run: npm run lint
       - name: Build GitHub Pages static export

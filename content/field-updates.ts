@@ -82,6 +82,8 @@ export interface FieldUpdate {
   takeaways: LocalizedText[];
   newSincePreviousCutoff: string[];
   contextEntries: string[];
+  /** Work ids carried forward from an earlier update without entering this update's denominator. */
+  contextReferences?: string[];
   dateCorrections: string[];
   themes: ProgressTheme[];
   evidenceMaturityDistribution: Record<EvidenceMaturity, number>;
@@ -213,6 +215,16 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
     return update.id;
   }));
   const updatesById = new Map(allUpdates.map((update) => [update.id as string, update]));
+  const workArchiveDates = new Map<string, string>();
+  for (const update of allUpdates) {
+    const candidateWorks = Array.isArray(update.works) ? update.works : [];
+    for (const candidate of candidateWorks) {
+      const record = asRecord(candidate, "work");
+      if (typeof record.id === "string" && typeof update.publishedAt === "string" && !workArchiveDates.has(record.id)) {
+        workArchiveDates.set(record.id, update.publishedAt);
+      }
+    }
+  }
 
   let previousPublishedAt: string | null = null;
   allUpdates.forEach((update, updateIndex) => {
@@ -250,6 +262,12 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
     localizedList(update.openGaps, `${updateLabel}.openGaps`);
     stringList(update.newSincePreviousCutoff, `${updateLabel}.newSincePreviousCutoff`);
     stringList(update.contextEntries, `${updateLabel}.contextEntries`);
+    const contextReferences = update.contextReferences === undefined ? [] : update.contextReferences;
+    stringList(contextReferences, `${updateLabel}.contextReferences`);
+    for (const workId of contextReferences) {
+      invariant(workArchiveDates.has(workId), `${updateLabel}.contextReferences references unknown work ${workId}`);
+      invariant(workArchiveDates.get(workId)! < update.publishedAt, `${updateLabel}.contextReferences must point to an older update: ${workId}`);
+    }
     stringList(update.dateCorrections, `${updateLabel}.dateCorrections`);
 
     invariant(Array.isArray(update.themes) && update.themes.length === 6, `${updateLabel}.themes must contain the six fixed progress themes`);
@@ -362,6 +380,10 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
       }
     });
 
+    for (const workId of contextReferences) {
+      invariant(!localWorkIds.has(workId), `${updateLabel}: work cannot be both local and a contextReference: ${workId}`);
+    }
+
     const expectedBuckets: Array<[string, DeltaStatus]> = [
       ["newSincePreviousCutoff", "New"],
       ["contextEntries", "Context"],
@@ -428,7 +450,8 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
       ...(update.themes as Array<Record<string, unknown>>).map((theme) => theme.workIds as string[]),
       ...(update.capabilityAssessment as Array<Record<string, unknown>>).map((assessment) => assessment.workIds as string[]),
     ];
-    linkedWorkIdLists.flat().forEach((id) => invariant(localWorkIds.has(id), `${updateLabel} thematic/capability link references unknown work ${id}`));
+    const availableWorkIds = new Set([...localWorkIds, ...contextReferences]);
+    linkedWorkIdLists.flat().forEach((id) => invariant(availableWorkIds.has(id), `${updateLabel} thematic/capability link references unknown work ${id}`));
   });
 
   for (const work of archivedWorks.values()) {
@@ -484,6 +507,20 @@ export const fieldUpdates = fieldUpdatesSource.updates;
 export const latestFieldUpdate = fieldUpdates[0];
 export const evidenceMaturityDefinitions = fieldUpdatesSource.evidenceMaturityDefinitions;
 export const updateCadence = fieldUpdatesSource.cadence;
+
+/** Resolve a versioned work from the append-only archive by id. */
+export function getArchivedWork(workId: string): FieldUpdateWork | undefined {
+  for (const update of fieldUpdates) {
+    const work = update.works.find((candidate) => candidate.id === workId);
+    if (work) return work;
+  }
+  return undefined;
+}
+
+/** Return the update that first archived a versioned work. */
+export function getWorkArchiveEntry(workId: string): FieldUpdate | undefined {
+  return fieldUpdates.find((update) => update.works.some((work) => work.id === workId));
+}
 
 export function getLocalized(value: LocalizedText, locale: Locale): string {
   return value[locale];
