@@ -467,13 +467,6 @@ function UpdateEntry({
             <h2>{t("What changed since the previous cutoff", "相对 Previous Cutoff 有何变化")}</h2>
             <p>{update.summary}</p>
           </div>
-          <div className={`updates-change-grid${update.works.some((work) => work.status === "Date Clarification") ? "" : " updates-change-grid-no-date"}`}>
-            {changeGroup(update, "New", locale, (work) => !isAdditionalSignal(update, work))}
-            {changeGroup(update, "Date Clarification", locale)}
-            {changeGroup(update, "Context", locale)}
-            {additionalSignalsGroup(update, locale)}
-            {update.contextWorks.length ? carriedContextGroup(update, locale) : null}
-          </div>
           <div className="updates-takeaways">
             <span>{t("Current read", "当前判断")}</span>
             <ol>
@@ -481,6 +474,13 @@ function UpdateEntry({
                 <li key={takeaway}>{takeaway}</li>
               ))}
             </ol>
+          </div>
+          <div className={`updates-change-grid${update.works.some((work) => work.status === "Date Clarification") ? "" : " updates-change-grid-no-date"}`}>
+            {changeGroup(update, "New", locale, (work) => !isAdditionalSignal(update, work))}
+            {changeGroup(update, "Date Clarification", locale)}
+            {changeGroup(update, "Context", locale)}
+            {additionalSignalsGroup(update, locale)}
+            {update.contextWorks.length ? carriedContextGroup(update, locale) : null}
           </div>
         </section>
 
