@@ -97,3 +97,26 @@ for (const [routeLabel, relativePath, expectedLanguage] of [
     assert.equal(rootHtmlLanguage(html, routeLabel), expectedLanguage);
   });
 }
+
+test("static export preserves the Research OS reading inventory content", async () => {
+  const routes = [
+    ["English hub", "ros", "Research OS Reading List"],
+    ["Chinese hub", path.join("zh", "ros"), "Research OS Reading List"],
+    ["English foundations", path.join("ros", "foundations"), "closest-literature"],
+    ["Chinese foundations", path.join("zh", "ros", "foundations"), "closest-literature"],
+  ];
+  for (const [label, relativePath, marker] of routes) {
+    const { html } = await readExportedRoute(relativePath);
+    assert.match(html, new RegExp(marker));
+    assert.match(html, /KamiOS/);
+    assert.match(html, /Research State/);
+    assert.match(html, /XScientist/);
+    assert.match(html, /SCION/);
+    assert.match(html, /Peer-reviewed does not imply Independent Replication/);
+    assert.match(html, /#closest-literature/);
+    if (label.includes("foundations")) {
+      const cardIds = [...html.matchAll(/id="reading-([^"]+)"/g)].map((match) => match[1]);
+      assert.equal(new Set(cardIds).size, 21, `${label} should export all 21 unique reading cards`);
+    }
+  }
+});

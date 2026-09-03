@@ -1,7 +1,8 @@
 import DocumentLanguage from "../document-language";
 import { sitePath } from "../site-path";
 import { getLocalized, latestFieldUpdate } from "@/content/field-updates";
-import { researchOsArticles } from "@/content/research-os";
+import { researchOsArticles, researchOsSource } from "@/content/research-os";
+import ReadingGuide from "./reading-guide";
 
 type Locale = "en" | "zh";
 
@@ -72,6 +73,13 @@ export default function ResearchOsPage({ locale }: { locale: Locale }) {
   const layers = layerCopy[locale];
   const boundaryRows = boundaries[locale];
   const ladderRows = ladder[locale];
+  const readingList = researchOsSource.readingList;
+  const readingCitationUrls = readingList.entries
+    .map((entry) => {
+      const article = researchOsArticles.find((candidate) => candidate.slug === entry.articleSlug);
+      return article?.references.find((reference) => reference.id === entry.referenceId)?.url;
+    })
+    .filter((url): url is string => Boolean(url));
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -85,6 +93,7 @@ export default function ResearchOsPage({ locale }: { locale: Locale }) {
       url: `${SITE_URL}${pathFor(locale, `/ros/${article.slug}/`)}`,
       dateModified: article.lastReviewed,
     })),
+    citation: [...new Set(readingCitationUrls)],
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [{ "@type": "ListItem", position: 1, name: "Report", item: `${SITE_URL}${pathFor(locale, isZh ? "/zh/" : "/")}` }, { "@type": "ListItem", position: 2, name: "Research OS", item: `${SITE_URL}${currentPath}` }],
@@ -102,6 +111,7 @@ export default function ResearchOsPage({ locale }: { locale: Locale }) {
             <a href={sitePath(isZh ? "/zh/" : "/")}>{t("Report", "主报告")}</a>
             <a href={sitePath(isZh ? "/zh/updates/" : "/updates/")}>{t("Updates", "更新")}</a>
             <a aria-current="page" href={sitePath(currentPath)}>Research OS</a>
+            <a href="#reading-list">{t("Reading", "阅读")}</a>
             <a href="#layers">{t("Layers", "Layers")}</a>
             <a href="#articles">{t("Articles", "文章")}</a>
           </nav>
@@ -110,6 +120,8 @@ export default function ResearchOsPage({ locale }: { locale: Locale }) {
         <nav className="ros-mobile-nav" aria-label={t("Research OS sections", "Research OS 章节")}>
           <a href={sitePath(isZh ? "/zh/" : "/")}>{t("Report", "主报告")}</a>
           <a href={sitePath(isZh ? "/zh/updates/" : "/updates/")}>{t("Updates", "更新")}</a>
+          <a aria-current="page" href={sitePath(currentPath)}>Research OS</a>
+          <a href="#reading-list">{t("Reading", "阅读")}</a>
           <a href="#layers">{t("Layers", "Layers")}</a>
           <a href="#articles">{t("Articles", "文章")}</a>
         </nav>
@@ -147,14 +159,21 @@ export default function ResearchOsPage({ locale }: { locale: Locale }) {
           <div className="ros-layer-note"><strong>{t("Design test", "设计检验")}</strong><span>{t("If deleting the chat transcript destroys the experiment history, the system has context, not durable research state.", "如果删除 Chat Transcript 就会摧毁 Experiment History，那么系统拥有的是 Context，而不是 Durable Research State。")}</span></div>
         </section>
 
+        <section className="ros-section ros-reading-list-section" id="reading-list">
+          <div className="ros-section-label">03 / Curated Literature</div>
+          <h2>{t("Research OS Reading List: the closest literature, organized as a path.", "Research OS Reading List：把最接近的文献组织成一条阅读路径。")}</h2>
+          <p className="ros-intro">{t("Research OS is an emerging framing rather than a settled academic taxonomy. Start with the direct proposals, then move through executable systems and the evidence needed to test them.", "Research OS 仍是 emerging framing，而不是已经统一的 Academic Taxonomy。先读直接提出这一 framing 的工作，再读 Executable System 与检验它们所需的 Evidence。")}</p>
+          <ReadingGuide readingList={readingList} locale={locale} mode="compact" />
+        </section>
+
         <section className="ros-section ros-ladder" id="ladder">
-          <div className="ros-section-label">03 / Capability Ladder</div>
+          <div className="ros-section-label">04 / Capability Ladder</div>
           <h2>{t("Capability is a ladder, not a binary.", "Capability 是阶梯，不是二元标签。")}</h2>
           <div className="ros-ladder-list">{ladderRows.map(([stage, status], index) => <article key={stage} className={index === 2 ? "is-current" : index === 4 ? "is-open" : ""}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{stage}</h3><p>{status}</p></div></article>)}</div>
         </section>
 
         <section className="ros-section ros-articles" id="articles">
-          <div className="ros-section-label">04 / Reading Series</div>
+          <div className="ros-section-label">05 / Reading Series</div>
           <h2>{t("Three articles for building and testing the substrate.", "三篇文章：构建并检验系统底座。")}</h2>
           <div className="ros-article-grid">{researchOsArticles.map((article, index) => <a className="ros-article-card" href={sitePath(pathFor(locale, `/ros/${article.slug}/`))} key={article.slug}><span>0{index + 1} · {article.slug}</span><h3>{getLocalized(article.title, locale)}</h3><p>{getLocalized(article.dek, locale)}</p><i aria-hidden="true">↗</i></a>)}</div>
         </section>

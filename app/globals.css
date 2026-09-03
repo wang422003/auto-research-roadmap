@@ -527,3 +527,118 @@ html{scroll-padding-top:84px}
   .ros-article-hero .ros-hero-kicker time{display:block;margin-top:4px}
   .ros-main[lang="zh-CN"] .ros-article-hero h1{text-wrap:pretty;word-break:keep-all;overflow-wrap:normal}
 }
+
+/* Research OS reading inventory — a quieter, scan-first layer over the
+   editorial report surface.  The component is intentionally namespaced so
+   the frozen report and Living Updates retain their original rhythm. */
+.ros-reading-list-section{max-width:none;background:#f6f5ee}
+.ros-article-layout{max-width:1440px;gap:clamp(24px,3.5vw,56px)}
+.ros-reading-guide{min-width:0}
+.ros-reading-eyebrow{display:block;color:var(--ink-soft);font:700 10px/1.3 var(--font-geist-mono);letter-spacing:.1em;text-transform:uppercase}
+.ros-reading-lead{max-width:780px;margin:0 0 34px}
+.ros-reading-lead h3{margin:12px 0 12px;font-size:clamp(25px,2.4vw,36px);line-height:1.1;letter-spacing:-.04em;font-weight:560}
+.ros-reading-lead>p{margin:0;color:var(--muted);font-size:16px;line-height:1.65}
+.ros-reading-lead .ros-reading-disambiguation{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:#68746f;font-size:13px}
+.ros-reading-featured-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ros-reading-card{min-width:0;background:var(--panel);padding:24px;display:flex;flex-direction:column;overflow-wrap:anywhere}
+.ros-reading-card:hover{background:#fbfff0}
+.ros-reading-card-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:28px}
+.ros-reading-card-index{color:var(--ink-soft);font:700 10px var(--font-geist-mono);letter-spacing:.06em}
+.ros-reading-alias{margin-right:auto;color:var(--green);font:750 9px/1.3 var(--font-geist-mono);letter-spacing:.1em;text-transform:uppercase}
+.ros-reading-grade{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:4px 8px;border:1px solid transparent;border-radius:999px;font:700 9px/1.2 var(--font-geist-mono);letter-spacing:.035em;white-space:nowrap}
+.ros-reading-grade-a{background:var(--green);border-color:var(--green);color:var(--lime)}
+.ros-reading-grade-b{background:#dbe7fb;border-color:#a9c2e8;color:#24466f}
+.ros-reading-grade-c{background:#f7e6ae;border-color:#dfc56d;color:#594710}
+.ros-reading-grade-d{background:#f8cec5;border-color:#e7a79a;color:#6e2b22}
+.ros-reading-card h3{margin:24px 0 13px;font-size:clamp(19px,1.7vw,25px);line-height:1.18;letter-spacing:-.035em;font-weight:560}
+.ros-reading-card h3 a{text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1px;text-underline-offset:4px;transition:text-decoration-color .18s,color .18s}
+.ros-reading-card h3 a:hover{text-decoration-color:currentColor;color:var(--green)}
+.ros-reading-card h3 i{font-style:normal;color:var(--orange);font-size:.8em;white-space:nowrap}
+.ros-reading-card-meta{display:flex;flex-wrap:wrap;gap:6px 12px;padding:11px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink-soft);font:600 9px/1.35 var(--font-geist-mono);text-transform:uppercase;letter-spacing:.035em}
+.ros-reading-card-meta span:not(:last-child)::after{content:"·";margin-left:12px;color:#a1aaa4}
+.ros-reading-card-copy{margin-top:16px}
+.ros-reading-card-copy p{margin:0;color:var(--muted);font-size:13px;line-height:1.58}
+.ros-reading-card-copy p+p{margin-top:11px}
+.ros-reading-card-copy strong{display:block;margin-bottom:4px;color:var(--ink-soft);font:700 9px/1.3 var(--font-geist-mono);letter-spacing:.07em;text-transform:uppercase}
+.ros-reading-card-copy .ros-reading-boundary{color:#68746f}
+.ros-reading-companions{display:flex;flex-wrap:wrap;gap:7px 10px;margin-top:auto;padding-top:18px;color:var(--muted);font:600 9px/1.4 var(--font-geist-mono)}
+.ros-reading-companions>span{color:#7b8781;text-transform:uppercase;letter-spacing:.05em}
+.ros-reading-companions a{text-decoration:underline;text-underline-offset:3px}
+.ros-reading-companions a:hover{color:var(--green)}
+.ros-reading-path{margin-top:26px;padding:24px;background:var(--green);color:#f8f6ed;border:1px solid var(--green)}
+.ros-reading-path-heading{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:18px}
+.ros-reading-path .ros-reading-eyebrow{color:#b9cbc5}
+.ros-reading-path h3{margin:0;color:var(--lime);font-size:clamp(20px,2vw,28px);line-height:1.15;letter-spacing:-.035em;font-weight:560}
+.ros-reading-path ol{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin:0;padding:0;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.2)}
+.ros-reading-path li{min-width:0;min-height:104px;padding:14px;background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:16px}
+.ros-reading-path li>span{color:#b9cbc5;font:700 10px var(--font-geist-mono)}
+.ros-reading-path li a,.ros-reading-path li strong{margin-top:auto;color:#fff;font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+.ros-reading-path li a:hover{color:var(--lime)}
+.ros-reading-path li i{font-style:normal;color:var(--orange);white-space:nowrap}
+.ros-reading-caveat{margin-top:14px;padding:17px 20px;background:#f8e2bd;border-left:4px solid var(--orange)}
+.ros-reading-caveat .ros-reading-eyebrow{color:#7b5423}
+.ros-reading-caveat p{margin:7px 0 0;color:#4f4432;font-size:13px;line-height:1.55}
+.ros-reading-open-link{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);font:700 11px var(--font-geist-mono);text-transform:uppercase;letter-spacing:.035em}
+.ros-reading-open-link:hover{color:var(--green);border-color:var(--green)}
+.ros-reading-open-link span{color:var(--orange);font-size:18px}
+
+/* Full inventory shown by the Foundations article. */
+.ros-reading-guide-full{margin-top:4px}
+.ros-reading-guide-full .ros-reading-path ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ros-reading-guide-full .ros-reading-group-body{grid-template-columns:1fr}
+.ros-reading-guide-full>.ros-reading-caveat{margin-bottom:28px}
+.ros-reading-groups{border-top:1px solid var(--ink)}
+.ros-reading-group{border-bottom:1px solid var(--line)}
+.ros-reading-group>summary{list-style:none;display:grid;grid-template-columns:44px minmax(0,1fr) auto 30px;gap:16px;align-items:center;min-height:76px;padding:14px 0;cursor:pointer}
+.ros-reading-group>summary::-webkit-details-marker{display:none}
+.ros-reading-group>summary:hover{color:var(--green)}
+.ros-reading-group-number{font:700 10px var(--font-geist-mono);color:var(--ink-soft)}
+.ros-reading-group-title{min-width:0;display:block}
+.ros-reading-group-title strong{display:block;font-size:19px;line-height:1.2;letter-spacing:-.025em;overflow-wrap:anywhere}
+.ros-reading-group-title small{display:block;margin-top:5px;color:var(--muted);font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+.ros-reading-group-count{color:var(--ink-soft);font:650 10px var(--font-geist-mono);white-space:nowrap;text-transform:uppercase}
+.ros-reading-group-plus{color:var(--orange);font-size:23px;line-height:1;transition:transform .18s}
+.ros-reading-group[open]>summary .ros-reading-group-plus{transform:rotate(45deg)}
+.ros-reading-group-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0 0 22px;background:var(--line);border:1px solid var(--line)}
+.ros-reading-group-body .ros-reading-card{background:#fff}
+
+@media(max-width:1100px){
+  .ros-reading-path ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ros-reading-path li:nth-child(n+4){border-top:1px solid rgba(255,255,255,.2)}
+}
+
+@media(max-width:900px){
+  .ros-reading-featured-grid,.ros-reading-group-body{grid-template-columns:1fr}
+  .ros-reading-path-heading{display:block}
+  .ros-reading-path-heading h3{margin-top:9px}
+  .ros-reading-path ol,.ros-reading-guide-full .ros-reading-path ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ros-reading-path li:nth-child(3){border-top:0}
+  .ros-reading-group>summary{grid-template-columns:36px minmax(0,1fr) auto 28px;gap:12px}
+}
+
+@media(max-width:600px){
+  .ros-reading-lead{margin-bottom:26px}
+  .ros-reading-lead h3{font-size:25px}
+  .ros-reading-lead>p{font-size:15px}
+  .ros-reading-card{padding:21px}
+  .ros-reading-card h3{font-size:20px;margin-top:20px}
+  .ros-reading-card-meta{font-size:9px;gap:5px 9px}
+  .ros-reading-card-meta span:not(:last-child)::after{margin-left:9px}
+  .ros-reading-card-copy p{font-size:13px}
+  .ros-reading-path{padding:20px}
+  .ros-reading-path ol,.ros-reading-guide-full .ros-reading-path ol{grid-template-columns:1fr}
+  .ros-reading-path li,.ros-reading-path li:nth-child(n+2){min-height:0;border-top:1px solid rgba(255,255,255,.2)}
+  .ros-reading-path li:first-child{border-top:0}
+  .ros-reading-group>summary{grid-template-columns:26px minmax(0,1fr) 26px;gap:10px;padding:15px 0}
+  .ros-reading-group-count{grid-column:2;grid-row:2;margin-top:2px}
+  .ros-reading-group-plus{grid-column:3;grid-row:1/3;align-self:center}
+  .ros-reading-group-title small{font-size:11px}
+  .ros-reading-group-title strong{font-size:18px}
+  .ros-reading-group-body{margin-bottom:16px}
+  .ros-reading-caveat{padding:15px 16px}
+  .ros-reading-open-link{min-height:48px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ros-reading-card h3 a,.ros-reading-group-plus{transition:none}
+}

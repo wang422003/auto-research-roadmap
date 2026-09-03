@@ -23,6 +23,9 @@ The site covers:
 - `/zh/ros/` — 中文 Research Operating System hub
 - `/ros/foundations/`, `/ros/evaluation/`, `/ros/practice/` — English article series
 - `/zh/ros/foundations/`, `/zh/ros/evaluation/`, `/zh/ros/practice/` — 中文 article series
+- `/ros/#reading-list` — English curated Research OS reading path
+- `/ros/foundations/#closest-literature` — English full 21-entry reading inventory
+- `/zh/ros/#reading-list` and `/zh/ros/foundations/#closest-literature` — 中文镜像
 
 Each bilingual route pair is generated from a shared component and evidence
 inventory so quantitative claims, maturity ratings, sources, and version
@@ -40,6 +43,15 @@ back into the frozen 25-entry denominator. `Research Operating System` is a
 separate, neutral working synthesis about durable State, executable Execution,
 and Control & Accountability. Its articles are not product documentation for
 DeepScientist; DeepScientist appears only as a public architecture case study.
+
+The ROS reading list is a separate, curated 21-entry inventory. It reuses the
+article-local primary references and keeps a paper's first public date,
+version date, publication status, Evidence Grade, reading rationale, and
+evidence boundary in `content/research-os.json`. Reading entries do not change
+the frozen report denominator or the Living Field Updates evidence
+distribution. `Peer-reviewed` is a publication/validation signal; it does not
+automatically mean `Independent Replication`. DeepScientist remains a public
+architecture case study, not independent evidence for the reading list.
 
 ## Evidence policy
 
@@ -66,6 +78,21 @@ For each new version, record `Release Date`, `Research Lifecycle Coverage`, `Aut
    `contextReferences` when carrying an older archived work into a new update.
 5. Run `npm run validate:content`, `npm run validate:research-os`, the lint gate,
    static export, and the page-content tests before publishing.
+
+### Monthly reading-list audit
+
+1. Re-check each canonical Paper URL and the first public date separately from
+   the linked `paperVersionDate`.
+2. Re-check publication status, Code/Data/Trajectory or Official Repository
+   availability, and the Evidence Grade boundary.
+3. Keep each entry in exactly one of the five reading groups and preserve the
+   five-step `recommendedPath`; use `supersedes` or `correctionOf` for a
+   material revision instead of silently replacing an entry.
+4. Keep `whyRead` and `evidenceBoundary` qualitative. If a quantitative result
+   is needed, bind it to a complete article claim with Task Definition,
+   Denominator, Evaluator, Comparison Basis, and Claim Authority.
+5. Run both validators, `npm run lint`, Pages export, static-export tests, and
+   render tests before publishing a new reading-list revision.
 
 ## Development
 

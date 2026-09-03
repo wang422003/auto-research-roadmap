@@ -1,9 +1,600 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
+  "readingList": {
+  "revision": "1.0",
+  "lastReviewed": "2026-09-03",
+  "sourceCutoff": "2026-09-03",
+  "framing": {
+    "en": "This is a curated, working reading list for an emerging Research Operating System conversation rather than a settled academic taxonomy. Evidence Grade A can indicate peer review; it does not by itself imply independent replication.",
+    "zh": "这是围绕新兴 Research Operating System 讨论整理的精选阅读清单，是 Working Synthesis 而非已经统一的 Academic Taxonomy。Evidence Grade A 可以表示 Peer Review，但不自动意味着 Independent Replication。"
+  },
+  "groups": [
+    {
+      "id": "direct",
+      "title": {
+        "en": "Direct Research OS Framing",
+        "zh": "Research OS 直接框架"
+      },
+      "summary": {
+        "en": "Papers that name, model, or formalize a durable substrate for scientific orchestration.",
+        "zh": "直接命名、建模或形式化 Scientific Orchestration 持久底座的论文。"
+      },
+      "entryIds": [
+        "kamios",
+        "research-state",
+        "xscientist",
+        "scion"
+      ]
+    },
+    {
+      "id": "foundations",
+      "title": {
+        "en": "Foundations & Human–Agent Boundary",
+        "zh": "Foundations 与 Human–Agent 边界"
+      },
+      "summary": {
+        "en": "Conceptual work clarifying Auto Research, Vibe Research, and the limits of delegation.",
+        "zh": "澄清 Auto Research、Vibe Research 与委托边界的概念性工作。"
+      },
+      "entryIds": [
+        "roadmap-survey",
+        "autoresearch-ai",
+        "vibe-wolf",
+        "vibe-vision"
+      ]
+    },
+    {
+      "id": "systems",
+      "title": {
+        "en": "Executable Research Systems",
+        "zh": "可执行 Research System"
+      },
+      "summary": {
+        "en": "End-to-end systems that connect research planning to runnable artifacts.",
+        "zh": "把 Research Planning 连接到可运行 Artifact 的 End-to-end System。"
+      },
+      "entryIds": [
+        "ai-scientist",
+        "agent-laboratory",
+        "kosmos"
+      ]
+    },
+    {
+      "id": "evaluation",
+      "title": {
+        "en": "Evaluation & Accountability",
+        "zh": "Evaluation 与 Accountability"
+      },
+      "summary": {
+        "en": "Benchmarks and protocols that expose process, artifacts, and evidence boundaries.",
+        "zh": "暴露 Process、Artifact 与 Evidence Boundary 的 Benchmark 和 Protocol。"
+      },
+      "entryIds": [
+        "autoresearch-eval",
+        "beyond-final-scores",
+        "fire-bench",
+        "autoresearchbench",
+        "sciagentarena",
+        "researcharena"
+      ]
+    },
+    {
+      "id": "lab",
+      "title": {
+        "en": "Lab-in-the-loop & Real-world Validation",
+        "zh": "Lab-in-the-loop 与 Real-world Validation"
+      },
+      "summary": {
+        "en": "Instrument-facing and domain-facing systems with public deployment or validation signals.",
+        "zh": "具有公开部署或验证信号的 Instrument-facing 与 Domain-facing System。"
+      },
+      "entryIds": [
+        "coscientist",
+        "robin",
+        "autolabs",
+        "xray-scientist"
+      ]
+    }
+  ],
+  "recommendedPath": [
+    "roadmap-survey",
+    "kamios",
+    "xscientist",
+    "autoresearch-eval",
+    "robin"
+  ],
+  "entries": [
+    {
+      "id": "kamios",
+      "articleSlug": "foundations",
+      "referenceId": "kamios",
+      "companionReferenceIds": [],
+      "track": "direct",
+      "priority": 1,
+      "releaseDate": "2026-08-07",
+      "paperVersion": "SSRN version",
+      "paperVersionDate": "2026-08-07",
+      "publicationStatus": "SSRN",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for a knowledge-centric vocabulary for durable research state and orchestration.",
+        "zh": "阅读它，是为了理解以知识为中心的 Durable Research State 与 Orchestration 词汇。"
+      },
+      "evidenceBoundary": {
+        "en": "A conceptual SSRN proposal; it does not establish a canonical taxonomy or independent replication.",
+        "zh": "这是 SSRN 上的概念性提案；它没有建立 Canonical Taxonomy，也没有 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "research-state",
+      "articleSlug": "foundations",
+      "referenceId": "research-state",
+      "companionReferenceIds": [],
+      "track": "direct",
+      "priority": 2,
+      "releaseDate": "2026-08-13",
+      "paperVersion": "SSRN version",
+      "paperVersionDate": "2026-08-13",
+      "publicationStatus": "SSRN",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for a semantic abstraction of continuity across research sessions and agents.",
+        "zh": "阅读它，是为了理解跨 Research Session 与 Agent 的 Continuity Semantic Abstraction。"
+      },
+      "evidenceBoundary": {
+        "en": "A conceptual SSRN proposal; the abstraction remains a hypothesis for system design.",
+        "zh": "这是 SSRN 上的概念性提案；该 Abstraction 仍是 System Design 假设。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "xscientist",
+      "articleSlug": "foundations",
+      "referenceId": "xscientist",
+      "companionReferenceIds": [
+        "xscientist-repo"
+      ],
+      "track": "direct",
+      "priority": 3,
+      "releaseDate": "2026-07-14",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-07-14",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "B",
+      "whyRead": {
+        "en": "Read this for versioned artifacts, claim–evidence lineage, provenance, and replayable research state.",
+        "zh": "阅读它，是为了理解 Versioned Artifact、Claim–Evidence Lineage、Provenance 与可 Replay 的 Research State。"
+      },
+      "evidenceBoundary": {
+        "en": "The open implementation improves inspectability, while capability results remain author-reported.",
+        "zh": "Open Implementation 提升了可检查性，但 Capability Result 仍主要是 Author-reported。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "scion",
+      "articleSlug": "foundations",
+      "referenceId": "scion",
+      "companionReferenceIds": [],
+      "track": "direct",
+      "priority": 4,
+      "releaseDate": "2026-07-04",
+      "paperVersion": "v2",
+      "paperVersionDate": "2026-07-07",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for an agentic scientific operating system with explicit epistemic memory and research control.",
+        "zh": "阅读它，是为了理解带有 Explicit Epistemic Memory 与 Research Control 的 Agentic Scientific Operating System。"
+      },
+      "evidenceBoundary": {
+        "en": "The architecture and proposed protocol are not evidence of broad scientific discovery.",
+        "zh": "Architecture 与 Proposed Protocol 不等于 Broad Scientific Discovery Evidence。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "roadmap-survey",
+      "articleSlug": "foundations",
+      "referenceId": "roadmap-survey",
+      "companionReferenceIds": [],
+      "track": "foundations",
+      "priority": 5,
+      "releaseDate": "2026-05-18",
+      "paperVersion": "v2",
+      "paperVersionDate": "2026-07-20",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this first for a capability boundary and a map from structured tasks to open-ended research.",
+        "zh": "建议首先阅读它，建立从 Structured Task 到 Open-ended Research 的 Capability Boundary 地图。"
+      },
+      "evidenceBoundary": {
+        "en": "A roadmap and synthesis; its boundary statements are not independent benchmark validation.",
+        "zh": "这是 Roadmap 与 Synthesis；其中的 Boundary Statement 不是 Independent Benchmark Validation。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "autoresearch-ai",
+      "articleSlug": "foundations",
+      "referenceId": "autoresearch-ai-survey",
+      "companionReferenceIds": [],
+      "track": "foundations",
+      "priority": 6,
+      "releaseDate": "2026-05-22",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-05-22",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for a broad framing of AI-mediated research automation and its unresolved judgment problem.",
+        "zh": "阅读它，是为了理解 AI-mediated Research Automation 的整体框架与尚未解决的 Judgment Problem。"
+      },
+      "evidenceBoundary": {
+        "en": "A preprint perspective; claims should be separated from execution-based evidence.",
+        "zh": "这是 Preprint Perspective；其中 Claims 应与 Execution-based Evidence 分开。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "vibe-wolf",
+      "articleSlug": "foundations",
+      "referenceId": "vibe-wolf",
+      "companionReferenceIds": [],
+      "track": "foundations",
+      "priority": 7,
+      "releaseDate": "2026-02-25",
+      "paperVersion": "v3",
+      "paperVersionDate": "2026-03-07",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for the human–agent collaboration idea behind Vibe Research.",
+        "zh": "阅读它，是为了理解 Vibe Research 背后的 Human–Agent Collaboration Idea。"
+      },
+      "evidenceBoundary": {
+        "en": "A conceptual framing of collaboration, not an autonomy or novelty evaluation.",
+        "zh": "这是 Collaboration Framing，不是 Autonomy 或 Novelty Evaluation。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "vibe-vision",
+      "articleSlug": "foundations",
+      "referenceId": "vibe-vision",
+      "companionReferenceIds": [],
+      "track": "foundations",
+      "priority": 8,
+      "releaseDate": "2026-04-01",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-04-01",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for a complementary vision of taste, direction, and agent throughput.",
+        "zh": "阅读它，是为了理解 Taste、Direction 与 Agent Throughput 的互补 Vision。"
+      },
+      "evidenceBoundary": {
+        "en": "A vision paper; it does not demonstrate durable evidence or independent replication.",
+        "zh": "这是 Vision Paper；它没有证明 Durable Evidence 或 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "ai-scientist",
+      "articleSlug": "foundations",
+      "referenceId": "ai-scientist",
+      "companionReferenceIds": [],
+      "track": "systems",
+      "priority": 9,
+      "releaseDate": "2026-03-25",
+      "paperVersion": "Version of Record",
+      "paperVersionDate": "2026-03-25",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for a concrete end-to-end loop from idea generation to executable scientific artifacts.",
+        "zh": "阅读它，是为了理解从 Idea Generation 到 Executable Scientific Artifact 的具体 End-to-end Loop。"
+      },
+      "evidenceBoundary": {
+        "en": "Peer-reviewed publication is a validation signal; it does not imply independent replication.",
+        "zh": "Peer-reviewed Publication 是 Validation Signal；不意味着 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "agent-laboratory",
+      "articleSlug": "foundations",
+      "referenceId": "agent-laboratory",
+      "companionReferenceIds": [],
+      "track": "systems",
+      "priority": 10,
+      "releaseDate": "2025-01-08",
+      "paperVersion": "Findings of EMNLP",
+      "paperVersionDate": "2025-11-05",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for a modular research workflow that makes agent roles and artifacts explicit.",
+        "zh": "阅读它，是为了理解将 Agent Role 与 Artifact 显式化的 Modular Research Workflow。"
+      },
+      "evidenceBoundary": {
+        "en": "Peer-reviewed venue evidence does not establish broad novelty or independent replication.",
+        "zh": "Peer-reviewed Venue Evidence 不等于 Broad Novelty 或 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "kosmos",
+      "articleSlug": "foundations",
+      "referenceId": "kosmos",
+      "companionReferenceIds": [],
+      "track": "systems",
+      "priority": 11,
+      "releaseDate": "2025-11-04",
+      "paperVersion": "v2",
+      "paperVersionDate": "2025-11-05",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "B",
+      "whyRead": {
+        "en": "Read this for long-horizon literature, planning, and computational discovery orchestration.",
+        "zh": "阅读它，是为了理解 Long-horizon Literature、Planning 与 Computational Discovery Orchestration。"
+      },
+      "evidenceBoundary": {
+        "en": "Open artifacts make the workflow inspectable, while discovery claims remain bounded by the reported protocol.",
+        "zh": "Open Artifact 让 Workflow 可检查，但 Discovery Claim 仍受 Reported Protocol 约束。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "autoresearch-eval",
+      "articleSlug": "evaluation",
+      "referenceId": "autoresearch-eval",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 12,
+      "releaseDate": "2026-08-14",
+      "paperVersion": "v3",
+      "paperVersionDate": "2026-08-25",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "B",
+      "whyRead": {
+        "en": "Read this for trajectory-level evaluation of a complete research lifecycle.",
+        "zh": "阅读它，是为了理解 Complete Research Lifecycle 的 Trajectory-level Evaluation。"
+      },
+      "evidenceBoundary": {
+        "en": "Open evaluation artifacts improve auditability, but reported scores still depend on the published protocol.",
+        "zh": "Open Evaluation Artifact 提升可审计性，但 Reported Score 仍取决于公开 Protocol。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "beyond-final-scores",
+      "articleSlug": "evaluation",
+      "referenceId": "beyond-final-scores",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 13,
+      "releaseDate": "2026-08-13",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-08-13",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for process metrics that reveal where long-horizon research workflows fail.",
+        "zh": "阅读它，是为了理解揭示 Long-horizon Research Workflow 失败位置的 Process Metrics。"
+      },
+      "evidenceBoundary": {
+        "en": "The analysis is a useful diagnostic, not an independent validation of every proposed metric.",
+        "zh": "该分析是有用的 Diagnostic，但不是对每个 Proposed Metric 的 Independent Validation。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "fire-bench",
+      "articleSlug": "evaluation",
+      "referenceId": "fire-bench",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 14,
+      "releaseDate": "2026-02-02",
+      "paperVersion": "v2",
+      "paperVersionDate": "2026-07-10",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for executable evaluation with explicit artifact and failure checks.",
+        "zh": "阅读它，是为了理解带有 Explicit Artifact 与 Failure Check 的 Executable Evaluation。"
+      },
+      "evidenceBoundary": {
+        "en": "Peer-reviewed benchmark evidence does not imply independent replication of scientific findings.",
+        "zh": "Peer-reviewed Benchmark Evidence 不意味着 Scientific Finding 的 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "autoresearchbench",
+      "articleSlug": "evaluation",
+      "referenceId": "autoresearchbench",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 15,
+      "releaseDate": "2026-04-28",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-04-28",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "B",
+      "whyRead": {
+        "en": "Read this for a benchmark contract around research coding and reproducible execution.",
+        "zh": "阅读它，是为了理解围绕 Research Coding 与 Reproducible Execution 的 Benchmark Contract。"
+      },
+      "evidenceBoundary": {
+        "en": "Open benchmark artifacts establish task evidence, not open-world scientific novelty.",
+        "zh": "Open Benchmark Artifact 建立 Task Evidence，但不建立 Open-world Scientific Novelty。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "sciagentarena",
+      "articleSlug": "evaluation",
+      "referenceId": "sciagentarena",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 16,
+      "releaseDate": "2026-06-10",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-06-10",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "B",
+      "whyRead": {
+        "en": "Read this for controlled comparison of scientific agents across inspectable tasks.",
+        "zh": "阅读它，是为了理解在可检查 Task 上比较 Scientific Agent 的 Controlled Comparison。"
+      },
+      "evidenceBoundary": {
+        "en": "A public arena can compare task behavior, but it cannot by itself certify new knowledge.",
+        "zh": "Public Arena 可以比较 Task Behavior，但不能单独证明 New Knowledge。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "researcharena",
+      "articleSlug": "evaluation",
+      "referenceId": "researcharena",
+      "companionReferenceIds": [],
+      "track": "evaluation",
+      "priority": 17,
+      "releaseDate": "2026-05-18",
+      "paperVersion": "v1",
+      "paperVersionDate": "2026-05-18",
+      "publicationStatus": "Preprint",
+      "evidenceMaturity": "C",
+      "whyRead": {
+        "en": "Read this for an early attempt to evaluate research agents across an open workflow.",
+        "zh": "阅读它，是为了理解较早的跨 Open Workflow Research Agent Evaluation 尝试。"
+      },
+      "evidenceBoundary": {
+        "en": "The public preprint provides a comparison signal; broader validity remains author-reported.",
+        "zh": "Public Preprint 提供 Comparison Signal；更广泛的 Validity 仍主要是 Author-reported。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "coscientist",
+      "articleSlug": "practice",
+      "referenceId": "coscientist",
+      "companionReferenceIds": [],
+      "track": "lab",
+      "priority": 18,
+      "releaseDate": "2026-05-19",
+      "paperVersion": "Version of Record",
+      "paperVersionDate": "2026-07-01",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for a human-steered multi-agent workflow connected to real scientific domains.",
+        "zh": "阅读它，是为了理解连接真实 Scientific Domain 的 Human-steered Multi-agent Workflow。"
+      },
+      "evidenceBoundary": {
+        "en": "Peer-reviewed and expert-review signals do not remove the need for independent experimental confirmation.",
+        "zh": "Peer-reviewed 与 Expert-review Signal 不会消除 Independent Experimental Confirmation 的需要。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "robin",
+      "articleSlug": "practice",
+      "referenceId": "robin",
+      "companionReferenceIds": [],
+      "track": "lab",
+      "priority": 19,
+      "releaseDate": "2026-05-19",
+      "paperVersion": "Version of Record",
+      "paperVersionDate": "2026-07-01",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for multi-agent scientific discovery with a visible path toward lab validation.",
+        "zh": "阅读它，是为了理解具有清晰 Lab Validation 路径的 Multi-agent Scientific Discovery。"
+      },
+      "evidenceBoundary": {
+        "en": "Published deployment evidence is not the same as independent replication of each finding.",
+        "zh": "Published Deployment Evidence 不等于每项 Finding 的 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "autolabs",
+      "articleSlug": "practice",
+      "referenceId": "autolabs",
+      "companionReferenceIds": [],
+      "track": "lab",
+      "priority": 20,
+      "releaseDate": "2026-06-25",
+      "paperVersion": "Version of Record",
+      "paperVersionDate": "2026-06-25",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for laboratory automation boundaries, protocols, and instrument-facing execution.",
+        "zh": "阅读它，是为了理解 Laboratory Automation Boundary、Protocol 与 Instrument-facing Execution。"
+      },
+      "evidenceBoundary": {
+        "en": "A peer-reviewed automation report does not establish general autonomous scientific judgment.",
+        "zh": "Peer-reviewed Automation Report 不建立 General Autonomous Scientific Judgment。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    },
+    {
+      "id": "xray-scientist",
+      "articleSlug": "practice",
+      "referenceId": "xray-scientist",
+      "companionReferenceIds": [],
+      "track": "lab",
+      "priority": 21,
+      "releaseDate": "2026-07-01",
+      "paperVersion": "Version of Record",
+      "paperVersionDate": "2026-07-01",
+      "publicationStatus": "Peer-reviewed",
+      "evidenceMaturity": "A",
+      "whyRead": {
+        "en": "Read this for an instrument-facing workflow where execution traces meet domain review.",
+        "zh": "阅读它，是为了理解 Execution Trace 与 Domain Review 相遇的 Instrument-facing Workflow。"
+      },
+      "evidenceBoundary": {
+        "en": "Instrument execution and peer review are strong signals, but they do not imply independent replication.",
+        "zh": "Instrument Execution 与 Peer Review 是较强 Signal，但不意味着 Independent Replication。"
+      },
+      "supersedes": null,
+      "correctionOf": null
+    }
+  ]
+},
   "articles": [
     {
       "slug": "foundations",
-      "revision": "1.0",
+      "revision": "1.1",
       "lastReviewed": "2026-09-03",
       "sourceCutoff": "2026-09-03",
       "title": {
@@ -45,6 +636,14 @@
             { "type": "paragraph", "text": { "en": "The distinction matters because a polished interface can hide a weak evidence chain. A Research OS should make the boundary visible: which decisions came from a person, which came from an agent, and which were accepted only after an external check.", "zh": "这个区分很重要，因为精致 Interface 可能掩盖薄弱的 Evidence Chain。Research OS 应该让边界可见：哪些 Decision 来自人，哪些来自 Agent，哪些只有经过 External Check 才被接受。" } }
           ],
           "referenceIds": ["vibe-wolf", "vibe-vision", "roadmap-survey"]
+        },
+        {
+          "id": "closest-literature",
+          "heading": { "en": "Closest literature and a reading path", "zh": "最接近的文献与阅读路径" },
+          "blocks": [
+            { "type": "reading-guide", "mode": "full" }
+          ],
+          "referenceIds": ["roadmap-survey", "autoresearch-ai-survey", "vibe-wolf", "vibe-vision", "kamios", "research-state", "xscientist", "scion", "ai-scientist", "agent-laboratory", "kosmos"]
         },
         {
           "id": "state-layer",
@@ -121,6 +720,14 @@
         { "id": "autoresearch-repo", "title": "karpathy/autoresearch", "url": "https://github.com/karpathy/autoresearch", "kind": "Repository", "authority": "Official" },
         { "id": "researchclawbench", "title": "ResearchClawBench", "url": "https://arxiv.org/abs/2606.07591", "kind": "Paper", "authority": "Primary" },
         { "id": "sciagentarena", "title": "SciAgentArena", "url": "https://arxiv.org/abs/2606.12736", "kind": "Paper", "authority": "Primary" },
+        { "id": "kamios", "title": "KamiOS: A Knowledge-centric and Model-agnostic Research Operating System for End-to-End Academic Research Orchestration", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7205522", "kind": "Paper", "authority": "Primary" },
+        { "id": "research-state", "title": "Research State: A Candidate Semantic Abstraction for Knowledge Continuity in AI-Native Research Operating Systems", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7257164", "kind": "Paper", "authority": "Primary" },
+        { "id": "xscientist", "title": "XScientist: A Git-Like Research Protocol for Long-Running Autonomous Scientific Discovery", "url": "https://arxiv.org/abs/2607.12301", "kind": "Paper", "authority": "Primary" },
+        { "id": "xscientist-repo", "title": "XScientist official implementation", "url": "https://github.com/smileformylove/XScientist", "kind": "Repository", "authority": "Official" },
+        { "id": "scion", "title": "Rethinking Scientific Discovery in the Agentic Era", "url": "https://arxiv.org/abs/2607.03863", "kind": "Paper", "authority": "Primary" },
+        { "id": "ai-scientist", "title": "The AI Scientist", "url": "https://www.nature.com/articles/s41586-026-10265-5", "kind": "Paper", "authority": "Primary" },
+        { "id": "agent-laboratory", "title": "Agent Laboratory", "url": "https://aclanthology.org/2025.findings-emnlp.320/", "kind": "Paper", "authority": "Primary" },
+        { "id": "kosmos", "title": "Kosmos: An AI Scientist for Autonomous Discovery", "url": "https://arxiv.org/abs/2511.02824", "kind": "Paper", "authority": "Primary" },
         { "id": "verification-gap", "title": "Autonomous Research Agents and the Verification Gap", "url": "https://arxiv.org/abs/2608.05179", "kind": "Paper", "authority": "Primary" }
       ],
       "relatedRoutes": ["/updates/", "/ros/evaluation/", "/ros/practice/"]
@@ -153,6 +760,7 @@
         { "id": "autoresearchbench", "title": "AutoResearchBench", "url": "https://arxiv.org/abs/2604.25256", "kind": "Paper", "authority": "Primary" },
         { "id": "bixbench3", "title": "BixBench3", "url": "https://arxiv.org/abs/2608.25286", "kind": "Paper", "authority": "Primary" },
         { "id": "fire-bench", "title": "FIRE-Bench", "url": "https://arxiv.org/abs/2602.02905", "kind": "Paper", "authority": "Primary" },
+        { "id": "researcharena", "title": "ResearchArena", "url": "https://arxiv.org/abs/2605.19156", "kind": "Paper", "authority": "Primary" },
         { "id": "verification-gap", "title": "Autonomous Research Agents and the Verification Gap", "url": "https://arxiv.org/abs/2608.05179", "kind": "Paper", "authority": "Primary" }
       ],
       "relatedRoutes": ["/updates/", "/ros/foundations/", "/ros/practice/"]

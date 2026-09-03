@@ -61,6 +61,14 @@ function withoutReactMarkers(html) {
   return html.replace(/<!--.*?-->/gs, "");
 }
 
+function htmlRegexLiteral(value) {
+  return new RegExp(
+    value
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      .replaceAll("&", "(?:&|&amp;)")
+  );
+}
+
 test("server-renders the English technical report", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
@@ -162,5 +170,79 @@ for (const [pathname, expectedTitle, language, alternatePath] of [
     else assert.match(html, /Primary references|Primary References|References/);
     assertLanguageSwitch(html, pathname, language === "en" ? "zh-CN" : "en", alternatePath);
     assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);
+  });
+}
+
+const READING_TITLES = [
+  "KamiOS",
+  "Research State",
+  "XScientist",
+  "Rethinking Scientific Discovery in the Agentic Era",
+  "AI for Auto-Research: Roadmap & User Guide",
+  "AutoResearch AI",
+  "Vibe Researching as Wolf Coming",
+  "A Visionary Look at Vibe Researching",
+  "The AI Scientist",
+  "Agent Laboratory",
+  "Kosmos: An AI Scientist for Autonomous Discovery",
+  "AutoResearchEval",
+  "Beyond Final Scores",
+  "FIRE-Bench",
+  "AutoResearchBench",
+  "SciAgentArena",
+  "ResearchArena",
+  "The AI co-scientist",
+  "A multi-agent system for automating scientific discovery",
+  "AutoLabs",
+  "An agentic artificially intelligent X-ray scientist",
+];
+
+test("server-renders the Research OS reading path on both hub locales", async () => {
+  for (const [pathname, language, alternatePath, localizedMarker] of [
+    ["/ros/", "en", "/zh/ros/", "Research OS is still an emerging framing"],
+    ["/zh/ros/", "zh-CN", "/ros/", "Research OS 仍是一个 emerging framing"],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /Research OS Reading List/);
+    assert.match(html, /KamiOS/);
+    assert.match(html, /Research State/);
+    assert.match(html, /XScientist/);
+    assert.match(html, /SCION/);
+    assert.match(html, /Evidence Grade/);
+    assert.match(html, /Peer-reviewed does not imply Independent Replication/);
+    assert.match(html, /Recommended path/);
+    assert.match(html, /Open the full reading inventory|打开完整 Reading Inventory/);
+    const readingInventoryPath = pathname.startsWith("/zh/")
+      ? "/zh/ros/foundations/#closest-literature"
+      : "/ros/foundations/#closest-literature";
+    assert.match(
+      html,
+      new RegExp(`href="(?:\\/auto-research-roadmap)?${readingInventoryPath.replaceAll("/", "\\/")}"`),
+    );
+    assert.match(html, new RegExp(localizedMarker));
+    assertLanguageSwitch(html, pathname, language === "en" ? "zh-CN" : "en", alternatePath);
+  }
+});
+
+for (const [pathname, language, alternatePath] of [
+  ["/ros/foundations/", "en", "/zh/ros/foundations/"],
+  ["/zh/ros/foundations/", "zh-CN", "/ros/foundations/"],
+]) {
+  test(`server-renders the complete Research OS reading inventory on ${pathname}`, async () => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /id="closest-literature"/);
+    assert.match(html, /#closest-literature/);
+    assert.match(html, /Last reviewed|Last Reviewed/);
+    assert.match(html, /Source cutoff|Source Cutoff/);
+    assert.match(html, /Peer-reviewed does not imply Independent Replication/);
+    for (const title of READING_TITLES) assert.match(html, htmlRegexLiteral(title), title);
+    const externalCards = (html.match(/target="_blank" rel="noreferrer noopener"/g) ?? []).length;
+    assert.ok(externalCards >= 21, "the full inventory should expose every Paper link");
+    assert.match(html, new RegExp(`lang="${language}"`));
+    assertLanguageSwitch(html, pathname, language === "en" ? "zh-CN" : "en", alternatePath);
   });
 }

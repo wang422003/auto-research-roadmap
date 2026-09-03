@@ -7,6 +7,8 @@ import type {
   ResearchOsClaim,
   ResearchOsSection,
 } from "@/content/research-os";
+import { researchOsSource } from "@/content/research-os";
+import ReadingGuide from "./reading-guide";
 
 type Locale = "en" | "zh";
 
@@ -74,6 +76,8 @@ function renderBlock(
       return <div className="ros-comparison" key={`comparison-${index}`} role="region" aria-label={t("Comparison", "Comparison")}><div className="ros-comparison-head">{block.columns.map((column, columnIndex) => <span key={columnIndex}>{getLocalized(column, locale)}</span>)}</div>{block.rows.map((row, rowIndex) => <div className="ros-comparison-row" key={rowIndex}><strong data-label={getLocalized(block.columns[0], locale)}>{getLocalized(row.label, locale)}</strong>{row.values.map((value, valueIndex) => <p data-label={block.columns[valueIndex + 1] ? getLocalized(block.columns[valueIndex + 1], locale) : undefined} key={valueIndex}>{getLocalized(value, locale)}</p>)}</div>)}</div>;
     case "diagram":
       return <div className="ros-diagram" key={`diagram-${index}`}><h3>{getLocalized(block.title, locale)}</h3><ol>{block.nodes.map((node, nodeIndex) => <li key={node.id}><span>{String(nodeIndex + 1).padStart(2, "0")}</span><div><strong>{getLocalized(node.label, locale)}</strong><p>{getLocalized(node.description, locale)}</p></div></li>)}</ol><div className="ros-diagram-edges" aria-label={t("Flow", "Flow")}>{block.edges.map((edge) => <span key={`${edge.from}-${edge.to}`}>{edge.from} <i aria-hidden="true">→</i> {edge.to}</span>)}</div></div>;
+    case "reading-guide":
+      return <ReadingGuide key={`reading-guide-${index}`} readingList={researchOsSource.readingList} locale={locale} mode={block.mode} />;
     default:
       return null;
   }
@@ -98,6 +102,14 @@ export default function ResearchOsArticlePage({ article, locale }: { article: Re
   const currentPath = localRoute(locale, `/ros/${article.slug}/`);
   const alternatePath = localRoute(isZh ? "en" : "zh", `/ros/${article.slug}/`);
   const seenClaims = new Set<string>();
+  const readingCitationUrls = article.slug === "foundations"
+    ? researchOsSource.readingList.entries
+        .map((entry) => {
+          const sourceArticle = researchOsSource.articles.find((candidate) => candidate.slug === entry.articleSlug);
+          return sourceArticle?.references.find((reference) => reference.id === entry.referenceId)?.url;
+        })
+        .filter((url): url is string => Boolean(url))
+    : [];
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -107,6 +119,7 @@ export default function ResearchOsArticlePage({ article, locale }: { article: Re
     inLanguage: isZh ? "zh-CN" : "en",
     url: `${SITE_URL}${currentPath}`,
     isPartOf: { "@type": "CollectionPage", name: "Research Operating System", url: `${SITE_URL}${localRoute(locale, "/ros/")}` },
+    ...(readingCitationUrls.length > 0 ? { citation: [...new Set(readingCitationUrls)] } : {}),
     breadcrumb: { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Report", item: `${SITE_URL}${localRoute(locale, reportPath)}` }, { "@type": "ListItem", position: 2, name: "Updates", item: `${SITE_URL}${localRoute(locale, updatesPath)}` }, { "@type": "ListItem", position: 3, name: "Research OS", item: `${SITE_URL}${localRoute(locale, "/ros/")}` }, { "@type": "ListItem", position: 4, name: getLocalized(article.title, locale), item: `${SITE_URL}${currentPath}` }] },
   };
 
@@ -121,12 +134,13 @@ export default function ResearchOsArticlePage({ article, locale }: { article: Re
             <a href={sitePath(reportPath)}>{t("Report", "主报告")}</a>
             <a href={sitePath(updatesPath)}>{t("Updates", "更新")}</a>
             <a href={sitePath(localRoute(locale, "/ros/"))}>Research OS</a>
+            <a href={sitePath(localRoute(locale, "/ros/#reading-list"))}>{t("Reading", "阅读")}</a>
             <a href="#article-evidence">{t("Evidence", "证据")}</a>
           </nav>
           <div className="header-actions"><a className="language-switch" href={sitePath(alternatePath)} hrefLang={isZh ? "en" : "zh-CN"}>{isZh ? "EN" : "中文"}</a></div>
         </div>
         <nav className="ros-mobile-nav" aria-label={t("Article sections", "文章章节")}>
-          <a href={sitePath(reportPath)}>{t("Report", "主报告")}</a><a href={sitePath(updatesPath)}>{t("Updates", "更新")}</a><a href={sitePath(localRoute(locale, "/ros/"))}>Research OS</a><a href="#article-evidence">{t("Evidence", "证据")}</a>
+          <a href={sitePath(reportPath)}>{t("Report", "主报告")}</a><a href={sitePath(updatesPath)}>{t("Updates", "更新")}</a><a href={sitePath(localRoute(locale, "/ros/"))}>Research OS</a><a href={sitePath(localRoute(locale, "/ros/#reading-list"))}>{t("Reading", "阅读")}</a><a href="#article-evidence">{t("Evidence", "证据")}</a>
         </nav>
       </header>
 
