@@ -38,6 +38,13 @@ than silently rewriting an older Evidence Grade. Updates are reviewed manually
 about once per month, with interim releases for major evidence events. The site
 does not use a crawler, CMS, database, runtime API, or scheduled publication.
 
+The latest entry is [Update 003 · 2026-09-29](https://wang422003.github.io/auto-research-roadmap/updates/#2026-09-29)
+([中文](https://wang422003.github.io/auto-research-roadmap/zh/updates/#2026-09-29)).
+Its local distribution is A 0 / B 4 / C 5 / D 3 across twelve new entries;
+carried context does not enter this denominator. The previous cutoff is
+2026-09-03. The original v1.1 report and the Research OS reading list retain
+their own cutoffs and denominators.
+
 The `Living Field Updates` archive is an append-only stream and is not merged
 back into the frozen 25-entry denominator. `Research Operating System` is a
 separate, neutral working synthesis about durable State, executable Execution,
@@ -60,7 +67,14 @@ Evidence is coded conservatively:
 - **A** — Peer-reviewed or independently validated;
 - **B** — Preprint with open code, data, or trajectories;
 - **C** — Preprint with self-reported results;
-- **D** — Official repository or product claim without full academic validation.
+- **D** — Official source, repository, or product claim without full academic validation.
+
+An `Official Signal` is a controlled, paperless Evidence D entry backed by an
+official HTTPS publisher source and labeled as such in the Evidence Table. It
+does not inherit peer-review status from an organization name, and it is not a
+productivity or independent-replication finding. Paper-backed entries still
+require a `Paper · Primary` reference. Official URLs and source versions are
+deduplicated across the archive.
 
 The 25-entry corpus is representative rather than exhaustive. Paper, repository, and product releases for the same system are merged to avoid duplicate counting.
 
@@ -76,7 +90,10 @@ For each new version, record `Release Date`, `Research Lifecycle Coverage`, `Aut
    Comparison Basis, and Claim Authority.
 4. Keep `Author-reported` separate from `Independently Validated`; use
    `contextReferences` when carrying an older archived work into a new update.
-5. Run `npm run validate:content`, `npm run validate:research-os`, the lint gate,
+5. For an `Official Signal`, verify the organization's own URL, release date,
+   source version, and Evidence D boundary; do not infer a paper or independent
+   validation. For papers, verify the current arXiv or publisher version.
+6. Run `npm run validate:content`, `npm run validate:research-os`, the lint gate,
    static export, and the page-content tests before publishing.
 
 ### Monthly reading-list audit

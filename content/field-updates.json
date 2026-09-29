@@ -18,11 +18,1303 @@
       "zh": "Preprint 中的 Author-reported Result，External Validation 尚不完整。"
     },
     "D": {
-      "en": "Official repository or product claim without complete academic validation.",
-      "zh": "Official Repository 或 Product Claim，缺少完整学术验证。"
+      "en": "Official source, repository, or product claim without complete academic validation.",
+      "zh": "Official Source、Repository 或 Product Claim，缺少完整学术验证。"
     }
   },
   "updates": [
+    {
+      "id": "update-003-2026-09-29",
+      "anchor": "2026-09-29",
+      "publishedAt": "2026-09-29",
+      "evidenceCutoff": "2026-09-29",
+      "previousCutoff": "2026-09-03",
+      "supersedes": null,
+      "correctionOf": null,
+      "title": {
+        "en": "Update 003 — Better research loops; verification remains the bottleneck",
+        "zh": "Update 003 — Research Loop 更强，Verification 仍是瓶颈"
+      },
+      "summary": {
+        "en": "From 4 to 29 September, research agents advanced in budget allocation, persistent execution, experimental understanding, failure localization, and narrow instrument operation. Most new performance claims remain author-reported; institutional signals are separately labeled Evidence D. None establishes general autonomous scientific novelty or independent replication.",
+        "zh": "9 月 4 日至 29 日，Research Agent 在预算分配、Persistent Execution、Experimental Understanding、Failure Localization 和狭窄仪器操作方面取得进展。多数新性能主张仍是 Author-reported；机构信号单独标为 Evidence D。现有证据尚不能证明通用 Autonomous Scientific Novelty 或 Independent Replication。"
+      },
+      "takeaways": [
+        {
+          "en": "Budget-aware experiment selection and durable state are making research loops more inspectable and less wasteful.",
+          "zh": "Budget-aware Experiment Selection 与 Durable State 使 Research Loop 更可检查，也更少浪费。"
+        },
+        {
+          "en": "Benchmarking is moving from final scores toward experiment understanding and stepwise failure localization.",
+          "zh": "Benchmarking 正从 Final Score 转向 Experimental Understanding 与 Stepwise Failure Localization。"
+        },
+        {
+          "en": "Verification Gap: real instruments and internal deployment are meaningful signals, but Scientific Judgment, Independent Replication, and Research Integrity are still unverified at general scale.",
+          "zh": "Verification Gap：真实仪器与内部部署是重要 Signal，但大规模 Scientific Judgment、Independent Replication 与 Research Integrity 仍未验证。"
+        },
+        {
+          "en": "The most defensible form remains Vibe Research / Human-on-the-loop, with source-grounded artifacts and intervention.",
+          "zh": "最可辩护的形态仍是 Vibe Research / Human-on-the-loop，保留 Source-grounded Artifact 与 Intervention。"
+        }
+      ],
+      "newSincePreviousCutoff": [
+        "prime-scientist-v1",
+        "synagent-v1",
+        "aide2-v1",
+        "openai4s-v1",
+        "whatworkedbench-v2",
+        "traverse-scout-v1",
+        "agentx-model-v1",
+        "saescientist-bench-v2",
+        "scientisttwo-v1",
+        "openai-acceleration-2026",
+        "anthropic-index-2026",
+        "anthropic-enzyme-2026"
+      ],
+      "contextEntries": [],
+      "contextReferences": [
+        "autoresearch-eval-v3",
+        "scienceflow-v2",
+        "robin-vor"
+      ],
+      "dateCorrections": [],
+      "featuredWorkIds": [
+        "prime-scientist-v1",
+        "synagent-v1",
+        "aide2-v1",
+        "openai4s-v1",
+        "whatworkedbench-v2",
+        "traverse-scout-v1",
+        "agentx-model-v1"
+      ],
+      "themes": [
+        {
+          "id": "decision-level-validation",
+          "title": {
+            "en": "Decision-level Validation",
+            "zh": "Decision-level Validation"
+          },
+          "summary": {
+            "en": "Research effort is becoming an explicit decision variable, but reported rewards stay task-specific.",
+            "zh": "Research Effort 成为显式决策变量，但报告的 Reward 仍依赖具体任务。"
+          },
+          "workIds": [
+            "prime-scientist-v1",
+            "agentx-model-v1"
+          ]
+        },
+        {
+          "id": "long-horizon-research-dynamics",
+          "title": {
+            "en": "Long-horizon Research Dynamics",
+            "zh": "Long-horizon Research Dynamics"
+          },
+          "summary": {
+            "en": "Recursive agent improvement and industrial iteration now expose longer chains; coherence and reward hacking remain open.",
+            "zh": "Recursive Agent Improvement 与工业迭代呈现更长链条；Coherence 与 Reward Hacking 仍待解决。"
+          },
+          "workIds": [
+            "aide2-v1",
+            "agentx-model-v1",
+            "traverse-scout-v1"
+          ]
+        },
+        {
+          "id": "executable-loop-environment-engineering",
+          "title": {
+            "en": "Executable Loop & Environment Engineering",
+            "zh": "Executable Loop 与 Environment Engineering"
+          },
+          "summary": {
+            "en": "Action ledgers and persistent sessions strengthen recovery, without guaranteeing a fresh independent replay.",
+            "zh": "Action Ledger 与 Persistent Session 增强 Recovery，但不保证全新环境中的 Independent Replay。"
+          },
+          "workIds": [
+            "openai4s-v1",
+            "prime-scientist-v1",
+            "scienceflow-v2"
+          ]
+        },
+        {
+          "id": "open-ended-discovery",
+          "title": {
+            "en": "Open-ended Discovery",
+            "zh": "Open-ended Discovery"
+          },
+          "summary": {
+            "en": "Novelty claims and early biology signals need external tests of knowledge gain, function, and replication.",
+            "zh": "Novelty Claim 与早期生物学信号需要对 Knowledge Gain、Function 与 Replication 的外部检验。"
+          },
+          "workIds": [
+            "scientisttwo-v1",
+            "anthropic-enzyme-2026",
+            "robin-vor"
+          ]
+        },
+        {
+          "id": "benchmark-reality-check",
+          "title": {
+            "en": "Benchmark Reality Check",
+            "zh": "Benchmark Reality Check"
+          },
+          "summary": {
+            "en": "Experimental understanding and failure localization are being measured beyond terminal scores.",
+            "zh": "Experimental Understanding 与 Failure Localization 开始接受超越 Terminal Score 的测量。"
+          },
+          "workIds": [
+            "whatworkedbench-v2",
+            "saescientist-bench-v2",
+            "traverse-scout-v1",
+            "autoresearch-eval-v3"
+          ]
+        },
+        {
+          "id": "lab-in-the-loop-validation",
+          "title": {
+            "en": "Lab-in-the-loop Validation",
+            "zh": "Lab-in-the-loop Validation"
+          },
+          "summary": {
+            "en": "Real instrument use is visible in a narrow materials campaign; independent campaigns remain the missing test.",
+            "zh": "狭窄的 Materials Campaign 已呈现真实仪器执行；独立 Campaign 仍是缺失的检验。"
+          },
+          "workIds": [
+            "synagent-v1",
+            "anthropic-enzyme-2026",
+            "robin-vor"
+          ]
+        }
+      ],
+      "evidenceMaturityDistribution": {
+        "A": 0,
+        "B": 4,
+        "C": 5,
+        "D": 3
+      },
+      "capabilityAssessment": [
+        {
+          "capability": {
+            "en": "Budget-aware research allocation",
+            "zh": "Budget-aware Research Allocation"
+          },
+          "assessment": {
+            "en": "Executable matched-budget tasks show promise; transfer to scientific novelty remains untested.",
+            "zh": "Executable Matched-budget Task 显示潜力；向 Scientific Novelty 的迁移未验证。"
+          },
+          "workIds": [
+            "prime-scientist-v1",
+            "whatworkedbench-v2"
+          ]
+        },
+        {
+          "capability": {
+            "en": "Durable research state",
+            "zh": "Durable Research State"
+          },
+          "assessment": {
+            "en": "Action ledgers and persistent execution aid inspection and recovery, but do not yet guarantee full rerunnability.",
+            "zh": "Action Ledger 与 Persistent Execution 有助于检查和恢复，但尚未保证完整 Rerunnability。"
+          },
+          "workIds": [
+            "openai4s-v1",
+            "scienceflow-v2"
+          ]
+        },
+        {
+          "capability": {
+            "en": "Independent knowledge gain",
+            "zh": "Independent Knowledge Gain"
+          },
+          "assessment": {
+            "en": "Evidence remains mostly author-reported or official; independent replication is scarce.",
+            "zh": "证据大多为 Author-reported 或 Official Signal；Independent Replication 稀缺。"
+          },
+          "workIds": [
+            "synagent-v1",
+            "scientisttwo-v1",
+            "anthropic-enzyme-2026",
+            "robin-vor"
+          ]
+        }
+      ],
+      "capabilityLadder": [
+        {
+          "stage": {
+            "en": "Research Assistant",
+            "zh": "Research Assistant"
+          },
+          "status": {
+            "en": "Supported",
+            "zh": "Supported"
+          },
+          "description": {
+            "en": "Retrieval, synthesis, coding assistance; human judgment directs the work.",
+            "zh": "检索、综合与 Coding 辅助；Human Judgment 指导研究。"
+          }
+        },
+        {
+          "stage": {
+            "en": "Metric-driven Loop",
+            "zh": "Metric-driven Loop"
+          },
+          "status": {
+            "en": "Supported in bounded tasks",
+            "zh": "Supported in bounded tasks"
+          },
+          "description": {
+            "en": "Executable metrics support iteration when task definitions are fixed.",
+            "zh": "任务定义固定时，Executable Metric 支持迭代。"
+          }
+        },
+        {
+          "stage": {
+            "en": "Artifact-backed Human-on-the-loop",
+            "zh": "Artifact-backed Human-on-the-loop"
+          },
+          "status": {
+            "en": "Most credible deployment",
+            "zh": "Most credible deployment"
+          },
+          "description": {
+            "en": "Durable artifacts, review checkpoints, and human intervention expose failure and uncertainty.",
+            "zh": "Durable Artifact、Review Checkpoint 与 Human Intervention 暴露失败和不确定性。"
+          }
+        },
+        {
+          "stage": {
+            "en": "Narrow Instrument Operator",
+            "zh": "Narrow Instrument Operator"
+          },
+          "status": {
+            "en": "Emerging",
+            "zh": "Emerging"
+          },
+          "description": {
+            "en": "Instrument-facing campaigns provide real-world signals within narrow protocols.",
+            "zh": "Instrument-facing Campaign 在狭窄 Protocol 中提供 Real-world Signal。"
+          }
+        },
+        {
+          "stage": {
+            "en": "Trustworthy Autonomous AI Scientist",
+            "zh": "Trustworthy Autonomous AI Scientist"
+          },
+          "status": {
+            "en": "Not established",
+            "zh": "Not established"
+          },
+          "description": {
+            "en": "Open-world novelty, independent replication, and research integrity remain unresolved.",
+            "zh": "Open-world Novelty、Independent Replication 与 Research Integrity 仍未解决。"
+          }
+        }
+      ],
+      "openGaps": [
+        {
+          "en": "Independent replication across untouched tasks, new laboratories, and full artifact replay.",
+          "zh": "在 Untouched Task、新实验室和完整 Artifact Replay 上实现 Independent Replication。"
+        },
+        {
+          "en": "Matched budgets and noise-floor estimates for reward, resource use, and intervention cost.",
+          "zh": "为 Reward、Resource Use 与 Intervention Cost 建立 Matched Budget 和 Noise-floor Estimate。"
+        },
+        {
+          "en": "Failure-aware oversight that catches harmful or misleading trajectories before terminal success.",
+          "zh": "在 Terminal Success 之前识别有害或误导性 Trajectory 的 Failure-aware Oversight。"
+        },
+        {
+          "en": "Scientific function and novelty need domain-expert review, not only automated scores or company reports.",
+          "zh": "Scientific Function 与 Novelty 需要 Domain-expert Review，而非只有 Automated Score 或公司报告。"
+        }
+      ],
+      "works": [
+        {
+          "id": "prime-scientist-v1",
+          "canonicalWorkId": "prime-scientist",
+          "title": {
+            "en": "PrimeScientist: Strategic Allocation of Research Effort in Autonomous Research",
+            "zh": "PrimeScientist: Strategic Allocation of Research Effort in Autonomous Research"
+          },
+          "releaseDate": "2026-09-15",
+          "originalReleaseDate": "2026-09-15",
+          "paperVersionDate": "2026-09-15",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "AI / ML research",
+            "zh": "AI / ML 研究"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Idea selection, planning, experimentation, and feedback",
+            "zh": "选题、规划、实验与反馈"
+          },
+          "autonomyLevel": {
+            "en": "Autonomous within bounded executable tasks",
+            "zh": "在有界可执行任务中自主运行"
+          },
+          "runHorizon": {
+            "en": "Sequential research attempts under a fixed budget",
+            "zh": "固定预算下的连续 Research Attempt"
+          },
+          "agentTopology": {
+            "en": "Planner with adaptive search",
+            "zh": "Planner 与 Adaptive Search"
+          },
+          "memoryStateMechanism": {
+            "en": "Executable plan tree preserving alternatives and outcomes",
+            "zh": "Executable Plan Tree 保存备选方案和结果"
+          },
+          "evaluationProtocol": {
+            "en": "Matched-resource AI research tasks; author-reported",
+            "zh": "Matched-resource AI Research Tasks；Author-reported"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Paper and official code/data repository public",
+            "zh": "Paper 与 Official Code/Data Repository 已公开"
+          },
+          "externalValidation": {
+            "en": "Executable task evaluation, not independent replication",
+            "zh": "可执行任务评估；非 Independent Replication"
+          },
+          "limitation": {
+            "en": "Research quality is task reward, not verified scientific novelty",
+            "zh": "Research Quality 由 Task Reward 表示，非已验证的 Scientific Novelty"
+          },
+          "evidenceMaturity": "B",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": {
+                "en": "Across 12 AI research tasks, average reward rose 10.3% with 50.6% fewer attempts.",
+                "zh": "在 12 项 AI Research Task 上，平均 Reward 提高 10.3%，Research Attempt 减少 50.6%。"
+              },
+              "taskDefinition": {
+                "en": "Bounded AI research and optimization tasks with sequential attempts.",
+                "zh": "有界 AI Research 与 Optimization Task 的连续尝试。"
+              },
+              "sampleSizeDenominator": {
+                "en": "12 tasks; attempts counted per task under the same resource budget.",
+                "zh": "12 项任务；相同 Resource Budget 下按任务统计 Attempt。"
+              },
+              "evaluator": {
+                "en": "Task-specific executable reward, as reported by the authors.",
+                "zh": "作者报告的任务特定 Executable Reward。"
+              },
+              "comparisonBasis": {
+                "en": "AutoResearch under the same resource budget.",
+                "zh": "相同 Resource Budget 下的 AutoResearch。"
+              },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": [
+            "ref-prime-scientist-v1-paper",
+            "ref-prime-scientist-v1-repo"
+          ]
+        },
+        {
+          "id": "synagent-v1",
+          "canonicalWorkId": "synagent",
+          "title": {
+            "en": "SynAgent — Hypothesis-Driven Autonomous Materials Synthesis with Multimodal LLM Agents",
+            "zh": "SynAgent — Hypothesis-Driven Autonomous Materials Synthesis with Multimodal LLM Agents"
+          },
+          "releaseDate": "2026-09-16",
+          "originalReleaseDate": "2026-09-16",
+          "paperVersionDate": "2026-09-16",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "Materials Science / wet lab",
+            "zh": "Materials Science / Wet Lab"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Hypothesis, experiment design, instrument execution, analysis, revision",
+            "zh": "假设、实验设计、仪器执行、分析与修订"
+          },
+          "autonomyLevel": {
+            "en": "Narrow autonomous instrument-facing campaign",
+            "zh": "特定仪器 Campaign 的有界自主执行"
+          },
+          "runHorizon": {
+            "en": "Single experimental campaign",
+            "zh": "单次 Experimental Campaign"
+          },
+          "agentTopology": {
+            "en": "Multimodal LLM agents linked to automated synthesis",
+            "zh": "Multimodal LLM Agents 接入自动化制备"
+          },
+          "memoryStateMechanism": {
+            "en": "Revisable synthesis understanding and generated analysis skills",
+            "zh": "可修订的 Synthesis Understanding 与生成的 Analysis Skills"
+          },
+          "evaluationProtocol": {
+            "en": "Real thin-film deposition with verify–falsify probes",
+            "zh": "真实薄膜沉积与 Verify–Falsify Probe"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Preprint; reusable code/data package not verified",
+            "zh": "Preprint；可复用 Code/Data 包尚未核实"
+          },
+          "externalValidation": {
+            "en": "Real instrument execution reported by authors; no independent replication",
+            "zh": "作者报告真实仪器执行；无 Independent Replication"
+          },
+          "limitation": {
+            "en": "One material system and one campaign do not establish general discovery",
+            "zh": "单一材料体系及 Campaign 不能证明通用 Discovery"
+          },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": {
+                "en": "One campaign comprised 18 autonomous LiCoO2 thin-film experiments.",
+                "zh": "单次 Campaign 包含 18 次自主 LiCoO2 薄膜实验。"
+              },
+              "taskDefinition": {
+                "en": "LiCoO2 thin-film synthesis and hypothesis refinement.",
+                "zh": "LiCoO2 薄膜制备与假设修订。"
+              },
+              "sampleSizeDenominator": {
+                "en": "One campaign; 18 instrument experiments.",
+                "zh": "单次 Campaign；18 次仪器实验。"
+              },
+              "evaluator": {
+                "en": "Instrument measurements and author interpretation.",
+                "zh": "仪器测量与作者解释。"
+              },
+              "comparisonBasis": {
+                "en": "Within-campaign conditions; no independent campaign replication.",
+                "zh": "Campaign 内部条件；无独立 Campaign Replication。"
+              },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": [
+            "ref-synagent-v1-paper"
+          ]
+        },
+        {
+          "id": "aide2-v1",
+          "canonicalWorkId": "aide2",
+          "title": {
+            "en": "AIDE² — Recursive self-improvement of AI research agents",
+            "zh": "AIDE² — Recursive self-improvement of AI research agents"
+          },
+          "releaseDate": "2026-09-22",
+          "originalReleaseDate": "2026-09-22",
+          "paperVersionDate": "2026-09-22",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "AI / ML agent engineering",
+            "zh": "AI / ML Agent Engineering"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Agent modification, benchmark execution, selection, and reuse",
+            "zh": "Agent 修改、Benchmark 执行、选择与复用"
+          },
+          "autonomyLevel": {
+            "en": "Autonomous recursive agent improvement within a task suite",
+            "zh": "任务集内自主 Recursive Agent Improvement"
+          },
+          "runHorizon": {
+            "en": "Multi-day iterative self-improvement run",
+            "zh": "跨多日迭代 Self-improvement Run"
+          },
+          "agentTopology": {
+            "en": "Self-editing research agent with evaluation gate",
+            "zh": "Self-editing Research Agent 与 Evaluation Gate"
+          },
+          "memoryStateMechanism": {
+            "en": "Accepted code revisions and compressed context",
+            "zh": "已接受的 Code Revision 与压缩 Context"
+          },
+          "evaluationProtocol": {
+            "en": "Hidden and held-out AI R&D benchmarks; author-reported",
+            "zh": "Hidden 与 Held-out AI R&D Benchmark；Author-reported"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Preprint; complete implementation not directly verified",
+            "zh": "Preprint；完整实现尚未直接核实"
+          },
+          "externalValidation": {
+            "en": "Author-reported benchmark transfer, not independent scientific discovery",
+            "zh": "作者报告 Benchmark Transfer；非独立 Scientific Discovery"
+          },
+          "limitation": {
+            "en": "Better agent performance is not itself new scientific knowledge",
+            "zh": "Agent 表现改进不等于产生新科学知识"
+          },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-aide2-v1-paper"
+          ]
+        },
+        {
+          "id": "openai4s-v1",
+          "canonicalWorkId": "openai4s",
+          "title": {
+            "en": "OpenAI4S: Code as Action, Science as Sessions",
+            "zh": "OpenAI4S: Code as Action, Science as Sessions"
+          },
+          "releaseDate": "2026-09-14",
+          "originalReleaseDate": "2026-09-14",
+          "paperVersionDate": "2026-09-14",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "Computational research systems",
+            "zh": "Computational Research Systems"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Planning, code execution, artifact logging, recovery",
+            "zh": "规划、代码执行、Artifact 记录与恢复"
+          },
+          "autonomyLevel": {
+            "en": "Tool-mediated research workflow with human oversight",
+            "zh": "带 Human Oversight 的 Tool-mediated Research Workflow"
+          },
+          "runHorizon": {
+            "en": "Persistent multi-session execution",
+            "zh": "跨 Session 的 Persistent Execution"
+          },
+          "agentTopology": {
+            "en": "Session-oriented tool agent",
+            "zh": "Session-oriented Tool Agent"
+          },
+          "memoryStateMechanism": {
+            "en": "Action Ledger, versioned artifacts, checkpoints",
+            "zh": "Action Ledger、Versioned Artifacts、Checkpoints"
+          },
+          "evaluationProtocol": {
+            "en": "Executable demonstrations and artifact inspection",
+            "zh": "Executable Demonstration 与 Artifact Inspection"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Preprint and official implementation public",
+            "zh": "Preprint 与 Official Implementation 已公开"
+          },
+          "externalValidation": {
+            "en": "Open artifacts; complete rerunnability remains unproven",
+            "zh": "开放 Artifact；完整 Rerunnability 尚未证明"
+          },
+          "limitation": {
+            "en": "PKU-led project, not an OpenAI company project; recovery is not full reproducibility",
+            "zh": "北京大学团队项目，非 OpenAI 公司项目；Recovery 不等于完整 Reproducibility"
+          },
+          "evidenceMaturity": "B",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-openai4s-v1-paper",
+            "ref-openai4s-v1-repo"
+          ]
+        },
+        {
+          "id": "whatworkedbench-v2",
+          "canonicalWorkId": "whatworkedbench",
+          "title": {
+            "en": "WhatWorkedBench: Benchmarking Experimental Understanding in AI Agents",
+            "zh": "WhatWorkedBench: Benchmarking Experimental Understanding in AI Agents"
+          },
+          "releaseDate": "2026-09-23",
+          "originalReleaseDate": "2026-09-23",
+          "paperVersionDate": "2026-09-28",
+          "paperVersion": "v2",
+          "domain": {
+            "en": "AI / ML evaluation",
+            "zh": "AI / ML Evaluation"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Budgeted measurement, component-effect inference, response-surface delivery",
+            "zh": "预算受限测量、Component Effect 推断与 Response Surface 交付"
+          },
+          "autonomyLevel": {
+            "en": "Agent chooses measurements and reconstructs outcomes",
+            "zh": "Agent 选择测量并重建结果"
+          },
+          "runHorizon": {
+            "en": "Bounded experimental episodes",
+            "zh": "有界 Experimental Episode"
+          },
+          "agentTopology": {
+            "en": "Benchmark for research agents",
+            "zh": "Research Agent Benchmark"
+          },
+          "memoryStateMechanism": {
+            "en": "Observed measurements and delivered score surface",
+            "zh": "已观察测量与交付的 Score Surface"
+          },
+          "evaluationProtocol": {
+            "en": "CPU reference outcomes, effect errors, acquisition and delivery",
+            "zh": "CPU Reference Outcome、Effect Error、Acquisition 与 Delivery"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Paper and official benchmark implementation public",
+            "zh": "Paper 与 Official Benchmark Implementation 已公开"
+          },
+          "externalValidation": {
+            "en": "Executable benchmark design; cross-system results remain author-reported",
+            "zh": "Executable Benchmark Design；跨系统结果仍是 Author-reported"
+          },
+          "limitation": {
+            "en": "Surrogate task understanding is not equivalent to open-world scientific novelty",
+            "zh": "Surrogate Task Understanding 不等于 Open-world Scientific Novelty"
+          },
+          "evidenceMaturity": "B",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-whatworkedbench-v2-paper",
+            "ref-whatworkedbench-v2-repo"
+          ]
+        },
+        {
+          "id": "traverse-scout-v1",
+          "canonicalWorkId": "traverse-scout",
+          "title": {
+            "en": "Traverse / Scout — Locating Hidden Failures Makes Long-Horizon Agents More Reliable",
+            "zh": "Traverse / Scout — Locating Hidden Failures Makes Long-Horizon Agents More Reliable"
+          },
+          "releaseDate": "2026-09-15",
+          "originalReleaseDate": "2026-09-15",
+          "paperVersionDate": "2026-09-15",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "Agent safety / research process",
+            "zh": "Agent Safety / Research Process"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Trajectory review, failure localization, verifier-guided selection",
+            "zh": "Trajectory Review、Failure Localization、Verifier-guided Selection"
+          },
+          "autonomyLevel": {
+            "en": "Oversight of long-horizon agents",
+            "zh": "Long-horizon Agent 的 Oversight"
+          },
+          "runHorizon": {
+            "en": "Long-horizon trajectories",
+            "zh": "Long-horizon Trajectory"
+          },
+          "agentTopology": {
+            "en": "Agent trajectories with Scout verifier",
+            "zh": "Agent Trajectory 与 Scout Verifier"
+          },
+          "memoryStateMechanism": {
+            "en": "Human-annotated mistake traces",
+            "zh": "Human-annotated Mistake Traces"
+          },
+          "evaluationProtocol": {
+            "en": "First-error localization against human annotations",
+            "zh": "相对 Human Annotation 的 First-error Localization"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Paper claims annotation release; direct artifact URL not verified",
+            "zh": "Paper 声称开放标注；直接 Artifact URL 尚未核实"
+          },
+          "externalValidation": {
+            "en": "Author-reported verifier evaluation",
+            "zh": "Author-reported Verifier Evaluation"
+          },
+          "limitation": {
+            "en": "Not upgraded to B until a direct public artifact can be audited",
+            "zh": "直接公开 Artifact 可核实前不升级为 B"
+          },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-traverse-scout-v1-paper"
+          ]
+        },
+        {
+          "id": "agentx-model-v1",
+          "canonicalWorkId": "agentx-model",
+          "title": {
+            "en": "AgentX-Model — Advancing Model Research in AgentX: Long-Horizon Autonomy for Industrial Recommender Systems",
+            "zh": "AgentX-Model — Advancing Model Research in AgentX: Long-Horizon Autonomy for Industrial Recommender Systems"
+          },
+          "releaseDate": "2026-09-24",
+          "originalReleaseDate": "2026-09-24",
+          "paperVersionDate": "2026-09-24",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "Industrial recommender systems",
+            "zh": "Industrial Recommender Systems"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Proposal, model experiments, diagnosis, online feedback",
+            "zh": "提案、模型实验、诊断与线上反馈"
+          },
+          "autonomyLevel": {
+            "en": "Long-horizon research under business-defined sandboxes",
+            "zh": "业务约束 Sandbox 内的 Long-horizon Research"
+          },
+          "runHorizon": {
+            "en": "Continuing industrial model-development loop",
+            "zh": "持续的工业模型研发 Loop"
+          },
+          "agentTopology": {
+            "en": "Research Agent and Model Agent",
+            "zh": "Research Agent 与 Model Agent"
+          },
+          "memoryStateMechanism": {
+            "en": "Prior experiments, lineages, and unresolved questions",
+            "zh": "既往 Experiment、Lineage 与未解决问题"
+          },
+          "evaluationProtocol": {
+            "en": "Offline AUC and online business tests; author-reported",
+            "zh": "Offline AUC 与 Online Business Test；Author-reported"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Technical report; full private production system not open",
+            "zh": "Technical Report；完整生产系统未开放"
+          },
+          "externalValidation": {
+            "en": "Production-context evaluation reported by authors",
+            "zh": "作者报告的 Production-context Evaluation"
+          },
+          "limitation": {
+            "en": "Business outcomes cannot be compared directly with academic benchmark scores",
+            "zh": "业务指标不可与学术 Benchmark Score 横比"
+          },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": {
+                "en": "560 of 636 completed model-changing experiments exceeded business AUC baselines.",
+                "zh": "636 次完成的模型变更实验中，560 次 AUC 高于对应业务基线。"
+              },
+              "taskDefinition": {
+                "en": "Industrial recommendation model research across business settings.",
+                "zh": "多个业务场景中的推荐模型研发。"
+              },
+              "sampleSizeDenominator": {
+                "en": "636 completed model-changing experiments; 560 above baseline.",
+                "zh": "636 次完成的模型变更实验；560 次高于基线。"
+              },
+              "evaluator": {
+                "en": "Offline AUC measured in the authors' production evaluation.",
+                "zh": "作者生产评估中的 Offline AUC。"
+              },
+              "comparisonBasis": {
+                "en": "Each experiment's corresponding business baseline, not an academic benchmark.",
+                "zh": "各实验对应业务基线，非学术 Benchmark。"
+              },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": [
+            "ref-agentx-model-v1-paper"
+          ]
+        },
+        {
+          "id": "saescientist-bench-v2",
+          "canonicalWorkId": "saescientist-bench",
+          "title": {
+            "en": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
+            "zh": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?"
+          },
+          "releaseDate": "2026-09-08",
+          "originalReleaseDate": "2026-09-08",
+          "paperVersionDate": "2026-09-11",
+          "paperVersion": "v2",
+          "domain": {
+            "en": "Mechanistic Interpretability",
+            "zh": "Mechanistic Interpretability"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Probe design, SAE feature search, interpretation, causal testing",
+            "zh": "Probe Design、SAE Feature Search、Interpretation 与 Causal Testing"
+          },
+          "autonomyLevel": {
+            "en": "Bounded agent research in SAE tools",
+            "zh": "SAE Tool 中有界 Agent Research"
+          },
+          "runHorizon": {
+            "en": "Per-task interpretability investigation",
+            "zh": "单任务 Interpretability Investigation"
+          },
+          "agentTopology": {
+            "en": "Agent configurations in a controlled benchmark",
+            "zh": "受控 Benchmark 中的 Agent Configurations"
+          },
+          "memoryStateMechanism": {
+            "en": "Probe results and candidate feature records",
+            "zh": "Probe Result 与 Candidate Feature Record"
+          },
+          "evaluationProtocol": {
+            "en": "Expert reference features, selectivity and causal steering",
+            "zh": "Expert Reference Feature、Selectivity 与 Causal Steering"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Preprint and official code public",
+            "zh": "Preprint 与 Official Code 已公开"
+          },
+          "externalValidation": {
+            "en": "Expert-anchored benchmark, but results author-reported",
+            "zh": "Expert-anchored Benchmark，但结果仍是 Author-reported"
+          },
+          "limitation": {
+            "en": "Agents often misinterpret measurements; no claim of general mechanistic discovery",
+            "zh": "Agent 常误读测量；不主张通用 Mechanistic Discovery"
+          },
+          "evidenceMaturity": "B",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-saescientist-bench-v2-paper",
+            "ref-saescientist-bench-v2-repo"
+          ]
+        },
+        {
+          "id": "scientisttwo-v1",
+          "canonicalWorkId": "scientisttwo",
+          "title": {
+            "en": "ScientistTwo: Pioneering the Human Knowledge Frontier with Autonomous AI",
+            "zh": "ScientistTwo: Pioneering the Human Knowledge Frontier with Autonomous AI"
+          },
+          "releaseDate": "2026-09-17",
+          "originalReleaseDate": "2026-09-17",
+          "paperVersionDate": "2026-09-17",
+          "paperVersion": "v1",
+          "domain": {
+            "en": "End-to-end computational research",
+            "zh": "End-to-end Computational Research"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Idea generation through manuscript and automated review",
+            "zh": "从 Idea Generation 到 Manuscript 与 Automated Review"
+          },
+          "autonomyLevel": {
+            "en": "Claimed autonomous research workflow",
+            "zh": "声称自主的 Research Workflow"
+          },
+          "runHorizon": {
+            "en": "Multi-stage research run",
+            "zh": "多阶段 Research Run"
+          },
+          "agentTopology": {
+            "en": "Multi-agent scientific workflow",
+            "zh": "Multi-agent Scientific Workflow"
+          },
+          "memoryStateMechanism": {
+            "en": "Intermediate research artifacts",
+            "zh": "中间 Research Artifacts"
+          },
+          "evaluationProtocol": {
+            "en": "Automated AI review and author-selected examples",
+            "zh": "Automated AI Review 与作者选例"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Preprint; independently replayable trajectories not verified",
+            "zh": "Preprint；可独立 Replay 的 Trajectory 尚未核实"
+          },
+          "externalValidation": {
+            "en": "Author-reported end-to-end outcomes, not independent peer validation",
+            "zh": "Author-reported End-to-end Outcome，非独立 Peer Validation"
+          },
+          "limitation": {
+            "en": "Automated AI review must not be interpreted as external peer review",
+            "zh": "Automated AI Review 不等于外部 Peer Review"
+          },
+          "evidenceMaturity": "C",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-scientisttwo-v1-paper"
+          ]
+        },
+        {
+          "id": "openai-acceleration-2026",
+          "canonicalWorkId": "openai-research-acceleration",
+          "title": {
+            "en": "Research acceleration: The view inside OpenAI",
+            "zh": "Research acceleration: The view inside OpenAI"
+          },
+          "releaseDate": "2026-09-06",
+          "originalReleaseDate": "2026-09-06",
+          "paperVersionDate": "2026-09-06",
+          "paperVersion": "Official release",
+          "sourceCategory": "Official Signal",
+          "domain": {
+            "en": "Frontier AI lab / internal R&D",
+            "zh": "Frontier AI Lab / Internal R&D"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Human-directed research tasks, coding, experiments, monitoring",
+            "zh": "Human-directed Research Task、Coding、Experiment 与 Monitoring"
+          },
+          "autonomyLevel": {
+            "en": "Research intern for well-defined tasks under human direction",
+            "zh": "Human Direction 下完成 Well-defined Task 的 Research Intern"
+          },
+          "runHorizon": {
+            "en": "Task-level agent sessions",
+            "zh": "任务级 Agent Session"
+          },
+          "agentTopology": {
+            "en": "Researcher-directed concurrent coding agents",
+            "zh": "Researcher-directed Concurrent Coding Agents"
+          },
+          "memoryStateMechanism": {
+            "en": "Internal task and experiment records",
+            "zh": "内部 Task 与 Experiment Record"
+          },
+          "evaluationProtocol": {
+            "en": "Internal usage and task-success measurements",
+            "zh": "内部 Usage 与 Task-success Measurement"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Official methods summary; underlying records not open",
+            "zh": "Official Methods Summary；底层记录未开放"
+          },
+          "externalValidation": {
+            "en": "Company self-report; no independent productivity audit",
+            "zh": "公司 Self-report；无独立 Productivity Audit"
+          },
+          "limitation": {
+            "en": "Agent runtime is not a measured research-productivity multiplier",
+            "zh": "Agent Runtime 并非已测得的 Research Productivity Multiplier"
+          },
+          "evidenceMaturity": "D",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": {
+                "en": "OpenAI reported 3.1 agent-workdays of runtime per human workday in mid-August.",
+                "zh": "OpenAI 报告 8 月中旬每个 Human Workday 对应 3.1 个 Agent-workday 的运行时间。"
+              },
+              "taskDefinition": {
+                "en": "Coding-agent utilization inside OpenAI's research organization.",
+                "zh": "OpenAI Research Organization 内的 Coding-agent Usage。"
+              },
+              "sampleSizeDenominator": {
+                "en": "Ratio of aggregate agent runtime to one standard eight-hour human workday; underlying session count undisclosed.",
+                "zh": "Aggregate Agent Runtime 相对一个标准八小时 Human Workday 的比值；Session 数未公开。"
+              },
+              "evaluator": {
+                "en": "OpenAI internal runtime accounting.",
+                "zh": "OpenAI 内部 Runtime Accounting。"
+              },
+              "comparisonBasis": {
+                "en": "Agent time versus human workday, not productivity gain or task success.",
+                "zh": "Agent Time 对 Human Workday；非 Productivity Gain 或 Task Success。"
+              },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": [
+            "ref-openai-acceleration-2026-official"
+          ]
+        },
+        {
+          "id": "anthropic-index-2026",
+          "canonicalWorkId": "anthropic-rd-automation-index",
+          "title": {
+            "en": "Measurements for understanding the pace of AI development inside frontier labs",
+            "zh": "Measurements for understanding the pace of AI development inside frontier labs"
+          },
+          "releaseDate": "2026-09-17",
+          "originalReleaseDate": "2026-09-17",
+          "paperVersionDate": "2026-09-17",
+          "paperVersion": "Official release",
+          "sourceCategory": "Official Signal",
+          "domain": {
+            "en": "Frontier AI lab / R&D measurement",
+            "zh": "Frontier AI Lab / R&D Measurement"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Task classification, automation rating, aggregate reporting",
+            "zh": "Task Classification、Automation Rating 与 Aggregate Reporting"
+          },
+          "autonomyLevel": {
+            "en": "Internal collaboration and leading-task scale",
+            "zh": "内部 Collaboration 与 Leading-task 等级"
+          },
+          "runHorizon": {
+            "en": "Cross-task organizational snapshot",
+            "zh": "跨任务组织 Snapshot"
+          },
+          "agentTopology": {
+            "en": "Human staff and Claude-assisted workflows",
+            "zh": "Human Staff 与 Claude-assisted Workflow"
+          },
+          "memoryStateMechanism": {
+            "en": "Internal task taxonomy and sampled work records",
+            "zh": "内部 Task Taxonomy 与抽样 Work Record"
+          },
+          "evaluationProtocol": {
+            "en": "Task-weighted internal index with Claude judge and human sample",
+            "zh": "Task-weighted Internal Index，使用 Claude Judge 与 Human Sample"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Official methodology published; raw internal records unavailable",
+            "zh": "Official Methodology 已公开；内部原始记录不可得"
+          },
+          "externalValidation": {
+            "en": "Organization self-report, not third-party measurement",
+            "zh": "组织 Self-report，非第三方测量"
+          },
+          "limitation": {
+            "en": "Task weighting and model-as-judge limit external comparability",
+            "zh": "Task Weighting 与 Model-as-judge 限制外部可比性"
+          },
+          "evidenceMaturity": "D",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [
+            {
+              "statement": {
+                "en": "Anthropic estimated Claude leads 26% of measured AI R&D work; none was rated fully autonomous.",
+                "zh": "Anthropic 估计 Claude 主导所测 AI R&D 工作的 26%；没有任务被评为完全自主。"
+              },
+              "taskDefinition": {
+                "en": "Anthropic's internal AI R&D task taxonomy as of August.",
+                "zh": "截至 8 月的 Anthropic 内部 AI R&D Task Taxonomy。"
+              },
+              "sampleSizeDenominator": {
+                "en": "Task-weighted work categories; raw task-level denominator not public.",
+                "zh": "Task-weighted Work Category；原始 Task-level Denominator 未公开。"
+              },
+              "evaluator": {
+                "en": "Internal Claude-based rating with sampled human review, reported by Anthropic.",
+                "zh": "Anthropic 报告的内部 Claude-based Rating 与抽样 Human Review。"
+              },
+              "comparisonBasis": {
+                "en": "Automation scale for internal work; not a cross-lab productivity or novelty comparison.",
+                "zh": "内部工作 Automation Scale；非跨实验室 Productivity 或 Novelty 比较。"
+              },
+              "claimAuthority": "Author-reported"
+            }
+          ],
+          "referenceIds": [
+            "ref-anthropic-index-2026-official"
+          ]
+        },
+        {
+          "id": "anthropic-enzyme-2026",
+          "canonicalWorkId": "anthropic-enzyme-system",
+          "title": {
+            "en": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+            "zh": "Claude discovers a novel enzyme system with CRISPR-like repeats"
+          },
+          "releaseDate": "2026-09-23",
+          "originalReleaseDate": "2026-09-23",
+          "paperVersionDate": "2026-09-23",
+          "paperVersion": "Official release",
+          "sourceCategory": "Official Signal",
+          "domain": {
+            "en": "Life Science / wet lab",
+            "zh": "Life Science / Wet Lab"
+          },
+          "researchLifecycleCoverage": {
+            "en": "Sequence discovery, hypothesis, laboratory follow-up",
+            "zh": "Sequence Discovery、Hypothesis 与 Laboratory Follow-up"
+          },
+          "autonomyLevel": {
+            "en": "High-level human direction with agent-led analysis",
+            "zh": "Human 高层指导下的 Agent-led Analysis"
+          },
+          "runHorizon": {
+            "en": "Early research program",
+            "zh": "早期 Research Program"
+          },
+          "agentTopology": {
+            "en": "Claude with human scientists and laboratory team",
+            "zh": "Claude 与 Human Scientists、Laboratory Team"
+          },
+          "memoryStateMechanism": {
+            "en": "Sequence and experimental evidence in official report",
+            "zh": "官方报告中的 Sequence 与 Experimental Evidence"
+          },
+          "evaluationProtocol": {
+            "en": "Preliminary laboratory signal described in official release",
+            "zh": "官方发布描述的初步 Laboratory Signal"
+          },
+          "codeDataTrajectoryAvailability": {
+            "en": "Official report and linked technical material; full independent package not verified",
+            "zh": "官方报告及关联技术材料；完整独立复现包未核实"
+          },
+          "externalValidation": {
+            "en": "Company-reported early wet-lab observation; no independent replication",
+            "zh": "公司报告的早期 Wet-lab Observation；无 Independent Replication"
+          },
+          "limitation": {
+            "en": "Biological function remains unknown; discovery claim is preliminary",
+            "zh": "Biological Function 尚未明确；Discovery Claim 属初步性质"
+          },
+          "evidenceMaturity": "D",
+          "deltaStatus": "New",
+          "supersedes": null,
+          "correctionOf": null,
+          "claims": [],
+          "referenceIds": [
+            "ref-anthropic-enzyme-2026-official"
+          ]
+        }
+      ],
+      "references": [
+        {
+          "id": "ref-prime-scientist-v1-paper",
+          "workId": "prime-scientist-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "PrimeScientist: Strategic Allocation of Research Effort in Autonomous Research",
+          "url": "https://arxiv.org/abs/2609.17846"
+        },
+        {
+          "id": "ref-prime-scientist-v1-repo",
+          "workId": "prime-scientist-v1",
+          "kind": "Repository",
+          "authority": "Official",
+          "title": "PrimeScientist: Strategic Allocation of Research Effort in Autonomous Research · official implementation",
+          "url": "https://github.com/Henri-XYu02/PrimeScientist"
+        },
+        {
+          "id": "ref-synagent-v1-paper",
+          "workId": "synagent-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "Hypothesis-Driven Autonomous Materials Synthesis with Multimodal LLM Agents",
+          "url": "https://arxiv.org/abs/2609.18598"
+        },
+        {
+          "id": "ref-aide2-v1-paper",
+          "workId": "aide2-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "Recursive self-improvement of AI research agents",
+          "url": "https://arxiv.org/abs/2609.26457"
+        },
+        {
+          "id": "ref-openai4s-v1-paper",
+          "workId": "openai4s-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "OpenAI4S: Code as Action, Science as Sessions",
+          "url": "https://arxiv.org/abs/2609.15096"
+        },
+        {
+          "id": "ref-openai4s-v1-repo",
+          "workId": "openai4s-v1",
+          "kind": "Repository",
+          "authority": "Official",
+          "title": "OpenAI4S: Code as Action, Science as Sessions · official implementation",
+          "url": "https://github.com/PKU-YuanGroup/OpenAI4S"
+        },
+        {
+          "id": "ref-whatworkedbench-v2-paper",
+          "workId": "whatworkedbench-v2",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "WhatWorkedBench: Benchmarking Experimental Understanding in AI Agents",
+          "url": "https://arxiv.org/abs/2609.27490"
+        },
+        {
+          "id": "ref-whatworkedbench-v2-repo",
+          "workId": "whatworkedbench-v2",
+          "kind": "Repository",
+          "authority": "Official",
+          "title": "WhatWorkedBench: Benchmarking Experimental Understanding in AI Agents · official implementation",
+          "url": "https://github.com/EthanNing/WhatWorkedBench"
+        },
+        {
+          "id": "ref-traverse-scout-v1-paper",
+          "workId": "traverse-scout-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "Locating Hidden Failures Makes Long-Horizon Agents More Reliable",
+          "url": "https://arxiv.org/abs/2609.17930"
+        },
+        {
+          "id": "ref-agentx-model-v1-paper",
+          "workId": "agentx-model-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "Advancing Model Research in AgentX: Long-Horizon Autonomy for Industrial Recommender Systems",
+          "url": "https://arxiv.org/abs/2609.30001"
+        },
+        {
+          "id": "ref-saescientist-bench-v2-paper",
+          "workId": "saescientist-bench-v2",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
+          "url": "https://arxiv.org/abs/2609.09113"
+        },
+        {
+          "id": "ref-saescientist-bench-v2-repo",
+          "workId": "saescientist-bench-v2",
+          "kind": "Repository",
+          "authority": "Official",
+          "title": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research? · official implementation",
+          "url": "https://github.com/Trae1ounG/SAEScientist"
+        },
+        {
+          "id": "ref-scientisttwo-v1-paper",
+          "workId": "scientisttwo-v1",
+          "kind": "Paper",
+          "authority": "Primary",
+          "title": "ScientistTwo: Pioneering the Human Knowledge Frontier with Autonomous AI",
+          "url": "https://arxiv.org/abs/2609.19644"
+        },
+        {
+          "id": "ref-openai-acceleration-2026-official",
+          "workId": "openai-acceleration-2026",
+          "kind": "Official Source",
+          "authority": "Official",
+          "title": "Research acceleration: The view inside OpenAI",
+          "url": "https://openai.com/index/research-acceleration-view-inside-openai/"
+        },
+        {
+          "id": "ref-anthropic-index-2026-official",
+          "workId": "anthropic-index-2026",
+          "kind": "Official Source",
+          "authority": "Official",
+          "title": "Measurements for understanding the pace of AI development inside frontier labs",
+          "url": "https://www.anthropic.com/institute/measuring-pace-of-ai-development"
+        },
+        {
+          "id": "ref-anthropic-enzyme-2026-official",
+          "workId": "anthropic-enzyme-2026",
+          "kind": "Official Source",
+          "authority": "Official",
+          "title": "Claude discovers a novel enzyme system with CRISPR-like repeats",
+          "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system"
+        },
+        {
+          "id": "ref-anthropic-index-directory",
+          "workId": "anthropic-index-2026",
+          "kind": "Project",
+          "authority": "Official",
+          "title": "Anthropic research directory · date evidence",
+          "url": "https://www.anthropic.com/research"
+        }
+      ]
+    },
     {
       "id": "update-002-2026-09-03",
       "anchor": "2026-09-03",

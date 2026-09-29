@@ -642,3 +642,24 @@ html{scroll-padding-top:84px}
 @media(prefers-reduced-motion:reduce){
   .ros-reading-card h3 a,.ros-reading-group-plus{transition:none}
 }
+
+/* Living Update claim provenance: restrained editorial cards, never a score leaderboard. */
+.updates-table-shell tbody th a{text-decoration:underline;text-decoration-color:#9db7aa;text-underline-offset:3px}
+.updates-table-shell tbody th a:hover{color:#205545;text-decoration-color:currentColor}
+.updates-table-shell tbody th .updates-source-category{display:inline-flex;width:max-content;max-width:100%;margin-top:10px;padding:4px 7px;border:1px solid #9fb2a9;border-radius:3px;color:#274f41;font:700 10px var(--font-geist-mono);text-transform:uppercase;letter-spacing:.025em}
+.updates-claim-ledger{margin-top:34px;border-top:2px solid var(--green);padding-top:25px}
+.updates-claim-ledger-heading{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:24px;align-items:start;margin-bottom:22px}
+.updates-claim-ledger-heading h3{margin:0;font-size:clamp(22px,2.2vw,30px);line-height:1.15;letter-spacing:-.035em}
+.updates-claim-ledger-heading p{margin:0;max-width:640px;color:var(--muted);font-size:13px;line-height:1.6}
+.updates-claim-ledger ol{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0;padding:1px;background:var(--line)}
+.updates-claim-ledger li{min-width:0;background:#fff;padding:24px;display:flex;flex-direction:column;gap:16px}
+.updates-claim-ledger li:last-child:nth-child(odd){grid-column:1/-1}
+.updates-claim-topline{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;color:#50645b;font:700 10px var(--font-geist-mono)}
+.updates-claim-authority{color:#6c4017}
+.updates-claim-ledger li>strong{font-size:17px;line-height:1.4;letter-spacing:-.018em;overflow-wrap:anywhere}
+.updates-claim-ledger dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px;margin:0}
+.updates-claim-ledger dt{margin-bottom:5px;color:#52615c;font:700 9px var(--font-geist-mono);text-transform:uppercase;letter-spacing:.05em}
+.updates-claim-ledger dd{margin:0;color:#334b40;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.updates-claim-ledger li>a{align-self:flex-start;margin-top:auto;padding:8px 0;color:#174c3b;font:700 11px var(--font-geist-mono);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:900px){.updates-claim-ledger-heading{grid-template-columns:1fr}}
+@media(max-width:600px){.updates-claim-ledger ol,.updates-claim-ledger dl{grid-template-columns:1fr}.updates-claim-ledger li{padding:21px}.updates-claim-ledger li>strong{font-size:16px}}

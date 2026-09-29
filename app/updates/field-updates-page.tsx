@@ -10,11 +10,24 @@ type WorkView = {
   title: string;
   releaseDate: string;
   paperVersionDate: string;
+  paperVersion: string;
+  sourceCategory: string;
+  sourceUrl: string;
+  claims: ClaimView[];
   domain: string;
   validation: string;
   limitation: string;
   maturity: string;
   status: string;
+};
+
+type ClaimView = {
+  statement: string;
+  taskDefinition: string;
+  sampleSizeDenominator: string;
+  evaluator: string;
+  comparisonBasis: string;
+  claimAuthority: string;
 };
 
 type NamedCopy = {
@@ -47,6 +60,7 @@ type UpdateView = {
   gaps: NamedCopy[];
   capabilityAssessment: NamedCopy[];
   references: ReferenceView[];
+  featuredWorkIds: string[];
   supersedes: string[];
   correctionOf: string[];
 };
@@ -122,13 +136,28 @@ function normalizeNamedCopy(
   };
 }
 
-function normalizeWork(value: unknown, locale: Locale, index: number): WorkView {
+function normalizeWork(value: unknown, locale: Locale, index: number, sources: Map<string, string> = new Map()): WorkView {
   const work = asRecord(value);
+  const referenceIds = asArray(work.referenceIds).map(scalar);
   return {
     id: scalar(work.id) || String(index + 1),
     title: localized(work.title, locale),
     releaseDate: scalar(work.releaseDate),
     paperVersionDate: scalar(work.paperVersionDate),
+    paperVersion: scalar(work.paperVersion),
+    sourceCategory: scalar(work.sourceCategory) || "Paper",
+    sourceUrl: referenceIds.map((id) => sources.get(id)).find(Boolean) || "",
+    claims: asArray(work.claims).map((value) => {
+      const item = asRecord(value);
+      return {
+        statement: localized(item.statement, locale),
+        taskDefinition: localized(item.taskDefinition, locale),
+        sampleSizeDenominator: localized(item.sampleSizeDenominator, locale),
+        evaluator: localized(item.evaluator, locale),
+        comparisonBasis: localized(item.comparisonBasis, locale),
+        claimAuthority: scalar(item.claimAuthority),
+      };
+    }),
     domain: localized(work.domain, locale),
     validation: localized(work.externalValidation, locale),
     limitation: localized(work.limitation, locale),
@@ -166,6 +195,7 @@ const update002CoreWorkIds = new Set([
 ]);
 
 function isAdditionalSignal(update: UpdateView, work: WorkView): boolean {
+  if (update.featuredWorkIds.length) return work.status === "New" && !update.featuredWorkIds.includes(work.id);
   return update.id === "update-002-2026-09-03" && work.status === "New" && !update002CoreWorkIds.has(work.id);
 }
 
@@ -186,6 +216,10 @@ function normalizeReference(
 function normalizeUpdate(value: unknown, locale: Locale): UpdateView {
   const update = asRecord(value);
   const contextReferences = asArray(update.contextReferences).map(scalar).filter(Boolean);
+  const sources = new Map(asArray(update.references).map((value) => {
+    const reference = asRecord(value);
+    return [scalar(reference.id), scalar(reference.url)] as const;
+  }));
   return {
     id: scalar(update.id),
     publishedAt: scalar(update.publishedAt),
@@ -197,7 +231,7 @@ function normalizeUpdate(value: unknown, locale: Locale): UpdateView {
       .map((item) => localized(item, locale))
       .filter(Boolean),
     works: asArray(update.works).map((item, index) =>
-      normalizeWork(item, locale, index),
+      normalizeWork(item, locale, index, sources),
     ),
     contextWorks: contextReferences
       .map((id, index) => normalizeWork(archivedWorkById.get(id), locale, index))
@@ -218,6 +252,7 @@ function normalizeUpdate(value: unknown, locale: Locale): UpdateView {
     references: asArray(update.references).map((item, index) =>
       normalizeReference(item, locale, index),
     ),
+    featuredWorkIds: asArray(update.featuredWorkIds).map(scalar),
     supersedes: asRelations(update.supersedes),
     correctionOf: asRelations(update.correctionOf),
   };
@@ -399,9 +434,10 @@ function EvidenceTable({ works, locale, label }: { works: WorkView[]; locale: Lo
                 <span className={`updates-status-label updates-status-${statusClass(work.status)}`}>{statusLabel(work.status, locale)}</span>
               </td>
               <th scope="row" data-label={t("Work / Domain", "工作 / Domain")}>
-                <strong>{work.title}</strong>
+                <strong>{work.sourceUrl ? <a href={work.sourceUrl} target="_blank" rel="noreferrer noopener">{work.title} ↗</a> : work.title}</strong>
                 <span>{work.domain}</span>
-                <time dateTime={work.paperVersionDate || work.releaseDate}>{t("Version", "版本")} {work.paperVersionDate || work.releaseDate}</time>
+                <span className="updates-source-category">{work.sourceCategory === "Official Signal" ? "Official Signal" : "Paper · Primary"}</span>
+                <time dateTime={work.paperVersionDate || work.releaseDate}>{work.sourceCategory === "Official Signal" ? t("Source version", "Source Version") : t("Paper version", "Paper Version")} · {work.paperVersion} · {work.paperVersionDate || work.releaseDate}</time>
               </th>
               <td data-label={t("Validation", "Validation")}>{work.validation}</td>
               <td data-label={t("Grade", "等级")}><span className={`updates-grade updates-grade-${work.maturity.toLowerCase()}`}>Evidence {work.maturity}</span></td>
@@ -410,6 +446,38 @@ function EvidenceTable({ works, locale, label }: { works: WorkView[]; locale: Lo
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+function QuantitativeClaimLedger({ works, locale }: { works: WorkView[]; locale: Locale }) {
+  const t = (en: string, zh: string) => locale === "zh" ? zh : en;
+  const entries = works.flatMap((work) => work.claims.map((claim, index) => ({ work, claim, index })));
+  if (!entries.length) return null;
+  return (
+    <div className="updates-claim-ledger">
+      <div className="updates-claim-ledger-heading">
+        <h3>{t("Quantitative Claim Ledger", "Quantitative Claim Ledger · 数值主张台账")}</h3>
+        <p>{t("Each number stays attached to its task, denominator, evaluator, comparison, and authority. Results from different tasks are not ranked against each other.", "每个数字均绑定 Task、Denominator、Evaluator、Comparison 和 Claim Authority；不同任务的结果不直接排名。")}</p>
+      </div>
+      <ol>
+        {entries.map(({ work, claim, index }) => (
+          <li key={`${work.id}-${index}`}>
+            <div className="updates-claim-topline">
+              <span>{work.title}</span>
+              <span className="updates-claim-authority">{claim.claimAuthority}</span>
+            </div>
+            <strong>{claim.statement}</strong>
+            <dl>
+              <div><dt>{t("Task definition", "Task Definition")}</dt><dd>{claim.taskDefinition}</dd></div>
+              <div><dt>{t("Denominator", "Denominator")}</dt><dd>{claim.sampleSizeDenominator}</dd></div>
+              <div><dt>{t("Evaluator", "Evaluator")}</dt><dd>{claim.evaluator}</dd></div>
+              <div><dt>{t("Comparison basis", "Comparison Basis")}</dt><dd>{claim.comparisonBasis}</dd></div>
+            </dl>
+            {work.sourceUrl ? <a href={work.sourceUrl} target="_blank" rel="noreferrer noopener">{t("Inspect primary source ↗", "查看 Primary Source ↗")}</a> : null}
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
@@ -536,10 +604,10 @@ function UpdateEntry({
             ))}
           </div>
           <EvidenceTable
-            works={update.works.filter((work) => !isAdditionalSignal(update, work))}
+            works={update.featuredWorkIds.length ? update.works : update.works.filter((work) => !isAdditionalSignal(update, work))}
             locale={locale}
           />
-          {update.works.some((work) => isAdditionalSignal(update, work)) ? (
+          {!update.featuredWorkIds.length && update.works.some((work) => isAdditionalSignal(update, work)) ? (
             <details className="updates-additional-evidence">
               <summary>{t("Show Additional Signals in the evidence table", "在 Evidence Table 中显示 Additional Signals")} <span aria-hidden="true">＋</span></summary>
               <EvidenceTable
@@ -549,6 +617,7 @@ function UpdateEntry({
               />
             </details>
           ) : null}
+          {update.featuredWorkIds.length ? <QuantitativeClaimLedger works={update.works} locale={locale} /> : null}
           {update.capabilityAssessment.length ? (
             <div className="updates-capability-assessment">
               {update.capabilityAssessment.map((item) => (

@@ -109,10 +109,18 @@ test("server-renders dated English field updates and their evidence contract", a
   assert.match(html, /<time\b[^>]*dateTime="2026-[^"]+"[^>]*>/i);
   assert.match(html, /2026-08-11/);
   assert.match(html, /2026-09-03/);
+  assert.match(html, /2026-09-29/);
   assert.match(html, /AutoResearchEval/);
   assert.match(html, /ScienceFlow/);
   assert.match(html, /BixBench3/);
   assert.match(html, /PRIS/);
+  for (const title of ["PrimeScientist", "SynAgent", "AIDE²", "OpenAI4S", "WhatWorkedBench", "Traverse", "AgentX-Model", "SAEScientist-Bench", "ScientistTwo", "Research acceleration: The view inside OpenAI", "Measurements for understanding the pace", "Claude discovers a novel enzyme system"]) {
+    assert.match(html, htmlRegexLiteral(title));
+  }
+  assert.match(html, /Official Signal/);
+  assert.match(html, /Quantitative Claim Ledger/);
+  assert.match(html, /Source version/);
+  assert.match(html, /href="https:\/\/openai\.com\/index\/research-acceleration-view-inside-openai\/"/);
   assert.match(html, /Additional Signals/);
   assert.match(html, /Carried context/);
   assert.match(html, /AutoResearch:\s*Insight/);
@@ -135,8 +143,14 @@ test("server-renders dated Chinese field updates and preserves the nested langua
   assert.match(html, /<time\b[^>]*dateTime="2026-[^"]+"[^>]*>/i);
   assert.match(html, /2026-08-11/);
   assert.match(html, /2026-09-03/);
+  assert.match(html, /2026-09-29/);
   assert.match(html, /AutoResearchEval/);
   assert.match(html, /ScienceFlow/);
+  assert.match(html, /PrimeScientist/);
+  assert.match(html, /WhatWorkedBench/);
+  assert.match(html, /SAEScientist-Bench/);
+  assert.match(html, /Official Signal/);
+  assert.match(html, /Quantitative Claim Ledger/);
   assert.match(html, /Additional Signals/);
   assert.match(html, /Carried context/);
   assert.match(html, /2026-07-28/);

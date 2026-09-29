@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const grades = new Set(["A", "B", "C", "D"]);
 const statuses = new Set(["New", "Context", "Date Clarification"]);
+const officialSourceHosts = new Set(["openai.com", "www.openai.com", "anthropic.com", "www.anthropic.com"]);
 
 function check(condition, message) {
   if (!condition) throw new Error(`[field-updates] ${message}`);
@@ -42,6 +43,7 @@ export function validateFieldUpdates(source) {
   const ids = new Set();
   const anchors = new Set();
   const paperUrls = new Set();
+  const officialSourceVersions = new Set();
   const versionedEntries = new Set();
   const archivedWorks = new Map();
 
@@ -109,6 +111,9 @@ export function validateFieldUpdates(source) {
   check(update.capabilityLadder.length === 5, `${ul}: exactly five capability-ladder stages are required`);
 
   const localWorkIds = new Set(update.works.map((work) => work.id));
+  const featuredWorkIds = update.featuredWorkIds ?? [];
+  check(Array.isArray(featuredWorkIds) && new Set(featuredWorkIds).size === featuredWorkIds.length, `${ul}.featuredWorkIds must be a unique array`);
+  for (const id of featuredWorkIds) check(localWorkIds.has(id) && update.newSincePreviousCutoff.includes(id), `${ul}.featuredWorkIds must reference local New work ${id}`);
   for (const id of contextReferenceIds) check(!localWorkIds.has(id), `${ul}: work cannot be both local and a contextReference: ${id}`);
   const expectedStatus = new Map([
     ...update.newSincePreviousCutoff.map((id) => [id, "New"]),
@@ -130,6 +135,12 @@ export function validateFieldUpdates(source) {
     check(work.paperVersionDate <= update.evidenceCutoff, `${wl}: paperVersionDate exceeds evidenceCutoff`);
     check(work.originalReleaseDate <= work.paperVersionDate, `${wl}: originalReleaseDate exceeds paperVersionDate`);
     text(work.paperVersion, `${wl}.paperVersion`);
+    const sourceCategory = work.sourceCategory ?? "Paper";
+    check(["Paper", "Official Signal"].includes(sourceCategory), `${wl}: invalid sourceCategory`);
+    if (sourceCategory === "Official Signal") {
+      check(work.evidenceMaturity === "D", `${wl}: Official Signal must be Evidence D`);
+      check(work.paperVersion === "Official release", `${wl}: Official Signal must use Official release source version`);
+    }
     const versionKey = `${work.canonicalWorkId}::${work.paperVersion}::${work.paperVersionDate}`;
     check(!versionedEntries.has(versionKey), `duplicate versioned entry: ${versionKey}`);
     versionedEntries.add(versionKey);
@@ -202,7 +213,7 @@ export function validateFieldUpdates(source) {
     uniqueId(reference.id, `${rl}.id`, ids);
     localReferences.set(reference.id, reference);
     check(localWorkIds.has(reference.workId), `${rl}: unknown workId`);
-    check(["Paper", "Repository", "Project"].includes(reference.kind), `${rl}: invalid kind`);
+    check(["Paper", "Repository", "Project", "Official Source"].includes(reference.kind), `${rl}: invalid kind`);
     check(["Primary", "Official"].includes(reference.authority), `${rl}: source is not Primary/Official`);
     text(reference.title, `${rl}.title`);
     text(reference.url, `${rl}.url`);
@@ -216,6 +227,14 @@ export function validateFieldUpdates(source) {
       check(reference.authority === "Primary", `${rl}: paper must be marked Primary`);
       check(!paperUrls.has(reference.url), `duplicate paper URL: ${reference.url}`);
       paperUrls.add(reference.url);
+    } else if (reference.kind === "Official Source") {
+      check(reference.authority === "Official", `${rl}: Official Source must have Official authority`);
+      check(officialSourceHosts.has(new URL(reference.url).hostname), `${rl}: not an allowed official publisher host`);
+      const owner = update.works.find((work) => work.id === reference.workId);
+      check(owner?.sourceCategory === "Official Signal", `${rl}: Official Source must belong to an Official Signal`);
+      const sourceVersionKey = `${reference.url}::${owner.paperVersion}::${owner.paperVersionDate}`;
+      check(!officialSourceVersions.has(sourceVersionKey), `duplicate official source URL/version: ${sourceVersionKey}`);
+      officialSourceVersions.add(sourceVersionKey);
     } else {
       check(reference.authority === "Official", `${rl}: repository/project must be marked Official`);
     }
@@ -228,10 +247,12 @@ export function validateFieldUpdates(source) {
       check(reference.workId === work.id, `${ul}: ${work.id} references source ${referenceId} owned by ${reference.workId}`);
       return reference;
     });
-    check(
-      linkedReferences.some((reference) => reference.kind === "Paper" && reference.authority === "Primary"),
-      `${ul}: ${work.id}.referenceIds must include its own Primary paper reference`,
-    );
+    if (work.sourceCategory === "Official Signal") {
+      check(linkedReferences.some((reference) => reference.kind === "Official Source" && reference.authority === "Official"), `${ul}: ${work.id}.referenceIds must include its own Official Source`);
+      check(!linkedReferences.some((reference) => reference.kind === "Paper"), `${ul}: Official Signal must not be counted as a Paper`);
+    } else {
+      check(linkedReferences.some((reference) => reference.kind === "Paper" && reference.authority === "Primary"), `${ul}: ${work.id}.referenceIds must include its own Primary paper reference`);
+    }
   }
   const availableWorkIds = new Set([...localWorkIds, ...contextReferenceIds]);
   for (const theme of update.themes) {

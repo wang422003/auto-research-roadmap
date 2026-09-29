@@ -47,8 +47,8 @@ async function assertPrefixedBuildAssets(html, routeLabel) {
 }
 
 for (const [routeLabel, relativePath, canonicalPath, languagePath, languageCode] of [
-  ["English updates", "updates", "/updates/", "/zh/updates/#2026-09-03", "zh-CN"],
-  ["Chinese updates", path.join("zh", "updates"), "/zh/updates/", "/updates/#2026-09-03", "en"],
+  ["English updates", "updates", "/updates/", "/zh/updates/#2026-09-29", "zh-CN"],
+  ["Chinese updates", path.join("zh", "updates"), "/zh/updates/", "/updates/#2026-09-29", "en"],
   ["English Research OS", "ros", "/ros/", "/zh/ros/", "zh-CN"],
   ["Chinese Research OS", path.join("zh", "ros"), "/zh/ros/", "/ros/", "en"],
   ...["foundations", "evaluation", "practice"].flatMap((slug) => [
@@ -118,5 +118,24 @@ test("static export preserves the Research OS reading inventory content", async 
       const cardIds = [...html.matchAll(/id="reading-([^"]+)"/g)].map((match) => match[1]);
       assert.equal(new Set(cardIds).size, 21, `${label} should export all 21 unique reading cards`);
     }
+  }
+});
+
+test("static export preserves all Update 003 sources, claim metadata, and historical cutoffs in both languages", async () => {
+  for (const relativePath of ["updates", path.join("zh", "updates")]) {
+    const { html } = await readExportedRoute(relativePath);
+    const latest = html.split('id="2026-09-29"')[1]?.split('id="2026-09-03"')[0];
+    assert.ok(latest, `${relativePath} must expose the latest stable anchor`);
+    assert.equal((latest.match(/class="updates-source-category"/g) ?? []).length, 12);
+    assert.equal((latest.match(/Official Signal<\/span>/g) ?? []).length, 3);
+    assert.match(latest, /Quantitative Claim Ledger/);
+    assert.match(latest, /sampleSizeDenominator|Denominator/);
+    assert.match(latest, /PrimeScientist/);
+    assert.match(latest, /SynAgent/);
+    assert.match(latest, /WhatWorkedBench/);
+    assert.match(latest, /https:\/\/www\.anthropic\.com\/news\/claude-discovers-novel-enzyme-system/);
+    assert.match(html, /2026-08-11/);
+    assert.match(html, /2026-09-03/);
+    assert.match(html, /2026-07-28/);
   }
 });

@@ -236,6 +236,57 @@ test("rejects an evidence cutoff after publication", () => {
   assertRejected(source, /evidenceCutoff (?:cannot exceed|exceeds) publishedAt/);
 });
 
+test("accepts a paperless Grade D Official Signal and rejects authority/date/claim violations", () => {
+  const official = makeWork({
+    id: "official-release",
+    canonicalWorkId: "official-release",
+    releaseDate: "2026-09-17",
+    paperVersion: "Official release",
+    evidenceMaturity: "D",
+    referenceIds: ["ref-official-release-source"],
+  });
+  official.sourceCategory = "Official Signal";
+  const source = makeSource([makeUpdate({
+    id: "update-official",
+    publishedAt: "2026-09-29",
+    evidenceCutoff: "2026-09-29",
+    previousCutoff: "2026-09-03",
+    works: [official],
+    references: [{ id: "ref-official-release-source", workId: official.id, kind: "Official Source", authority: "Official", title: "Official release", url: "https://www.anthropic.com/research" }],
+  })]);
+  assertAccepted(source);
+
+  const notD = structuredClone(source);
+  notD.updates[0].works[0].evidenceMaturity = "C";
+  notD.updates[0].evidenceMaturityDistribution = { A: 0, B: 0, C: 1, D: 0 };
+  assertRejected(notD, /Official Signal must be Evidence D/);
+
+  const paperlessC = structuredClone(source);
+  paperlessC.updates[0].works[0].sourceCategory = "Paper";
+  assertRejected(paperlessC, /Official Source must belong to an Official Signal|Primary paper reference/);
+
+  const badHost = structuredClone(source);
+  badHost.updates[0].references[0].url = "https://example.com/research";
+  assertRejected(badHost, /official publisher host/);
+
+  const duplicate = structuredClone(source);
+  duplicate.updates[0].references.push({ ...duplicate.updates[0].references[0], id: "ref-duplicate" });
+  duplicate.updates[0].works[0].referenceIds.push("ref-duplicate");
+  assertRejected(duplicate, /duplicate official source URL\/version/);
+
+  const late = structuredClone(source);
+  late.updates[0].works[0].paperVersionDate = "2026-09-30";
+  assertRejected(late, /paperVersionDate exceeds evidence cutoff|paperVersionDate exceeds evidenceCutoff/);
+
+  const missingZh = structuredClone(source);
+  missingZh.updates[0].works[0].limitation.zh = "";
+  assertRejected(missingZh, /limitation.zh/);
+
+  const missingDenominator = structuredClone(source);
+  missingDenominator.updates[0].works[0].claims = [{ statement: localized("26%"), taskDefinition: localized("Research task"), sampleSizeDenominator: { en: "tasks", zh: "" }, evaluator: localized("Internal judge"), comparisonBasis: localized("Internal scale"), claimAuthority: "Author-reported" }];
+  assertRejected(missingDenominator, /sampleSizeDenominator.zh/);
+});
+
 test("rejects invalid work relation targets, direction, and grade chains", () => {
   const valid = makeVersionChainSource();
   assertAccepted(valid);

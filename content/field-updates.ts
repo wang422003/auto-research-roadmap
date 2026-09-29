@@ -23,6 +23,8 @@ export interface FieldUpdateWork {
   originalReleaseDate: string;
   paperVersionDate: string;
   paperVersion: string;
+  /** Omitted by historical entries, which are all paper-backed. */
+  sourceCategory?: "Paper" | "Official Signal";
   domain: LocalizedText;
   researchLifecycleCoverage: LocalizedText;
   autonomyLevel: LocalizedText;
@@ -63,7 +65,7 @@ export interface CapabilityLadderStage {
 export interface FieldUpdateReference {
   id: string;
   workId: string;
-  kind: "Paper" | "Repository" | "Project";
+  kind: "Paper" | "Repository" | "Project" | "Official Source";
   authority: "Primary" | "Official";
   title: string;
   url: string;
@@ -84,6 +86,8 @@ export interface FieldUpdate {
   contextEntries: string[];
   /** Work ids carried forward from an earlier update without entering this update's denominator. */
   contextReferences?: string[];
+  /** Optional editorial first-screen selection; all works remain in Evidence. */
+  featuredWorkIds?: string[];
   dateCorrections: string[];
   themes: ProgressTheme[];
   evidenceMaturityDistribution: Record<EvidenceMaturity, number>;
@@ -114,8 +118,9 @@ interface ArchivedWork {
 const maturityGrades = new Set<EvidenceMaturity>(["A", "B", "C", "D"]);
 const deltaStatuses = new Set<DeltaStatus>(["New", "Context", "Date Clarification"]);
 const claimAuthorities = new Set<ClaimAuthority>(["Author-reported", "Independently Validated"]);
-const referenceKinds = new Set(["Paper", "Repository", "Project"]);
+const referenceKinds = new Set(["Paper", "Repository", "Project", "Official Source"]);
 const referenceAuthorities = new Set(["Primary", "Official"]);
+const officialSourceHosts = new Set(["openai.com", "www.openai.com", "anthropic.com", "www.anthropic.com"]);
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 function invariant(condition: unknown, message: string): asserts condition {
@@ -207,6 +212,7 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
   const workIds = new Set<string>();
   const referenceIds = new Set<string>();
   const paperUrls = new Set<string>();
+  const officialSourceVersions = new Set<string>();
   const versionedEntries = new Set<string>();
   const archivedWorks = new Map<string, ArchivedWork>();
   const allUpdates = source.updates.map((item, index) => asRecord(item, `updates[${index}]`));
@@ -264,6 +270,8 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
     stringList(update.contextEntries, `${updateLabel}.contextEntries`);
     const contextReferences = update.contextReferences === undefined ? [] : update.contextReferences;
     stringList(contextReferences, `${updateLabel}.contextReferences`);
+    const featuredWorkIds = update.featuredWorkIds === undefined ? [] : update.featuredWorkIds;
+    stringList(featuredWorkIds, `${updateLabel}.featuredWorkIds`);
     for (const workId of contextReferences) {
       invariant(workArchiveDates.has(workId), `${updateLabel}.contextReferences references unknown work ${workId}`);
       invariant(workArchiveDates.get(workId)! < update.publishedAt, `${updateLabel}.contextReferences must point to an older update: ${workId}`);
@@ -314,6 +322,12 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
       invariant((work.paperVersionDate as string) <= (update.evidenceCutoff as string), `${workLabel}.paperVersionDate exceeds evidence cutoff`);
       invariant(work.originalReleaseDate <= work.paperVersionDate, `${workLabel}.originalReleaseDate exceeds version date`);
       nonEmptyString(work.paperVersion, `${workLabel}.paperVersion`);
+      const sourceCategory = work.sourceCategory ?? "Paper";
+      invariant(sourceCategory === "Paper" || sourceCategory === "Official Signal", `${workLabel}.sourceCategory is invalid`);
+      if (sourceCategory === "Official Signal") {
+        invariant(work.evidenceMaturity === "D", `${workLabel} Official Signal must be Evidence D`);
+        invariant(work.paperVersion === "Official release", `${workLabel} Official Signal must use Official release source version`);
+      }
       const versionKey = `${work.canonicalWorkId}::${work.paperVersion}::${work.paperVersionDate}`;
       invariant(!versionedEntries.has(versionKey), `duplicate versioned entry: ${versionKey}`);
       versionedEntries.add(versionKey);
@@ -383,6 +397,10 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
     for (const workId of contextReferences) {
       invariant(!localWorkIds.has(workId), `${updateLabel}: work cannot be both local and a contextReference: ${workId}`);
     }
+    for (const workId of featuredWorkIds) {
+      invariant(localWorkIds.has(workId), `${updateLabel}.featuredWorkIds references unknown local work ${workId}`);
+      invariant((update.newSincePreviousCutoff as string[]).includes(workId), `${updateLabel}.featuredWorkIds must reference New work ${workId}`);
+    }
 
     const expectedBuckets: Array<[string, DeltaStatus]> = [
       ["newSincePreviousCutoff", "New"],
@@ -427,6 +445,14 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
         invariant(reference.authority === "Primary", `${referenceLabel} paper must be a Primary source`);
         invariant(!paperUrls.has(reference.url), `duplicate paper URL: ${reference.url}`);
         paperUrls.add(reference.url);
+      } else if (reference.kind === "Official Source") {
+        invariant(reference.authority === "Official", `${referenceLabel} Official Source must have Official authority`);
+        invariant(officialSourceHosts.has(new URL(reference.url as string).hostname), `${referenceLabel} is not an allowed official publisher host`);
+        const owner = (update.works as unknown[]).map((item) => asRecord(item, "work")).find((item) => item.id === reference.workId);
+        invariant(owner?.sourceCategory === "Official Signal", `${referenceLabel} Official Source must belong to an Official Signal`);
+        const sourceVersionKey = `${reference.url}::${owner.paperVersion}::${owner.paperVersionDate}`;
+        invariant(!officialSourceVersions.has(sourceVersionKey), `duplicate official source URL/version: ${sourceVersionKey}`);
+        officialSourceVersions.add(sourceVersionKey);
       } else {
         invariant(reference.authority === "Official", `${referenceLabel} project/repository must be Official`);
       }
@@ -440,10 +466,12 @@ export function validateFieldUpdates(value: unknown): asserts value is FieldUpda
         invariant(reference.workId === work.id, `${updateLabel} work ${work.id} references source ${id} owned by ${String(reference.workId)}`);
         return reference;
       });
-      invariant(
-        linkedReferences.some((reference) => reference.kind === "Paper" && reference.authority === "Primary"),
-        `${updateLabel} work ${work.id}.referenceIds must include its own Primary paper reference`,
-      );
+      if (work.sourceCategory === "Official Signal") {
+        invariant(linkedReferences.some((reference) => reference.kind === "Official Source" && reference.authority === "Official"), `${updateLabel} work ${work.id}.referenceIds must include its own Official Source`);
+        invariant(!linkedReferences.some((reference) => reference.kind === "Paper"), `${updateLabel} Official Signal must not be counted as a Paper`);
+      } else {
+        invariant(linkedReferences.some((reference) => reference.kind === "Paper" && reference.authority === "Primary"), `${updateLabel} work ${work.id}.referenceIds must include its own Primary paper reference`);
+      }
     });
 
     const linkedWorkIdLists = [
